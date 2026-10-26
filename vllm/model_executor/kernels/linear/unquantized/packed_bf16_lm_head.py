@@ -86,7 +86,12 @@ def packed_storage_bytes(
     )
 
 
-def is_statically_eligible(weight: torch.Tensor) -> tuple[bool, str | None]:
+def is_statically_eligible(
+    weight: torch.Tensor,
+    *,
+    min_dense_bytes: int | None = None,
+    max_k: int | None = None,
+) -> tuple[bool, str | None]:
     """Check invariants that do not depend on the weight values."""
     if not current_platform.is_cuda():
         return False, "requires CUDA"
@@ -102,10 +107,14 @@ def is_statically_eligible(weight: torch.Tensor) -> tuple[bool, str | None]:
     n, k = (int(value) for value in weight.shape)
     if n * k > _MAX_NUMEL:
         return False, "head exceeds signed 32-bit indexing"
-    if n * k * weight.element_size() < _MIN_DENSE_BYTES:
+    if min_dense_bytes is None:
+        min_dense_bytes = _MIN_DENSE_BYTES
+    if max_k is None:
+        max_k = _MAX_K
+    if n * k * weight.element_size() < min_dense_bytes:
         return False, "head is too small to amortize packing"
-    if k <= 0 or k > _MAX_K:
-        return False, f"K={k} is outside the supported range 1..{_MAX_K}"
+    if k <= 0 or k > max_k:
+        return False, f"K={k} is outside the supported range 1..{max_k}"
     return True, None
 
 
@@ -126,13 +135,18 @@ def pack_bf16_weight(
     *,
     max_packed_fraction: float,
     chunk_blocks: int = 16384,
+    min_dense_bytes: int | None = None,
+    max_k: int | None = None,
+    fallback_from_weight: bool = False,
 ) -> tuple[PackedLayoutPlan, tuple[torch.Tensor, ...]] | None:
     """Create an exact BF16 encoding with bounded temporary GPU memory."""
     if not 0.0 < max_packed_fraction <= 1.0:
         raise ValueError("max_packed_fraction must be in (0, 1]")
     if chunk_blocks <= 0:
         raise ValueError("chunk_blocks must be positive")
-    eligible, reason = is_statically_eligible(weight)
+    eligible, reason = is_statically_eligible(
+        weight, min_dense_bytes=min_dense_bytes, max_k=max_k
+    )
     if not eligible:
         logger.info_once("Lossless packed lm_head skipped: %s", reason)
         return None
@@ -158,7 +172,7 @@ def pack_bf16_weight(
     packed_bytes = packed_storage_bytes(
         padded_numel=padded_numel,
         block_count=block_count,
-        fallback_blocks=fallback_blocks,
+        fallback_blocks=0 if fallback_from_weight else fallback_blocks,
     )
     plan = PackedLayoutPlan(
         n=n,
@@ -196,7 +210,9 @@ def pack_bf16_weight(
         (block_count,), -1, dtype=torch.int32, device=weight.device
     )
     fallback_bits = torch.empty(
-        (fallback_blocks, _PACK_BLOCK), dtype=torch.int16, device=weight.device
+        (0 if fallback_from_weight else fallback_blocks, _PACK_BLOCK),
+        dtype=torch.int16,
+        device=weight.device,
     )
 
     next_fallback = 0
@@ -233,9 +249,10 @@ def pack_bf16_weight(
                 dtype=torch.int32,
                 device=weight.device,
             )
-            fallback_bits[next_fallback : next_fallback + failed_count] = bits[
-                failed_local
-            ]
+            if not fallback_from_weight:
+                fallback_bits[next_fallback : next_fallback + failed_count] = bits[
+                    failed_local
+                ]
             next_fallback += failed_count
 
     assert next_fallback == fallback_blocks
@@ -246,6 +263,60 @@ def pack_bf16_weight(
         fallback_slot,
         fallback_bits,
     )
+
+
+@triton.jit
+def load_packed_bf16(
+    sign_mantissa_ptr,
+    exponent_nibbles_ptr,
+    base_exponent_ptr,
+    fallback_slot_ptr,
+    fallback_bits_ptr,
+    linear,
+    valid,
+    PACK_BLOCK: tl.constexpr,
+    FALLBACK_FROM_WEIGHT: tl.constexpr = False,
+):
+    block_id = linear // PACK_BLOCK
+    in_block = linear % PACK_BLOCK
+    sign_mantissa = tl.load(sign_mantissa_ptr + linear, mask=valid, other=0).to(
+        tl.int32
+    )
+    exponent_pair = tl.load(exponent_nibbles_ptr + linear // 2, mask=valid, other=0).to(
+        tl.int32
+    )
+    exponent_delta = (exponent_pair >> ((linear & 1) * 4)) & 0xF
+    base_exponent = tl.load(base_exponent_ptr + block_id, mask=valid, other=0).to(
+        tl.int32
+    )
+    fallback_slot = tl.load(fallback_slot_ptr + block_id, mask=valid, other=-1)
+
+    packed_bits = (
+        ((sign_mantissa & 0x80) << 8)
+        | ((base_exponent + exponent_delta) << 7)
+        | (sign_mantissa & 0x7F)
+    )
+    if FALLBACK_FROM_WEIGHT:
+        fallback_values = tl.load(
+            fallback_bits_ptr + linear, mask=valid & (fallback_slot >= 0), other=0
+        ).to(tl.int16, bitcast=True)
+    else:
+        fallback_values = tl.load(
+            fallback_bits_ptr + fallback_slot * PACK_BLOCK + in_block,
+            mask=valid & (fallback_slot >= 0),
+            other=0,
+        )
+    fallback_bits = fallback_values.to(tl.int32) & 0xFFFF
+    fp32_bits = tl.where(fallback_slot >= 0, fallback_bits, packed_bits) << 16
+    weight = tl.inline_asm_elementwise(
+        "mov.b32 $0, $1;",
+        "=f,r",
+        [fp32_bits],
+        dtype=tl.float32,
+        is_pure=True,
+        pack=1,
+    )
+    return weight
 
 
 @triton.jit
@@ -268,42 +339,16 @@ def _lossless_packed_bf16_lm_head_kernel(
     offsets_k = tl.arange(0, BLOCK_K)
     valid = (offsets_n[:, None] < N) & (offsets_k[None, :] < K)
     linear = offsets_n[:, None] * K + offsets_k[None, :]
-    block_id = linear // PACK_BLOCK
-    in_block = linear % PACK_BLOCK
 
-    sign_mantissa = tl.load(sign_mantissa_ptr + linear, mask=valid, other=0).to(
-        tl.int32
-    )
-    exponent_pair = tl.load(exponent_nibbles_ptr + linear // 2, mask=valid, other=0).to(
-        tl.int32
-    )
-    exponent_delta = (exponent_pair >> ((linear & 1) * 4)) & 0xF
-    base_exponent = tl.load(base_exponent_ptr + block_id, mask=valid, other=0).to(
-        tl.int32
-    )
-    fallback_slot = tl.load(fallback_slot_ptr + block_id, mask=valid, other=-1)
-
-    packed_bits = (
-        ((sign_mantissa & 0x80) << 8)
-        | ((base_exponent + exponent_delta) << 7)
-        | (sign_mantissa & 0x7F)
-    )
-    fallback_bits = (
-        tl.load(
-            fallback_bits_ptr + fallback_slot * PACK_BLOCK + in_block,
-            mask=valid & (fallback_slot >= 0),
-            other=0,
-        ).to(tl.int32)
-        & 0xFFFF
-    )
-    fp32_bits = tl.where(fallback_slot >= 0, fallback_bits, packed_bits) << 16
-    weight = tl.inline_asm_elementwise(
-        "mov.b32 $0, $1;",
-        "=f,r",
-        [fp32_bits],
-        dtype=tl.float32,
-        is_pure=True,
-        pack=1,
+    weight = load_packed_bf16(
+        sign_mantissa_ptr,
+        exponent_nibbles_ptr,
+        base_exponent_ptr,
+        fallback_slot_ptr,
+        fallback_bits_ptr,
+        linear,
+        valid,
+        PACK_BLOCK,
     )
     x = tl.load(x_ptr + offsets_k, mask=offsets_k < K, other=0.0)
     accum = tl.sum(weight * x[None, :].to(tl.float32), axis=1)

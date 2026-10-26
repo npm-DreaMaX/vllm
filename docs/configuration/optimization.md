@@ -16,6 +16,37 @@ vLLM provides 4 optimization levels (`-O0`, `-O1`, `-O2`, `-O3`) that allow user
 
 For more information, see the [optimization level documentation](../design/optimization_levels.md).
 
+## Experimental Packed BF16 MLP Decode
+
+For BF16 Qwen3-4B on SM89 GPUs, the opt-in packed MLP backend uses an exact
+auxiliary encoding of weights to reduce weight traffic during small-batch decode:
+
+```bash
+vllm serve Qwen/Qwen3-4B-Instruct-2507 \
+    --dtype bfloat16 --tensor-parallel-size 1 \
+    --kernel-config '{"mlp_backend": "lossless_packed"}'
+```
+
+The default remains `torch`. The packed kernel is restricted to contiguous BF16
+inputs with 1–4 rows for weight shape `(19456, 2560)`, or 1, 2, and 4 rows for
+`(2560, 9728)`, in `(output, input)` order. The three-row down projection showed
+no benefit and uses native GEMM. Other batch sizes, prefill, and inputs with bias use
+native PyTorch linear computation. Unsupported hardware, tensor or pipeline
+parallelism, LoRA, batch-invariant execution, and explicitly selected alternative
+linear backends keep their existing implementation.
+
+Original BF16 weights remain resident, so prefill does not reconstruct weights.
+The auxiliary encoding uses approximately 76% additional storage for each selected
+weight matrix and reduces the memory available for KV cache. This backend targets
+decode latency at low concurrency; it is not a memory-saving mode. Weight bits
+are preserved exactly, but the floating-point reduction order differs from
+native GEMM, so generated tokens need not be identical.
+
+Checkpoint-format weight reload refreshes auxiliary buffers while preserving
+CUDA Graph addresses. Kernel-format weight reload is rejected when this backend
+is selected. Direct mutation of weight tensors bypasses this refresh and is not
+supported.
+
 ## Faster Startup
 
 Beyond the optimization levels, three mechanisms reduce time-to-first-token on repeated boots of the same (model, config, hardware) combination:

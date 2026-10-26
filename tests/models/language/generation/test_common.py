@@ -15,6 +15,54 @@ EMBED_SCALING_MODELS = {
     "openbmb/MiniCPM4.1-8B",
 }
 
+
+@pytest.mark.core_model
+@pytest.mark.slow_test
+def test_packed_bf16_mlp_generation_matches_native(
+    vllm_runner, example_prompts, monkeypatch
+):
+    """Exercise real weight loading and decode with the opt-in backend."""
+    monkeypatch.setenv("VLLM_ALLOW_INSECURE_SERIALIZATION", "1")
+    results = []
+    for backend in ("torch", "lossless_packed"):
+        with vllm_runner(
+            "Qwen/Qwen3-4B-Instruct-2507",
+            revision="cdbee75f17c01a7cc42f958dc650907174af0554",
+            dtype="bfloat16",
+            trust_remote_code=False,
+            max_num_seqs=4,
+            enable_chunked_prefill=True,
+            enable_prefix_caching=False,
+            kernel_config={"mlp_backend": backend},
+            compilation_config={"cudagraph_capture_sizes": [1, 2, 4]},
+        ) as model:
+            counts = model.apply_model(
+                lambda module: sum(
+                    name.endswith("_packed_mlp_sign_mantissa")
+                    for name, _ in module.named_buffers()
+                )
+            )
+            uses_packed = (
+                backend == "lossless_packed"
+                and current_platform.is_cuda()
+                and torch.cuda.get_device_capability() == (8, 9)
+            )
+            assert counts == [72 if uses_packed else 0]
+            results.append(
+                [
+                    model.generate_greedy_logprobs(prompts, 32, 5)
+                    for prompts in (example_prompts[:1], example_prompts[:4])
+                ]
+            )
+    for native, packed in zip(*results):
+        check_logprobs_close(
+            outputs_0_lst=native,
+            outputs_1_lst=packed,
+            name_0="native BF16",
+            name_1="packed BF16 MLP",
+        )
+
+
 # This list contains the model that are using AITER kernel.
 # Skip model that are not using AITER tests.
 # When more AITER kernels are added, this list will not be

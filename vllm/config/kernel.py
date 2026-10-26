@@ -409,6 +409,12 @@ class KernelConfig:
     lm_head_max_packed_fraction: float = Field(default=0.90, gt=0.0, le=1.0)
     """Maximum packed-to-dense storage ratio accepted by the lm-head backend."""
 
+    mlp_backend: LMHeadBackend = "torch"
+    """Opt-in BF16 MLP projection backend. ``lossless_packed`` uses auxiliary
+    weight planes on SM89 for measured small-batch shapes. Native weights stay
+    resident for prefill and unsupported shapes; auxiliary memory reduces KV
+    capacity. Checkpoint-format refits preserve captured buffer addresses."""
+
     @field_validator("moe_backend", mode="before")
     @classmethod
     def _normalize_moe_backend(cls, value: Any) -> Any:
@@ -416,7 +422,7 @@ class KernelConfig:
             return value.lower().replace("-", "_")
         return value
 
-    @field_validator("linear_backend", "lm_head_backend", mode="before")
+    @field_validator("linear_backend", "lm_head_backend", "mlp_backend", mode="before")
     @classmethod
     def _normalize_linear_backend(cls, value: Any) -> Any:
         if isinstance(value, str):
