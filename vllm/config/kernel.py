@@ -416,7 +416,7 @@ class KernelConfig:
     capacity. Checkpoint-format refits preserve captured buffer addresses.
     Configured RL weight transfer keeps native linear computation.
 
-    See the [optimization guide](https://docs.vllm.ai/en/latest/configuration/optimization/#experimental-packed-bf16-mlp-decode).
+    See [the packed MLP optimization guide][experimental-packed-bf16-mlp-decode].
     """
 
     @field_validator("moe_backend", mode="before")
