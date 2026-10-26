@@ -249,6 +249,9 @@ def test_mlp_projection_limits_fast_path_and_keeps_native_fallback(n, k):
         torch.ops.vllm.packed_bf16_mlp.default,
         (inputs[4], weight, sm, exponent, base, slots),
     )
+    invalid = torch.empty(4, k // 2, device="cuda", dtype=torch.bfloat16)
+    with pytest.raises(RuntimeError, match="mat1 and mat2 shapes"):
+        _project(invalid, weight, sm, exponent, base, slots)
 
 
 @triton.jit

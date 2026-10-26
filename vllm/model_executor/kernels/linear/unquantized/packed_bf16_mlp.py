@@ -131,6 +131,7 @@ def _project(
     m = x.numel() // k
     if (
         m not in _BATCHES.get((n, k), ())
+        or x.shape[-1] != k
         or x.dtype != torch.bfloat16
         or weight.dtype != torch.bfloat16
         or not x.is_cuda
