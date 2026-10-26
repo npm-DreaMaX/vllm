@@ -1,7 +1,7 @@
 {
   "command": {
     "model": "/opt/data/private/FangWang/models/Qwen3-4B-Instruct-2507",
-    "output": "../kernel_bench_final.json",
+    "output": "../kernel_bench_review_final.json",
     "layers": [
       0,
       5,
@@ -36,10 +36,10 @@
       9
     ],
     "python": "3.12.15",
-    "git_commit": "c2c6612bd6501924d5d36ec50140d526b0e7955e",
+    "git_commit": "14e841451a0a79f1ea2b8611413a90e73d5db6bd",
     "git_status": "",
     "kernel_source_sha256": {
-      "packed_bf16_mlp.py": "4b6112a78f2f9d41f51d77dfa1733303fc06a3df97ed75029c4db51fc71107a2",
+      "packed_bf16_mlp.py": "28c5408eba43a003d1ecefbbd055598b6e6882fc4b10d3dbff0ee769766bf30d",
       "packed_bf16_lm_head.py": "b6929624c71f21a69064d51d83f4498f74f3159a27db4086eb785973069f1039"
     }
   },
@@ -212,672 +212,672 @@
       "M": 1,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 105.63927511883597
+      "latency_us_per_layer": 105.64715230566823
     },
     {
       "projection": "gate_up",
       "M": 1,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 82.82484848227277
+      "latency_us_per_layer": 82.836960786141
     },
     {
       "projection": "gate_up",
       "M": 1,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 82.83378357855266
+      "latency_us_per_layer": 82.83068189684977
     },
     {
       "projection": "gate_up",
       "M": 1,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 105.55765363905165
+      "latency_us_per_layer": 105.58127949380466
     },
     {
       "projection": "gate_up",
       "M": 1,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 105.54683228843233
+      "latency_us_per_layer": 105.54374711126344
     },
     {
       "projection": "gate_up",
       "M": 1,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 82.7917547033937
+      "latency_us_per_layer": 82.79409088544398
     },
     {
       "projection": "gate_up",
       "M": 2,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 107.62720777277362
+      "latency_us_per_layer": 107.66124976308721
     },
     {
       "projection": "gate_up",
       "M": 2,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 84.10273512748823
+      "latency_us_per_layer": 84.1138676421283
     },
     {
       "projection": "gate_up",
       "M": 2,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 84.10686532112018
+      "latency_us_per_layer": 84.11762224484796
     },
     {
       "projection": "gate_up",
       "M": 2,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 107.65585899353027
+      "latency_us_per_layer": 107.63450840063263
     },
     {
       "projection": "gate_up",
       "M": 2,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 107.65100479125977
+      "latency_us_per_layer": 107.62761157491933
     },
     {
       "projection": "gate_up",
       "M": 2,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 84.09258045562326
+      "latency_us_per_layer": 84.10643420807303
     },
     {
       "projection": "gate_up",
       "M": 3,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 107.80182386699475
+      "latency_us_per_layer": 107.8017092587655
     },
     {
       "projection": "gate_up",
       "M": 3,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 86.12870640224881
+      "latency_us_per_layer": 86.13665120584982
     },
     {
       "projection": "gate_up",
       "M": 3,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 86.15804752269825
+      "latency_us_per_layer": 86.145879171945
     },
     {
       "projection": "gate_up",
       "M": 3,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 107.81146267004179
+      "latency_us_per_layer": 107.84178700363427
     },
     {
       "projection": "gate_up",
       "M": 3,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 107.80640652305202
+      "latency_us_per_layer": 107.80922069884183
     },
     {
       "projection": "gate_up",
       "M": 3,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 86.11235552363925
+      "latency_us_per_layer": 86.12887461980185
     },
     {
       "projection": "gate_up",
       "M": 4,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 108.10756348727043
+      "latency_us_per_layer": 108.11327716760469
     },
     {
       "projection": "gate_up",
       "M": 4,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 86.50947183995814
+      "latency_us_per_layer": 86.51277502099951
     },
     {
       "projection": "gate_up",
       "M": 4,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 86.55061654641595
+      "latency_us_per_layer": 86.5331213239213
     },
     {
       "projection": "gate_up",
       "M": 4,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 108.11766741568582
+      "latency_us_per_layer": 108.11641090794613
     },
     {
       "projection": "gate_up",
       "M": 4,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 108.09800583019592
+      "latency_us_per_layer": 108.16739902161714
     },
     {
       "projection": "gate_up",
       "M": 4,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 86.55538158816891
+      "latency_us_per_layer": 86.52280794157015
     },
     {
       "projection": "gate_up",
       "M": 7,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 108.65702418099463
+      "latency_us_per_layer": 108.66021941193438
     },
     {
       "projection": "gate_up",
       "M": 7,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 108.64358031958865
+      "latency_us_per_layer": 108.64050367237192
     },
     {
       "projection": "gate_up",
       "M": 7,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 108.63415540847103
+      "latency_us_per_layer": 108.64042482878033
     },
     {
       "projection": "gate_up",
       "M": 7,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 108.63359923911305
+      "latency_us_per_layer": 108.63696148521021
     },
     {
       "projection": "gate_up",
       "M": 7,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 108.6639078039872
+      "latency_us_per_layer": 108.67444506862707
     },
     {
       "projection": "gate_up",
       "M": 7,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 108.63572854911332
+      "latency_us_per_layer": 108.6440220213773
     },
     {
       "projection": "gate_up",
       "M": 16,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 109.82442498207092
+      "latency_us_per_layer": 109.81050559452602
     },
     {
       "projection": "gate_up",
       "M": 16,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 109.81630682945251
+      "latency_us_per_layer": 109.79885033198765
     },
     {
       "projection": "gate_up",
       "M": 16,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 109.81382472174508
+      "latency_us_per_layer": 109.80182800974164
     },
     {
       "projection": "gate_up",
       "M": 16,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 109.81287871088301
+      "latency_us_per_layer": 109.80238744190761
     },
     {
       "projection": "gate_up",
       "M": 16,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 109.81095433235168
+      "latency_us_per_layer": 109.82170701026917
     },
     {
       "projection": "gate_up",
       "M": 16,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 109.85803604125977
+      "latency_us_per_layer": 109.82891406331744
     },
     {
       "projection": "gate_up",
       "M": 128,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 128.72479557991028
+      "latency_us_per_layer": 128.69307166651674
     },
     {
       "projection": "gate_up",
       "M": 128,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 128.88612646805615
+      "latency_us_per_layer": 128.88360374852232
     },
     {
       "projection": "gate_up",
       "M": 128,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 128.83913341321443
+      "latency_us_per_layer": 128.87746691703796
     },
     {
       "projection": "gate_up",
       "M": 128,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 129.01982458014237
+      "latency_us_per_layer": 129.0051159105803
     },
     {
       "projection": "gate_up",
       "M": 128,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 128.8297050877621
+      "latency_us_per_layer": 128.77022325992584
     },
     {
       "projection": "gate_up",
       "M": 128,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 129.02076721191406
+      "latency_us_per_layer": 128.98975472701224
     },
     {
       "projection": "gate_up",
       "M": 8192,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 4862.9942417144775
+      "latency_us_per_layer": 4854.181718826294
     },
     {
       "projection": "gate_up",
       "M": 8192,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 4876.73602104187
+      "latency_us_per_layer": 4853.644800186157
     },
     {
       "projection": "gate_up",
       "M": 8192,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 4882.021808624268
+      "latency_us_per_layer": 4862.77117729187
     },
     {
       "projection": "gate_up",
       "M": 8192,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 4883.50715637207
+      "latency_us_per_layer": 4867.422771453857
     },
     {
       "projection": "gate_up",
       "M": 8192,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 4883.230781555176
+      "latency_us_per_layer": 4870.681285858154
     },
     {
       "projection": "gate_up",
       "M": 8192,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 4881.874704360962
+      "latency_us_per_layer": 4880.319976806641
     },
     {
       "projection": "down",
       "M": 1,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 54.96577152184078
+      "latency_us_per_layer": 54.95040045844184
     },
     {
       "projection": "down",
       "M": 1,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 42.87927707313245
+      "latency_us_per_layer": 42.86674672302884
     },
     {
       "projection": "down",
       "M": 1,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 42.87677744885424
+      "latency_us_per_layer": 42.866080624240254
     },
     {
       "projection": "down",
       "M": 1,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 54.95551427205404
+      "latency_us_per_layer": 54.9571373632976
     },
     {
       "projection": "down",
       "M": 1,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 54.98395326402452
+      "latency_us_per_layer": 54.969882113592966
     },
     {
       "projection": "down",
       "M": 1,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 42.868003114175295
+      "latency_us_per_layer": 42.852347237723215
     },
     {
       "projection": "down",
       "M": 2,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 61.47097301483154
+      "latency_us_per_layer": 61.30750799179077
     },
     {
       "projection": "down",
       "M": 2,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 43.18603281389203
+      "latency_us_per_layer": 43.20067322045042
     },
     {
       "projection": "down",
       "M": 2,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 43.19756635477845
+      "latency_us_per_layer": 43.16854107547814
     },
     {
       "projection": "down",
       "M": 2,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 61.39289304084584
+      "latency_us_per_layer": 61.30999603656807
     },
     {
       "projection": "down",
       "M": 2,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 61.37081575393677
+      "latency_us_per_layer": 61.286711811426265
     },
     {
       "projection": "down",
       "M": 2,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 43.19977475885759
+      "latency_us_per_layer": 43.219914469685584
     },
     {
       "projection": "down",
       "M": 3,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 61.403932910280176
+      "latency_us_per_layer": 61.328355230466286
     },
     {
       "projection": "down",
       "M": 3,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 61.398136138916016
+      "latency_us_per_layer": 61.29956648717472
     },
     {
       "projection": "down",
       "M": 3,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 61.39942455291748
+      "latency_us_per_layer": 61.32276022612159
     },
     {
       "projection": "down",
       "M": 3,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 61.45791959762573
+      "latency_us_per_layer": 61.38707256317139
     },
     {
       "projection": "down",
       "M": 3,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 61.42487812042236
+      "latency_us_per_layer": 61.356088161468506
     },
     {
       "projection": "down",
       "M": 3,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 61.440128326416016
+      "latency_us_per_layer": 61.410449393353055
     },
     {
       "projection": "down",
       "M": 4,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 61.45593595504761
+      "latency_us_per_layer": 61.39398431777954
     },
     {
       "projection": "down",
       "M": 4,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 47.96338990504639
+      "latency_us_per_layer": 48.032449558377266
     },
     {
       "projection": "down",
       "M": 4,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 48.007999630424926
+      "latency_us_per_layer": 47.98095094876027
     },
     {
       "projection": "down",
       "M": 4,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 61.46783095139723
+      "latency_us_per_layer": 61.452530102852066
     },
     {
       "projection": "down",
       "M": 4,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 61.512758255004876
+      "latency_us_per_layer": 61.45138502120972
     },
     {
       "projection": "down",
       "M": 4,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 47.9554483132769
+      "latency_us_per_layer": 47.93603615074306
     },
     {
       "projection": "down",
       "M": 7,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 61.54721250239107
+      "latency_us_per_layer": 61.48495551867362
     },
     {
       "projection": "down",
       "M": 7,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 61.55986785888672
+      "latency_us_per_layer": 61.46323204040527
     },
     {
       "projection": "down",
       "M": 7,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 61.54456806182861
+      "latency_us_per_layer": 61.48178577423096
     },
     {
       "projection": "down",
       "M": 7,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 61.56127738952637
+      "latency_us_per_layer": 61.49625587463379
     },
     {
       "projection": "down",
       "M": 7,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 61.523953914642334
+      "latency_us_per_layer": 61.45951318740845
     },
     {
       "projection": "down",
       "M": 7,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 61.562745571136475
+      "latency_us_per_layer": 61.466304302215576
     },
     {
       "projection": "down",
       "M": 16,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 61.84567207068055
+      "latency_us_per_layer": 61.7394734866655
     },
     {
       "projection": "down",
       "M": 16,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 61.845418556251715
+      "latency_us_per_layer": 61.77439426057902
     },
     {
       "projection": "down",
       "M": 16,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 61.84171378010451
+      "latency_us_per_layer": 61.738884508909294
     },
     {
       "projection": "down",
       "M": 16,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 61.842705616399876
+      "latency_us_per_layer": 61.746106075881116
     },
     {
       "projection": "down",
       "M": 16,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 61.85551744010581
+      "latency_us_per_layer": 61.73503291067765
     },
     {
       "projection": "down",
       "M": 16,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 61.8546102514219
+      "latency_us_per_layer": 61.74076358277594
     },
     {
       "projection": "down",
       "M": 128,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 63.249427914001785
+      "latency_us_per_layer": 63.232983702822665
     },
     {
       "projection": "down",
       "M": 128,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 63.252026552981036
+      "latency_us_per_layer": 63.170186472680285
     },
     {
       "projection": "down",
       "M": 128,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 63.25096120488459
+      "latency_us_per_layer": 63.2174032339778
     },
     {
       "projection": "down",
       "M": 128,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 63.25461333279782
+      "latency_us_per_layer": 63.21259380615864
     },
     {
       "projection": "down",
       "M": 128,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 63.236834965839286
+      "latency_us_per_layer": 63.19923697357968
     },
     {
       "projection": "down",
       "M": 128,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 63.249564294370344
+      "latency_us_per_layer": 63.224625463930444
     },
     {
       "projection": "down",
       "M": 8192,
       "repeat": 1,
       "implementation": "native",
-      "latency_us_per_layer": 2489.29603099823
+      "latency_us_per_layer": 2495.636463165283
     },
     {
       "projection": "down",
       "M": 8192,
       "repeat": 1,
       "implementation": "packed",
-      "latency_us_per_layer": 2494.310417175293
+      "latency_us_per_layer": 2496.291217803955
     },
     {
       "projection": "down",
       "M": 8192,
       "repeat": 2,
       "implementation": "packed",
-      "latency_us_per_layer": 2494.30269241333
+      "latency_us_per_layer": 2498.6109352111816
     },
     {
       "projection": "down",
       "M": 8192,
       "repeat": 2,
       "implementation": "native",
-      "latency_us_per_layer": 2497.9891395568848
+      "latency_us_per_layer": 2499.8425483703613
     },
     {
       "projection": "down",
       "M": 8192,
       "repeat": 3,
       "implementation": "native",
-      "latency_us_per_layer": 2499.3203163146973
+      "latency_us_per_layer": 2499.5761489868164
     },
     {
       "projection": "down",
       "M": 8192,
       "repeat": 3,
       "implementation": "packed",
-      "latency_us_per_layer": 2500.7104301452637
+      "latency_us_per_layer": 2501.224899291992
     }
   ]
 }

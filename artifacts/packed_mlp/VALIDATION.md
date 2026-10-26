@@ -2,7 +2,7 @@
 
 - Native build: vLLM main `ae3bc684e021f4b8c17c86a42e149b4482bc4ebe`, built from source for SM89. Torch 2.14.0+cu126, Triton 3.8.0, build toolkit CUDA 12.9, driver 550.127.05, Python 3.12.15, Ubuntu 20.04/glibc 2.31. Newly built native binaries are shared only after an empty native-source diff check; binary SHA256 records are preserved locally.
 - Serving/GSM8K source: local `d56c9ad170236bf015738ffedcd08ece8c39abde`, public `36706ab9f6bf742c3da949f32cbbb8998ae5b823`, identical tree `7ab21d43503781f3127d00e2d9646017ae81f488`.
-- Final microbenchmark: clean local `c2c6612bd6501924d5d36ec50140d526b0e7955e`; its JSON records source hashes. Final docs-only commit follows that source. The two kernel files are unchanged between formal serving and the final candidate.
+- Final microbenchmark: clean local `14e841451a0a79f1ea2b8611413a90e73d5db6bd`; its JSON records source hashes. The GPU JIT computation and shared codec are unchanged between formal serving and the final candidate.
 - Main validation: 16 tests passed with `VLLM_GPU_SYNC_CHECK=error`, including two real-model backend selections plus configured M2N fallback, all BF16 bit patterns, OpCheck and real checkpoint refit/CUDA Graph replay. A numerical token tie produces one expected `check_logprobs_close` warning; it is disclosed rather than suppressed.
 - Dependency regression: 13 passed; the unrelated OPT E2E test was deselected. No new skip, xfail, tolerance relaxation or retry was added to hide a failure.
 - Full pre-commit and commit hooks passed. The default lm-head and per-quant configuration compatibility tests run in the inherited suite.
@@ -13,3 +13,5 @@
 The broad dense-weight integration question in RFC #63626 remains open. This is an incremental extension of #55494, not a competing claim to an original BF16 storage format. Performance qualification is limited to the stated model, shapes and hardware; native fallback does not remove the auxiliary-memory cost of an opted-in model.
 
 This evidence is prepared for human review. Official submission must follow the human accountability requirements in the upstream AGENTS.md and contributing guide; this document does not attest that the human has reviewed all lines or personally run the tests.
+
+Final combined command on the input-validated candidate: **29 passed, 1 unrelated legacy case deselected, 1 disclosed warning**. The invalid-last-dimension regression failed before its guard with `DID NOT RAISE RuntimeError`, then passed. Non-CUDA setup excludes the CUDA/Triton implementation before importing it.

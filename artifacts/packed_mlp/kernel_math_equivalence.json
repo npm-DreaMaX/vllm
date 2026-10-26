@@ -1,0 +1,29 @@
+{
+  "formal_benchmark_commit": "d56c9ad170236bf015738ffedcd08ece8c39abde",
+  "final_local_commit": "14e841451a0a79f1ea2b8611413a90e73d5db6bd",
+  "final_tree": "86b235e66e28563afb27a118c2fffac2eeb671c0",
+  "status": "",
+  "verified_computation": {
+    "_packed_mlp_gemv": {
+      "file": "vllm/model_executor/kernels/linear/unquantized/packed_bf16_mlp.py",
+      "ast_sha256": "6b52069b2041d8af86d4e6de01914815d88074421e36ba989cc6e1ee55b0fb0b",
+      "unchanged": true
+    },
+    "_launch_config": {
+      "file": "vllm/model_executor/kernels/linear/unquantized/packed_bf16_mlp.py",
+      "ast_sha256": "b42224f1db9cfde5b77e0041990adfd8fb0cc3de384e850795c46c860aa355be",
+      "unchanged": true
+    },
+    "load_packed_bf16": {
+      "file": "vllm/model_executor/kernels/linear/unquantized/packed_bf16_lm_head.py",
+      "ast_sha256": "e7e3dedc622ee747c83930607e1fcc65b468f1fafd330dbe5cb61ae86aa5809f",
+      "unchanged": true
+    },
+    "pack_bf16_weight": {
+      "file": "vllm/model_executor/kernels/linear/unquantized/packed_bf16_lm_head.py",
+      "ast_sha256": "2e42f19e3b04b42ca7144062478ca57942d31a9856ec35c3557634891f497835",
+      "unchanged": true
+    }
+  },
+  "changes_after_formal_run": "Configured-RL/native cache normalization, non-CUDA import exclusion, input-last-dimension validation, regression tests, metadata and docs. Valid benchmark inputs keep the same GPU computation."
+}

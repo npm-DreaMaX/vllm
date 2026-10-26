@@ -1,0 +1,49 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0 -- /opt/data/private/FangWang/research/pr_engineering_20261026/mlp/../.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/data/private/FangWang/research/pr_engineering_20261026/mlp
+configfile: pyproject.toml
+plugins: forked-1.7.5, timeout-2.4.0, platformdirs-4.13.5, anyio-4.15.1, xdist-3.8.0, asyncio-1.4.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 30 items / 1 deselected / 29 selected
+
+tests/kernels/core/test_packed_bf16_lm_head.py::test_lm_head_backend_config_normalizes_and_validates PASSED [  3%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_packing_reconstructs_every_bf16_bit PASSED [  6%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_single_token_projection_matches_torch[33001-1023] PASSED [ 10%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_single_token_projection_matches_torch[8192-2048] PASSED [ 13%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_method_falls_back_for_non_cuda_input PASSED [ 17%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_method_preserves_wrapped_interface PASSED [ 20%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_batch_invariant_mode_skips_packed_state PASSED [ 24%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_parallel_lm_head_default_is_not_wrapped PASSED [ 27%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_parallel_lm_head_wraps_eligible_method_when_requested PASSED [ 31%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_mlp_projection_limits_fast_path_and_keeps_native_fallback[19456-2560] PASSED [ 34%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_mlp_projection_limits_fast_path_and_keeps_native_fallback[2560-9728] PASSED [ 37%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_borrowed_weight_decode_preserves_all_bf16_bit_patterns[False] PASSED [ 41%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_borrowed_weight_decode_preserves_all_bf16_bit_patterns[True] PASSED [ 44%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_packed_mlp_checkpoint_refit_refreshes_captured_buffers[None] PASSED [ 48%]
+tests/kernels/core/test_packed_bf16_lm_head.py::test_packed_mlp_checkpoint_refit_refreshes_captured_buffers[nccl_m2n] PASSED [ 51%]
+tests/models/language/generation/test_common.py::test_packed_bf16_mlp_generation_matches_native PASSED [ 55%]
+tests/model_executor/model_loader/test_weight_tying.py::test_retie_only_when_identical[True] PASSED [ 58%]
+tests/model_executor/model_loader/test_weight_tying.py::test_retie_only_when_identical[False] PASSED [ 62%]
+tests/model_executor/model_loader/test_weight_tying.py::test_quantized_lm_head_is_left_alone PASSED [ 65%]
+tests/model_executor/model_loader/test_weight_tying.py::test_lossless_packed_lm_head_can_be_retied PASSED [ 68%]
+tests/model_executor/model_loader/test_weight_tying.py::test_no_retie_without_checkpoint_override PASSED [ 72%]
+tests/v1/sample/test_head_dtype.py::test_fp32_head_runs_projection_in_fp32 PASSED [ 75%]
+tests/v1/sample/test_head_dtype.py::test_non_fp32_head_dtype_uses_cast_path PASSED [ 79%]
+tests/v1/sample/test_head_dtype.py::test_head_dtype_equal_to_model_dtype_uses_quant_method PASSED [ 82%]
+tests/v1/sample/test_head_dtype.py::test_fp32_head_uses_mm_fast_path_on_device PASSED [ 86%]
+tests/v1/sample/test_head_dtype.py::test_fp32_head_rejects_quantized_lm_head PASSED [ 89%]
+tests/v1/sample/test_head_dtype.py::test_fp32_head_accepts_lossless_packed_wrapper PASSED [ 93%]
+tests/v1/sample/test_head_dtype.py::test_replicated_lm_head_skips_tp_communication_and_preserves_processing PASSED [ 96%]
+tests/v1/sample/test_head_dtype.py::test_get_top_tokens_honors_head_dtype PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/models/language/generation/test_common.py::test_packed_bf16_mlp_generation_matches_native
+  /opt/data/private/FangWang/research/pr_engineering_20261026/mlp/tests/models/language/generation/test_common.py:66: UserWarning: Test1:
+  Matched tokens:	[16141, 510, 785, 4401, 315, 20443, 11229, 320, 15469, 8, 504, 220, 16, 24, 20, 15, 311, 220, 17, 15, 17, 15, 702, 1012, 12864, 553, 3807, 1376, 68276, 13, 758]
+  native BF16:	'Answer:\nThe development of artificial intelligence (AI) from 1950 to 2020 has been marked by several key milestones. In **'	{3070: Logprob(logprob=-0.6351538300514221, rank=1, decoded_token=' **'), 220: Logprob(logprob=-0.7601538300514221, rank=2, decoded_token=' '), 279: Logprob(logprob=-6.510153770446777, rank=3, decoded_token=' the'), 400: Logprob(logprob=-7.385153770446777, rank=4, decoded_token=' $'), 353: Logprob(logprob=-7.885153770446777, rank=5, decoded_token=' *')}
+  packed BF16 MLP configuration:	'Answer:\nThe development of artificial intelligence (AI) from 1950 to 2020 has been marked by several key milestones. In '	{220: Logprob(logprob=-0.6955514550209045, rank=1, decoded_token=' '), 3070: Logprob(logprob=-0.6955514550209045, rank=2, decoded_token=' **'), 279: Logprob(logprob=-6.57055139541626, rank=3, decoded_token=' the'), 400: Logprob(logprob=-7.44555139541626, rank=4, decoded_token=' $'), 353: Logprob(logprob=-7.94555139541626, rank=5, decoded_token=' *')}
+    check_logprobs_close(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========== 29 passed, 1 deselected, 1 warning in 127.41s (0:02:07) ============

@@ -1,0 +1,78 @@
+[
+  {
+    "file": "serving_ab_v1/round1_gpu0_native/trace/rank0.1793017603677374772.pt.trace.json.gz",
+    "phase": "decode",
+    "iterations": 8,
+    "phase_annotations": [
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32819sqsq4sqsk32819)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32823sqsq4sqsk32823)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32827sqsq4sqsk32827)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32831sqsq4sqsk32831)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32835sqsq4sqsk32835)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32839sqsq4sqsk32839)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32843sqsq4sqsk32843)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32847sqsq4sqsk32847)"
+    ]
+  },
+  {
+    "file": "serving_ab_v1/round1_gpu1_packed/trace/rank0.1793017603493817492.pt.trace.json.gz",
+    "phase": "decode",
+    "iterations": 8,
+    "phase_annotations": [
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32819sqsq4sqsk32819)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32823sqsq4sqsk32823)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32827sqsq4sqsk32827)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32831sqsq4sqsk32831)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32835sqsq4sqsk32835)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32839sqsq4sqsk32839)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32843sqsq4sqsk32843)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32847sqsq4sqsk32847)"
+    ]
+  },
+  {
+    "file": "serving_ab_v1/round2_gpu0_packed/trace/rank0.1793021655039387973.pt.trace.json.gz",
+    "phase": "decode",
+    "iterations": 8,
+    "phase_annotations": [
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32819sqsq4sqsk32819)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32823sqsq4sqsk32823)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32827sqsq4sqsk32827)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32831sqsq4sqsk32831)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32835sqsq4sqsk32835)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32839sqsq4sqsk32839)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32843sqsq4sqsk32843)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32847sqsq4sqsk32847)"
+    ]
+  },
+  {
+    "file": "serving_ab_v1/round2_gpu1_native/trace/rank0.1793021657372953551.pt.trace.json.gz",
+    "phase": "decode",
+    "iterations": 8,
+    "phase_annotations": [
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32819sqsq4sqsk32819)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32823sqsq4sqsk32823)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32827sqsq4sqsk32827)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32831sqsq4sqsk32831)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32835sqsq4sqsk32835)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32839sqsq4sqsk32839)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32843sqsq4sqsk32843)",
+      "execute_4_context_0(sq0sk0sqsq0sqsk0)_generation_4(sq4sk32847sqsq4sqsk32847)"
+    ]
+  },
+  {
+    "file": "prefill_trace_v1/native/trace/rank0.1793027027562371706.pt.trace.json.gz",
+    "phase": "prefill",
+    "iterations": 1,
+    "phase_annotations": [
+      "execute_8192_context_1(sq8192sk8192sqsq67108864sqsk67108864)_generation_0(sq0sk0sqsq0sqsk0)"
+    ]
+  },
+  {
+    "file": "prefill_trace_v1/packed/trace/rank0.1793027082180524571.pt.trace.json.gz",
+    "phase": "prefill",
+    "iterations": 1,
+    "phase_annotations": [
+      "execute_8192_context_1(sq8192sk8192sqsq67108864sqsk67108864)_generation_0(sq0sk0sqsq0sqsk0)"
+    ]
+  }
+]
