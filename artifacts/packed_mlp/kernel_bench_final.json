@@ -1,0 +1,883 @@
+{
+  "command": {
+    "model": "/opt/data/private/FangWang/models/Qwen3-4B-Instruct-2507",
+    "output": "../kernel_bench_final.json",
+    "layers": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35
+    ],
+    "batch_sizes": [
+      1,
+      2,
+      3,
+      4,
+      7,
+      16,
+      128,
+      8192
+    ],
+    "repeats": 3,
+    "seed": 42,
+    "rep_ms": 100
+  },
+  "environment": {
+    "torch": "2.14.0+cu126",
+    "triton": "3.8.0",
+    "cuda": "12.6",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "capability": [
+      8,
+      9
+    ],
+    "python": "3.12.15",
+    "git_commit": "c2c6612bd6501924d5d36ec50140d526b0e7955e",
+    "git_status": "",
+    "kernel_source_sha256": {
+      "packed_bf16_mlp.py": "4b6112a78f2f9d41f51d77dfa1733303fc06a3df97ed75029c4db51fc71107a2",
+      "packed_bf16_lm_head.py": "b6929624c71f21a69064d51d83f4498f74f3159a27db4086eb785973069f1039"
+    }
+  },
+  "scope": "Checkpoint weight bank, seeded synthetic inputs, CUDA Graph replay. No serving claim.",
+  "weights": [
+    {
+      "projection": "gate_up",
+      "layer": 0,
+      "N": 19456,
+      "K": 2560,
+      "native_bytes": 99614720,
+      "auxiliary_bytes": 75683840,
+      "fallback_blocks": 3038,
+      "blocks": 194560
+    },
+    {
+      "projection": "gate_up",
+      "layer": 5,
+      "N": 19456,
+      "K": 2560,
+      "native_bytes": 99614720,
+      "auxiliary_bytes": 75683840,
+      "fallback_blocks": 2915,
+      "blocks": 194560
+    },
+    {
+      "projection": "gate_up",
+      "layer": 10,
+      "N": 19456,
+      "K": 2560,
+      "native_bytes": 99614720,
+      "auxiliary_bytes": 75683840,
+      "fallback_blocks": 2924,
+      "blocks": 194560
+    },
+    {
+      "projection": "gate_up",
+      "layer": 15,
+      "N": 19456,
+      "K": 2560,
+      "native_bytes": 99614720,
+      "auxiliary_bytes": 75683840,
+      "fallback_blocks": 3097,
+      "blocks": 194560
+    },
+    {
+      "projection": "gate_up",
+      "layer": 20,
+      "N": 19456,
+      "K": 2560,
+      "native_bytes": 99614720,
+      "auxiliary_bytes": 75683840,
+      "fallback_blocks": 2791,
+      "blocks": 194560
+    },
+    {
+      "projection": "gate_up",
+      "layer": 25,
+      "N": 19456,
+      "K": 2560,
+      "native_bytes": 99614720,
+      "auxiliary_bytes": 75683840,
+      "fallback_blocks": 3002,
+      "blocks": 194560
+    },
+    {
+      "projection": "gate_up",
+      "layer": 30,
+      "N": 19456,
+      "K": 2560,
+      "native_bytes": 99614720,
+      "auxiliary_bytes": 75683840,
+      "fallback_blocks": 2893,
+      "blocks": 194560
+    },
+    {
+      "projection": "gate_up",
+      "layer": 35,
+      "N": 19456,
+      "K": 2560,
+      "native_bytes": 99614720,
+      "auxiliary_bytes": 75683840,
+      "fallback_blocks": 2833,
+      "blocks": 194560
+    },
+    {
+      "projection": "down",
+      "layer": 0,
+      "N": 2560,
+      "K": 9728,
+      "native_bytes": 49807360,
+      "auxiliary_bytes": 37841920,
+      "fallback_blocks": 1544,
+      "blocks": 97280
+    },
+    {
+      "projection": "down",
+      "layer": 5,
+      "N": 2560,
+      "K": 9728,
+      "native_bytes": 49807360,
+      "auxiliary_bytes": 37841920,
+      "fallback_blocks": 1513,
+      "blocks": 97280
+    },
+    {
+      "projection": "down",
+      "layer": 10,
+      "N": 2560,
+      "K": 9728,
+      "native_bytes": 49807360,
+      "auxiliary_bytes": 37841920,
+      "fallback_blocks": 1621,
+      "blocks": 97280
+    },
+    {
+      "projection": "down",
+      "layer": 15,
+      "N": 2560,
+      "K": 9728,
+      "native_bytes": 49807360,
+      "auxiliary_bytes": 37841920,
+      "fallback_blocks": 1646,
+      "blocks": 97280
+    },
+    {
+      "projection": "down",
+      "layer": 20,
+      "N": 2560,
+      "K": 9728,
+      "native_bytes": 49807360,
+      "auxiliary_bytes": 37841920,
+      "fallback_blocks": 1621,
+      "blocks": 97280
+    },
+    {
+      "projection": "down",
+      "layer": 25,
+      "N": 2560,
+      "K": 9728,
+      "native_bytes": 49807360,
+      "auxiliary_bytes": 37841920,
+      "fallback_blocks": 1547,
+      "blocks": 97280
+    },
+    {
+      "projection": "down",
+      "layer": 30,
+      "N": 2560,
+      "K": 9728,
+      "native_bytes": 49807360,
+      "auxiliary_bytes": 37841920,
+      "fallback_blocks": 1404,
+      "blocks": 97280
+    },
+    {
+      "projection": "down",
+      "layer": 35,
+      "N": 2560,
+      "K": 9728,
+      "native_bytes": 49807360,
+      "auxiliary_bytes": 37841920,
+      "fallback_blocks": 1598,
+      "blocks": 97280
+    }
+  ],
+  "measurements": [
+    {
+      "projection": "gate_up",
+      "M": 1,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 105.63927511883597
+    },
+    {
+      "projection": "gate_up",
+      "M": 1,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 82.82484848227277
+    },
+    {
+      "projection": "gate_up",
+      "M": 1,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 82.83378357855266
+    },
+    {
+      "projection": "gate_up",
+      "M": 1,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 105.55765363905165
+    },
+    {
+      "projection": "gate_up",
+      "M": 1,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 105.54683228843233
+    },
+    {
+      "projection": "gate_up",
+      "M": 1,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 82.7917547033937
+    },
+    {
+      "projection": "gate_up",
+      "M": 2,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 107.62720777277362
+    },
+    {
+      "projection": "gate_up",
+      "M": 2,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 84.10273512748823
+    },
+    {
+      "projection": "gate_up",
+      "M": 2,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 84.10686532112018
+    },
+    {
+      "projection": "gate_up",
+      "M": 2,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 107.65585899353027
+    },
+    {
+      "projection": "gate_up",
+      "M": 2,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 107.65100479125977
+    },
+    {
+      "projection": "gate_up",
+      "M": 2,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 84.09258045562326
+    },
+    {
+      "projection": "gate_up",
+      "M": 3,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 107.80182386699475
+    },
+    {
+      "projection": "gate_up",
+      "M": 3,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 86.12870640224881
+    },
+    {
+      "projection": "gate_up",
+      "M": 3,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 86.15804752269825
+    },
+    {
+      "projection": "gate_up",
+      "M": 3,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 107.81146267004179
+    },
+    {
+      "projection": "gate_up",
+      "M": 3,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 107.80640652305202
+    },
+    {
+      "projection": "gate_up",
+      "M": 3,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 86.11235552363925
+    },
+    {
+      "projection": "gate_up",
+      "M": 4,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 108.10756348727043
+    },
+    {
+      "projection": "gate_up",
+      "M": 4,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 86.50947183995814
+    },
+    {
+      "projection": "gate_up",
+      "M": 4,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 86.55061654641595
+    },
+    {
+      "projection": "gate_up",
+      "M": 4,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 108.11766741568582
+    },
+    {
+      "projection": "gate_up",
+      "M": 4,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 108.09800583019592
+    },
+    {
+      "projection": "gate_up",
+      "M": 4,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 86.55538158816891
+    },
+    {
+      "projection": "gate_up",
+      "M": 7,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 108.65702418099463
+    },
+    {
+      "projection": "gate_up",
+      "M": 7,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 108.64358031958865
+    },
+    {
+      "projection": "gate_up",
+      "M": 7,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 108.63415540847103
+    },
+    {
+      "projection": "gate_up",
+      "M": 7,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 108.63359923911305
+    },
+    {
+      "projection": "gate_up",
+      "M": 7,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 108.6639078039872
+    },
+    {
+      "projection": "gate_up",
+      "M": 7,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 108.63572854911332
+    },
+    {
+      "projection": "gate_up",
+      "M": 16,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 109.82442498207092
+    },
+    {
+      "projection": "gate_up",
+      "M": 16,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 109.81630682945251
+    },
+    {
+      "projection": "gate_up",
+      "M": 16,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 109.81382472174508
+    },
+    {
+      "projection": "gate_up",
+      "M": 16,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 109.81287871088301
+    },
+    {
+      "projection": "gate_up",
+      "M": 16,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 109.81095433235168
+    },
+    {
+      "projection": "gate_up",
+      "M": 16,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 109.85803604125977
+    },
+    {
+      "projection": "gate_up",
+      "M": 128,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 128.72479557991028
+    },
+    {
+      "projection": "gate_up",
+      "M": 128,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 128.88612646805615
+    },
+    {
+      "projection": "gate_up",
+      "M": 128,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 128.83913341321443
+    },
+    {
+      "projection": "gate_up",
+      "M": 128,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 129.01982458014237
+    },
+    {
+      "projection": "gate_up",
+      "M": 128,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 128.8297050877621
+    },
+    {
+      "projection": "gate_up",
+      "M": 128,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 129.02076721191406
+    },
+    {
+      "projection": "gate_up",
+      "M": 8192,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 4862.9942417144775
+    },
+    {
+      "projection": "gate_up",
+      "M": 8192,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 4876.73602104187
+    },
+    {
+      "projection": "gate_up",
+      "M": 8192,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 4882.021808624268
+    },
+    {
+      "projection": "gate_up",
+      "M": 8192,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 4883.50715637207
+    },
+    {
+      "projection": "gate_up",
+      "M": 8192,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 4883.230781555176
+    },
+    {
+      "projection": "gate_up",
+      "M": 8192,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 4881.874704360962
+    },
+    {
+      "projection": "down",
+      "M": 1,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 54.96577152184078
+    },
+    {
+      "projection": "down",
+      "M": 1,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 42.87927707313245
+    },
+    {
+      "projection": "down",
+      "M": 1,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 42.87677744885424
+    },
+    {
+      "projection": "down",
+      "M": 1,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 54.95551427205404
+    },
+    {
+      "projection": "down",
+      "M": 1,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 54.98395326402452
+    },
+    {
+      "projection": "down",
+      "M": 1,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 42.868003114175295
+    },
+    {
+      "projection": "down",
+      "M": 2,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 61.47097301483154
+    },
+    {
+      "projection": "down",
+      "M": 2,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 43.18603281389203
+    },
+    {
+      "projection": "down",
+      "M": 2,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 43.19756635477845
+    },
+    {
+      "projection": "down",
+      "M": 2,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 61.39289304084584
+    },
+    {
+      "projection": "down",
+      "M": 2,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 61.37081575393677
+    },
+    {
+      "projection": "down",
+      "M": 2,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 43.19977475885759
+    },
+    {
+      "projection": "down",
+      "M": 3,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 61.403932910280176
+    },
+    {
+      "projection": "down",
+      "M": 3,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 61.398136138916016
+    },
+    {
+      "projection": "down",
+      "M": 3,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 61.39942455291748
+    },
+    {
+      "projection": "down",
+      "M": 3,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 61.45791959762573
+    },
+    {
+      "projection": "down",
+      "M": 3,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 61.42487812042236
+    },
+    {
+      "projection": "down",
+      "M": 3,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 61.440128326416016
+    },
+    {
+      "projection": "down",
+      "M": 4,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 61.45593595504761
+    },
+    {
+      "projection": "down",
+      "M": 4,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 47.96338990504639
+    },
+    {
+      "projection": "down",
+      "M": 4,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 48.007999630424926
+    },
+    {
+      "projection": "down",
+      "M": 4,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 61.46783095139723
+    },
+    {
+      "projection": "down",
+      "M": 4,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 61.512758255004876
+    },
+    {
+      "projection": "down",
+      "M": 4,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 47.9554483132769
+    },
+    {
+      "projection": "down",
+      "M": 7,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 61.54721250239107
+    },
+    {
+      "projection": "down",
+      "M": 7,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 61.55986785888672
+    },
+    {
+      "projection": "down",
+      "M": 7,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 61.54456806182861
+    },
+    {
+      "projection": "down",
+      "M": 7,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 61.56127738952637
+    },
+    {
+      "projection": "down",
+      "M": 7,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 61.523953914642334
+    },
+    {
+      "projection": "down",
+      "M": 7,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 61.562745571136475
+    },
+    {
+      "projection": "down",
+      "M": 16,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 61.84567207068055
+    },
+    {
+      "projection": "down",
+      "M": 16,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 61.845418556251715
+    },
+    {
+      "projection": "down",
+      "M": 16,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 61.84171378010451
+    },
+    {
+      "projection": "down",
+      "M": 16,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 61.842705616399876
+    },
+    {
+      "projection": "down",
+      "M": 16,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 61.85551744010581
+    },
+    {
+      "projection": "down",
+      "M": 16,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 61.8546102514219
+    },
+    {
+      "projection": "down",
+      "M": 128,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 63.249427914001785
+    },
+    {
+      "projection": "down",
+      "M": 128,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 63.252026552981036
+    },
+    {
+      "projection": "down",
+      "M": 128,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 63.25096120488459
+    },
+    {
+      "projection": "down",
+      "M": 128,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 63.25461333279782
+    },
+    {
+      "projection": "down",
+      "M": 128,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 63.236834965839286
+    },
+    {
+      "projection": "down",
+      "M": 128,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 63.249564294370344
+    },
+    {
+      "projection": "down",
+      "M": 8192,
+      "repeat": 1,
+      "implementation": "native",
+      "latency_us_per_layer": 2489.29603099823
+    },
+    {
+      "projection": "down",
+      "M": 8192,
+      "repeat": 1,
+      "implementation": "packed",
+      "latency_us_per_layer": 2494.310417175293
+    },
+    {
+      "projection": "down",
+      "M": 8192,
+      "repeat": 2,
+      "implementation": "packed",
+      "latency_us_per_layer": 2494.30269241333
+    },
+    {
+      "projection": "down",
+      "M": 8192,
+      "repeat": 2,
+      "implementation": "native",
+      "latency_us_per_layer": 2497.9891395568848
+    },
+    {
+      "projection": "down",
+      "M": 8192,
+      "repeat": 3,
+      "implementation": "native",
+      "latency_us_per_layer": 2499.3203163146973
+    },
+    {
+      "projection": "down",
+      "M": 8192,
+      "repeat": 3,
+      "implementation": "packed",
+      "latency_us_per_layer": 2500.7104301452637
+    }
+  ]
+}

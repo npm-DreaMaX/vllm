@@ -1,0 +1,47 @@
+{
+  "protocol": "Two fixed 8192-token contexts; 1024 forced decode tokens each; raw logprobs before allowed-token mask. Native repeat uses the same GPU. Artificial constant target tokens, numerical probe only; not a task-quality or throughput benchmark.",
+  "native_vs_packed": {
+    "n": 2048,
+    "mean_abs": 0.00012201801441876978,
+    "p99_abs": 0.0006926987692713663,
+    "max_abs": 0.10080242156982422
+  },
+  "native_repeat_control": {
+    "n": 2048,
+    "mean_abs": 0.0,
+    "p99_abs": 0.0,
+    "max_abs": 0.0
+  },
+  "cases": [
+    {
+      "case": 0,
+      "native_mean_raw_logprob": -0.07413620617883096,
+      "packed_mean_raw_logprob": -0.07413183681616231,
+      "mean_abs_delta": 9.182707037665855e-05,
+      "p99_abs_delta": 0.0014915265049785349,
+      "max_abs_delta": 0.026945114135742188,
+      "mean_native_repeat_abs_delta": 0.0,
+      "max_chosen_rank": 4286,
+      "context_tokens": 8192,
+      "output_tokens": 1024
+    },
+    {
+      "case": 1,
+      "native_mean_raw_logprob": -0.019318323657710593,
+      "packed_mean_raw_logprob": -0.019261447974869603,
+      "mean_abs_delta": 0.000152208958460881,
+      "p99_abs_delta": 6.23374979477369e-05,
+      "max_abs_delta": 0.10080242156982422,
+      "mean_native_repeat_abs_delta": 0.0,
+      "max_chosen_rank": 14,
+      "context_tokens": 8192,
+      "output_tokens": 1024
+    }
+  ],
+  "positions_1_to_64_each_case": {
+    "n": 128,
+    "mean_abs": 0.0019508392124958363,
+    "p99_abs": 0.026129443645477306,
+    "max_abs": 0.10080242156982422
+  }
+}
