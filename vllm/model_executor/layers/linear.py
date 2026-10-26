@@ -177,6 +177,7 @@ class UnquantizedLinearMethod(LinearMethodBase):
         self._packed_mlp = (
             config is not None
             and config.kernel_config.mlp_backend == "lossless_packed"
+            and current_platform.is_cuda()
             and linear_backend in ("auto", "torch")
             and config.lora_config is None
             and config.parallel_config.tensor_parallel_size == 1
