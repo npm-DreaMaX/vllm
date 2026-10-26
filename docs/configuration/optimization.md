@@ -18,7 +18,7 @@ For more information, see the [optimization level documentation](../design/optim
 
 ## Experimental Packed BF16 MLP Decode
 
-For BF16 Qwen3-4B on SM89 GPUs, the opt-in packed MLP backend uses an exact
+For BF16 Qwen3-4B on SM89 GPUs (validated on RTX 4090), the opt-in packed MLP backend uses an exact
 auxiliary encoding of weights to reduce weight traffic during small-batch decode:
 
 ```bash
@@ -30,12 +30,16 @@ vllm serve Qwen/Qwen3-4B-Instruct-2507 \
 The default remains `torch`. The packed kernel is restricted to contiguous BF16
 inputs with 1–4 rows for weight shape `(19456, 2560)`, or 1, 2, and 4 rows for
 `(2560, 9728)`, in `(output, input)` order. The three-row down projection showed
-no benefit and uses native GEMM. Other batch sizes, prefill, and inputs with bias use
+no benefit and uses native GEMM. Here M is the flattened input row count seen by
+the linear layer, including CUDA Graph padding; it can differ from request
+concurrency. Dispatch depends on shape, so a short prefill matching these limits
+is also eligible. Larger prefills, other row counts, and inputs with bias use
 native PyTorch linear computation. Unsupported hardware, tensor or pipeline
-parallelism, LoRA, batch-invariant execution, and explicitly selected alternative
+parallelism, LoRA, configured RL weight transfer, batch-invariant execution,
+and explicitly selected alternative
 linear backends keep their existing implementation.
 
-Original BF16 weights remain resident, so prefill does not reconstruct weights.
+Original BF16 weights remain resident, so larger prefills do not reconstruct weights.
 The auxiliary encoding uses approximately 76% additional storage for each selected
 weight matrix and reduces the memory available for KV cache. This backend targets
 decode latency at low concurrency; it is not a memory-saving mode. Weight bits
@@ -45,7 +49,10 @@ native GEMM, so generated tokens need not be identical.
 Checkpoint-format weight reload refreshes auxiliary buffers while preserving
 CUDA Graph addresses. Kernel-format weight reload is rejected when this backend
 is selected. Direct mutation of weight tensors bypasses this refresh and is not
-supported.
+supported. Use `LLM.collective_rpc("reload_weights", kwargs={"is_checkpoint_format": True})`
+for checkpoint-format reload; add `weights_path` to the kwargs to select another
+checkpoint. The separate [RL weight transfer system](../training/weight_transfer/README.md)
+can write weights directly, so configuring it disables this packed MLP backend.
 
 ## Faster Startup
 

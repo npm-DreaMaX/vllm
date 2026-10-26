@@ -413,7 +413,11 @@ class KernelConfig:
     """Opt-in BF16 MLP projection backend. ``lossless_packed`` uses auxiliary
     weight planes on SM89 for measured small-batch shapes. Native weights stay
     resident for prefill and unsupported shapes; auxiliary memory reduces KV
-    capacity. Checkpoint-format refits preserve captured buffer addresses."""
+    capacity. Checkpoint-format refits preserve captured buffer addresses.
+    Configured RL weight transfer keeps native linear computation.
+
+    See the [optimization guide](https://docs.vllm.ai/en/latest/configuration/optimization/#experimental-packed-bf16-mlp-decode).
+    """
 
     @field_validator("moe_backend", mode="before")
     @classmethod
@@ -470,6 +474,15 @@ class KernelConfig:
     def set_platform_defaults(self, vllm_config: "VllmConfig") -> None:
         """Set platform-specific defaults for the kernel config."""
         from vllm.platforms import current_platform
+
+        if (
+            self.mlp_backend == "lossless_packed"
+            and vllm_config.weight_transfer_config is not None
+        ):
+            logger.warning_once(
+                "Packed BF16 MLP does not support RL weight transfer; using torch."
+            )
+            self.mlp_backend = "torch"
 
         if vllm_config.model_config is not None:
             validate_flashinfer_moe_ep_model(

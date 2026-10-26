@@ -12,6 +12,7 @@ seeded synthetic BF16 activations; this is an operator benchmark, not serving.
 """
 
 import argparse
+import hashlib
 import json
 import platform
 import subprocess
@@ -67,6 +68,19 @@ def main():
             "git_commit": subprocess.check_output(
                 ["git", "rev-parse", "HEAD"], text=True
             ).strip(),
+            "git_status": subprocess.check_output(
+                ["git", "status", "--short"], text=True
+            ),
+            "kernel_source_sha256": {
+                name: hashlib.sha256(
+                    (
+                        Path(__file__).resolve().parents[2]
+                        / "vllm/model_executor/kernels/linear/unquantized"
+                        / name
+                    ).read_bytes()
+                ).hexdigest()
+                for name in ("packed_bf16_mlp.py", "packed_bf16_lm_head.py")
+            },
         },
         "scope": (
             "Checkpoint weight bank, seeded synthetic inputs, CUDA Graph replay. "

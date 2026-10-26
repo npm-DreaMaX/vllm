@@ -4,6 +4,7 @@
 import pytest
 import torch
 
+from vllm.config.weight_transfer import WeightTransferConfig
 from vllm.platforms import current_platform
 
 from ....utils import large_gpu_mark
@@ -24,7 +25,11 @@ def test_packed_bf16_mlp_generation_matches_native(
     """Exercise real weight loading and decode with the opt-in backend."""
     monkeypatch.setenv("VLLM_ALLOW_INSECURE_SERIALIZATION", "1")
     results = []
-    for backend in ("torch", "lossless_packed"):
+    for backend, transfer in (
+        ("torch", None),
+        ("lossless_packed", None),
+        ("lossless_packed", WeightTransferConfig(backend="nccl_m2n")),
+    ):
         with vllm_runner(
             "Qwen/Qwen3-4B-Instruct-2507",
             revision="cdbee75f17c01a7cc42f958dc650907174af0554",
@@ -34,6 +39,7 @@ def test_packed_bf16_mlp_generation_matches_native(
             enable_chunked_prefill=True,
             enable_prefix_caching=False,
             kernel_config={"mlp_backend": backend},
+            weight_transfer_config=transfer,
             compilation_config={"cudagraph_capture_sizes": [1, 2, 4]},
         ) as model:
             counts = model.apply_model(
@@ -44,6 +50,7 @@ def test_packed_bf16_mlp_generation_matches_native(
             )
             uses_packed = (
                 backend == "lossless_packed"
+                and transfer is None
                 and current_platform.is_cuda()
                 and torch.cuda.get_device_capability() == (8, 9)
             )
@@ -54,13 +61,14 @@ def test_packed_bf16_mlp_generation_matches_native(
                     for prompts in (example_prompts[:1], example_prompts[:4])
                 ]
             )
-    for native, packed in zip(*results):
-        check_logprobs_close(
-            outputs_0_lst=native,
-            outputs_1_lst=packed,
-            name_0="native BF16",
-            name_1="packed BF16 MLP",
-        )
+    for variant in results[1:]:
+        for native, packed in zip(results[0], variant):
+            check_logprobs_close(
+                outputs_0_lst=native,
+                outputs_1_lst=packed,
+                name_0="native BF16",
+                name_1="packed BF16 MLP configuration",
+            )
 
 
 # This list contains the model that are using AITER kernel.

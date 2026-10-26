@@ -285,12 +285,16 @@ def test_borrowed_weight_decode_preserves_all_bf16_bit_patterns(interleaved):
 
 @requires_cuda
 @pytest.mark.usefixtures("dist_init")
+@pytest.mark.parametrize("weight_transfer_backend", [None, "nccl_m2n"])
 @torch.no_grad()
-def test_packed_mlp_checkpoint_refit_refreshes_captured_buffers(tmp_path):
+def test_packed_mlp_checkpoint_refit_refreshes_captured_buffers(
+    tmp_path, weight_transfer_backend
+):
     """A real refit changes encoded values without invalidating a captured graph."""
     from transformers import Qwen3Config
 
     from vllm.config import ModelConfig
+    from vllm.config.weight_transfer import WeightTransferConfig
     from vllm.model_executor.layers.linear import ReplicatedLinear
     from vllm.model_executor.model_loader.reload.inplace import reload_weights
     from vllm.model_executor.model_loader.reload.layerwise import (
@@ -321,6 +325,11 @@ def test_packed_mlp_checkpoint_refit_refreshes_captured_buffers(tmp_path):
             model=str(tmp_path), skip_tokenizer_init=True, dtype="bfloat16"
         ),
         kernel_config=KernelConfig(mlp_backend="lossless_packed"),
+        weight_transfer_config=(
+            WeightTransferConfig(backend=weight_transfer_backend)
+            if weight_transfer_backend is not None
+            else None
+        ),
     )
     with set_current_vllm_config(config), torch.device("cuda"):
         model = ProjectionModel()
@@ -330,7 +339,10 @@ def test_packed_mlp_checkpoint_refit_refreshes_captured_buffers(tmp_path):
         model.projection.quant_method.process_weights_after_loading(model.projection)
         x = torch.randn(4, 2560, dtype=torch.bfloat16)
         buffers = dict(model.projection.named_buffers())
-        if torch.cuda.get_device_capability() != (8, 9):
+        if (
+            torch.cuda.get_device_capability() != (8, 9)
+            or weight_transfer_backend is not None
+        ):
             assert not buffers
             torch.testing.assert_close(model(x), torch.nn.functional.linear(x, weight))
             return
