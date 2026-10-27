@@ -234,12 +234,16 @@ class UnquantizedLinearMethod(LinearMethodBase):
         layer: torch.nn.Module,
         x: torch.Tensor,
         bias: torch.Tensor | None = None,
+        *,
+        weight: torch.Tensor | None = None,
     ) -> torch.Tensor:
+        if weight is None:
+            weight = layer.weight
         if envs.VLLM_BATCH_INVARIANT and (
             current_platform.is_cuda_alike() or current_platform.is_xpu()
         ):
-            return linear_batch_invariant(x, layer.weight, bias)
-        return self._gemm_impl(layer, x, layer.weight, bias)
+            return linear_batch_invariant(x, weight, bias)
+        return self._gemm_impl(layer, x, weight, bias)
 
 
 class LinearBase(PluggableLayer):

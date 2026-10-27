@@ -107,6 +107,20 @@ class Qwen2MLP(nn.Module):
                 f"Unsupported activation: {hidden_act}. Only silu is supported for now."
             )
         self.act_fn = SiluAndMul()
+        from vllm.config import get_current_vllm_config_or_none
+        from vllm.platforms import current_platform
+
+        config = get_current_vllm_config_or_none()
+        if (
+            config is not None
+            and current_platform.is_cuda()
+            and config.kernel_config.mlp_backend == "lossless_packed"
+        ):
+            from vllm.model_executor.kernels.linear.unquantized.packed_bf16_mlp import (
+                maybe_enable_packed_mlp,
+            )
+
+            maybe_enable_packed_mlp(self.gate_up_proj, self.down_proj)
 
     def forward(self, x):
         gate_up, _ = self.gate_up_proj(x)

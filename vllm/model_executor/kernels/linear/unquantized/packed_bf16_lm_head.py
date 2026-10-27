@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
-"""Losslessly packed BF16 language-model head for single-token decode."""
+"""Shared lossless BF16 encoding and single-token LM-head projection."""
 
 from dataclasses import dataclass
 from typing import Any
@@ -86,7 +86,12 @@ def packed_storage_bytes(
     )
 
 
-def is_statically_eligible(weight: torch.Tensor) -> tuple[bool, str | None]:
+def is_statically_eligible(
+    weight: torch.Tensor,
+    *,
+    min_dense_bytes: int | None = None,
+    max_k: int | None = None,
+) -> tuple[bool, str | None]:
     """Check invariants that do not depend on the weight values."""
     if not current_platform.is_cuda():
         return False, "requires CUDA"
@@ -102,10 +107,14 @@ def is_statically_eligible(weight: torch.Tensor) -> tuple[bool, str | None]:
     n, k = (int(value) for value in weight.shape)
     if n * k > _MAX_NUMEL:
         return False, "head exceeds signed 32-bit indexing"
-    if n * k * weight.element_size() < _MIN_DENSE_BYTES:
+    if min_dense_bytes is None:
+        min_dense_bytes = _MIN_DENSE_BYTES
+    if max_k is None:
+        max_k = _MAX_K
+    if n * k * weight.element_size() < min_dense_bytes:
         return False, "head is too small to amortize packing"
-    if k <= 0 or k > _MAX_K:
-        return False, f"K={k} is outside the supported range 1..{_MAX_K}"
+    if k <= 0 or k > max_k:
+        return False, f"K={k} is outside the supported range 1..{max_k}"
     return True, None
 
 
@@ -126,13 +135,17 @@ def pack_bf16_weight(
     *,
     max_packed_fraction: float,
     chunk_blocks: int = 16384,
+    min_dense_bytes: int | None = None,
+    max_k: int | None = None,
 ) -> tuple[PackedLayoutPlan, tuple[torch.Tensor, ...]] | None:
     """Create an exact BF16 encoding with bounded temporary GPU memory."""
     if not 0.0 < max_packed_fraction <= 1.0:
         raise ValueError("max_packed_fraction must be in (0, 1]")
     if chunk_blocks <= 0:
         raise ValueError("chunk_blocks must be positive")
-    eligible, reason = is_statically_eligible(weight)
+    eligible, reason = is_statically_eligible(
+        weight, min_dense_bytes=min_dense_bytes, max_k=max_k
+    )
     if not eligible:
         logger.info_once("Lossless packed lm_head skipped: %s", reason)
         return None
@@ -196,7 +209,9 @@ def pack_bf16_weight(
         (block_count,), -1, dtype=torch.int32, device=weight.device
     )
     fallback_bits = torch.empty(
-        (fallback_blocks, _PACK_BLOCK), dtype=torch.int16, device=weight.device
+        (fallback_blocks, _PACK_BLOCK),
+        dtype=torch.int16,
+        device=weight.device,
     )
 
     next_fallback = 0
@@ -249,6 +264,54 @@ def pack_bf16_weight(
 
 
 @triton.jit
+def load_packed_bf16(
+    sign_mantissa_ptr,
+    exponent_nibbles_ptr,
+    base_exponent_ptr,
+    fallback_slot_ptr,
+    fallback_bits_ptr,
+    linear,
+    valid,
+    PACK_BLOCK: tl.constexpr,
+):
+    block_id = linear // PACK_BLOCK
+    in_block = linear % PACK_BLOCK
+    sign_mantissa = tl.load(sign_mantissa_ptr + linear, mask=valid, other=0).to(
+        tl.int32
+    )
+    exponent_pair = tl.load(exponent_nibbles_ptr + linear // 2, mask=valid, other=0).to(
+        tl.int32
+    )
+    exponent_delta = (exponent_pair >> ((linear & 1) * 4)) & 0xF
+    base_exponent = tl.load(base_exponent_ptr + block_id, mask=valid, other=0).to(
+        tl.int32
+    )
+    fallback_slot = tl.load(fallback_slot_ptr + block_id, mask=valid, other=-1)
+
+    packed_bits = (
+        ((sign_mantissa & 0x80) << 8)
+        | ((base_exponent + exponent_delta) << 7)
+        | (sign_mantissa & 0x7F)
+    )
+    fallback_values = tl.load(
+        fallback_bits_ptr + fallback_slot * PACK_BLOCK + in_block,
+        mask=valid & (fallback_slot >= 0),
+        other=0,
+    )
+    fallback_bits = fallback_values.to(tl.int32) & 0xFFFF
+    fp32_bits = tl.where(fallback_slot >= 0, fallback_bits, packed_bits) << 16
+    weight = tl.inline_asm_elementwise(
+        "mov.b32 $0, $1;",
+        "=f,r",
+        [fp32_bits],
+        dtype=tl.float32,
+        is_pure=True,
+        pack=1,
+    )
+    return weight
+
+
+@triton.jit
 def _lossless_packed_bf16_lm_head_kernel(
     x_ptr,
     sign_mantissa_ptr,
@@ -268,42 +331,16 @@ def _lossless_packed_bf16_lm_head_kernel(
     offsets_k = tl.arange(0, BLOCK_K)
     valid = (offsets_n[:, None] < N) & (offsets_k[None, :] < K)
     linear = offsets_n[:, None] * K + offsets_k[None, :]
-    block_id = linear // PACK_BLOCK
-    in_block = linear % PACK_BLOCK
 
-    sign_mantissa = tl.load(sign_mantissa_ptr + linear, mask=valid, other=0).to(
-        tl.int32
-    )
-    exponent_pair = tl.load(exponent_nibbles_ptr + linear // 2, mask=valid, other=0).to(
-        tl.int32
-    )
-    exponent_delta = (exponent_pair >> ((linear & 1) * 4)) & 0xF
-    base_exponent = tl.load(base_exponent_ptr + block_id, mask=valid, other=0).to(
-        tl.int32
-    )
-    fallback_slot = tl.load(fallback_slot_ptr + block_id, mask=valid, other=-1)
-
-    packed_bits = (
-        ((sign_mantissa & 0x80) << 8)
-        | ((base_exponent + exponent_delta) << 7)
-        | (sign_mantissa & 0x7F)
-    )
-    fallback_bits = (
-        tl.load(
-            fallback_bits_ptr + fallback_slot * PACK_BLOCK + in_block,
-            mask=valid & (fallback_slot >= 0),
-            other=0,
-        ).to(tl.int32)
-        & 0xFFFF
-    )
-    fp32_bits = tl.where(fallback_slot >= 0, fallback_bits, packed_bits) << 16
-    weight = tl.inline_asm_elementwise(
-        "mov.b32 $0, $1;",
-        "=f,r",
-        [fp32_bits],
-        dtype=tl.float32,
-        is_pure=True,
-        pack=1,
+    weight = load_packed_bf16(
+        sign_mantissa_ptr,
+        exponent_nibbles_ptr,
+        base_exponent_ptr,
+        fallback_slot_ptr,
+        fallback_bits_ptr,
+        linear,
+        valid,
+        PACK_BLOCK,
     )
     x = tl.load(x_ptr + offsets_k, mask=offsets_k < K, other=0.0)
     accum = tl.sum(weight * x[None, :].to(tl.float32), axis=1)
@@ -540,3 +577,69 @@ class LosslessPackedLMHeadMethod(QuantizeMethodBase):
 
     def tie_weights(self, layer: torch.nn.Module, embed_tokens: torch.nn.Module):
         return self.fallback.tie_weights(layer, embed_tokens)
+
+
+@triton.jit
+def load_packed_bf16_pairs(
+    SM, E, B, S, F, pair, valid, PACK_BLOCK: tl.constexpr = _PACK_BLOCK
+):
+    block = pair // (PACK_BLOCK // 2)
+    sm = tl.load(SM.to(tl.pointer_type(tl.uint16)) + pair, valid, 0).to(tl.uint32)
+    exp = tl.load(E + pair, valid, 0).to(tl.uint32)
+    base = tl.load(B + block, valid, 0).to(tl.uint32)
+    slot = tl.load(S + block, valid, -1)
+    # Two independent 16-bit exponent lanes fit in a single integer addition.
+    exps = (base | (base << 16)) + ((exp & 15) | ((exp >> 4) << 16))
+    bits = (
+        (sm & 127)
+        | ((sm & 0x7F00) << 8)
+        | ((sm & 128) << 8)
+        | ((sm & 0x8000) << 16)
+        | (exps << 7)
+    )
+    raw = tl.load(
+        F.to(tl.pointer_type(tl.uint32))
+        + slot * (PACK_BLOCK // 2)
+        + pair % (PACK_BLOCK // 2),
+        valid & (slot >= 0),
+        0,
+    )
+    return tl.where(slot >= 0, raw, bits)
+
+
+@triton.jit
+def load_packed_bf16_tile(
+    SM,
+    E,
+    B,
+    S,
+    F,
+    ni,
+    kk,
+    N: tl.constexpr,
+    K: tl.constexpr,
+    BK: tl.constexpr,
+    PACK_BLOCK: tl.constexpr = _PACK_BLOCK,
+):
+    tl.static_assert(K % PACK_BLOCK == 0)
+    tl.static_assert(BK <= PACK_BLOCK and PACK_BLOCK % BK == 0)
+    # Metadata is shared by all values from the same row and storage block.
+    block = ni * K // PACK_BLOCK + tl.min(kk, 0) // PACK_BLOCK
+    slot = tl.load(S + block, (ni < N) & (tl.min(kk, 0) < K), -1)
+    base = tl.load(B + block, (ni < N) & (tl.min(kk, 0) < K), 0).to(tl.int32)
+    linear = ni[:, None] * K + kk[None, :]
+    valid = (ni[:, None] < N) & (kk[None, :] < K)
+    sm = tl.load(SM + linear, valid, 0).to(tl.int32)
+    pair = tl.load(E + linear // 2, valid, 0).to(tl.int32)
+    delta = (pair >> ((linear & 1) * 4)) & 15
+    bits = ((sm & 128) << 8) | ((base[:, None] + delta) << 7) | (sm & 127)
+    fb = tl.load(
+        F + slot[:, None] * PACK_BLOCK + (kk[None, :] % PACK_BLOCK),
+        valid & (slot[:, None] >= 0),
+        0,
+    ).to(tl.int32)
+    return (
+        tl.where(slot[:, None] >= 0, fb, bits)
+        .to(tl.int16)
+        .to(tl.bfloat16, bitcast=True)
+    )

@@ -53,6 +53,14 @@ def reload_weights(
 
     """
     # TODO(@kylesayrs): generalize to all runners and loaders
+    if (
+        not is_checkpoint_format
+        and vllm_config.kernel_config.mlp_backend == "lossless_packed"
+    ):
+        raise ValueError(
+            "The packed MLP backend requires checkpoint-format weight refits "
+            "to rebuild its encoded weight buffers."
+        )
     # argument validation
     if weights_iterator is None and not is_checkpoint_format:
         logger.warning(

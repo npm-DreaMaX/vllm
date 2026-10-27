@@ -16,6 +16,63 @@ vLLM provides 4 optimization levels (`-O0`, `-O1`, `-O2`, `-O3`) that allow user
 
 For more information, see the [optimization level documentation](../design/optimization_levels.md).
 
+## Experimental Packed BF16 MLP Decode
+
+The opt-in packed MLP backend reduces resident weight storage and weight traffic
+for BF16 Qwen3-4B-Instruct-2507 and Qwen3-8B on RTX 4090. It reuses the lossless
+BF16 encoding from [#55494](https://github.com/vllm-project/vllm/pull/55494).
+
+```bash
+vllm serve Qwen/Qwen3-4B-Instruct-2507 \
+    --dtype bfloat16 --tensor-parallel-size 1 \
+    --kernel-config '{"mlp_backend": "lossless_packed"}'
+```
+
+The default remains `torch`. Selection is limited to unquantized gate/up and down
+projections in `Qwen2MLP`, which Qwen3 also uses. The measured weight shapes are
+`(19456, 2560)`, `(2560, 9728)`, `(24576, 4096)`, and `(4096, 12288)`, in
+`(output, input)` order. Fast kernels cover contiguous BF16 inputs with 1–32 rows
+on SM89 devices with 128 SMs. Here the row count includes CUDA Graph padding and
+can differ from request concurrency; a short prefill can also use this path.
+
+Each eligible matrix keeps its encoded representation and releases the original
+BF16 parameter. Matrices that cannot meet the storage budget keep native weights.
+The original linear method and backend process larger inputs or inputs with bias
+using an exact temporary BF16 matrix. Temporary storage can be reused between
+projections; it does not retain an additional decoded copy of every matrix.
+This reconstruction adds prefill traffic, so measure TTFT and short-output
+workloads as well as decode throughput before choosing this backend. Weight bits
+are preserved exactly; floating-point accumulation order can differ from native
+GEMM, so generated tokens need not be identical.
+
+Unsupported hardware, tensor or pipeline parallelism, LoRA, CPU offload, and
+batch-invariant execution keep the existing implementation. Configuring the
+[RL weight transfer system](../training/weight_transfer/README.md) disables this
+backend. Preprocessed weight-cache IPC is not supported.
+
+Checkpoint-format reload refreshes encoded buffers while preserving CUDA Graph
+addresses. Raw exceptions have bounded reserved capacity; a reload that changes
+the layout or exceeds this capacity fails and requires recreating the engine.
+Kernel-format reload and direct mutation of packed buffers are not supported.
+Use `LLM.collective_rpc("reload_weights", kwargs={"is_checkpoint_format": True})`
+for checkpoint-format reload; add `weights_path` to select another checkpoint.
+`state_dict()` reconstructs native BF16 weights on CPU for checkpoint export.
+Compilation cache keys include each layer's actual storage representation and
+buffer dimensions, so incompatible layouts do not reuse the same artifact.
+
+For a kernel microbenchmark with local weights:
+
+```bash
+python benchmarks/kernels/benchmark_packed_bf16_mlp.py \
+    --model-path /path/to/Qwen3-4B-Instruct-2507 \
+    --output /path/to/results.json
+```
+
+This measures projections with CUDA Graph replay. Use the official
+[serving benchmark](../benchmarking/cli.md) separately for TTFT, TPOT, throughput,
+memory use, and mixed prefill/decode behavior. Keep the model revision, workload,
+service configuration, and KV budget equal for an A/B comparison.
+
 ## Faster Startup
 
 Beyond the optimization levels, three mechanisms reduce time-to-first-token on repeated boots of the same (model, config, hardware) combination:

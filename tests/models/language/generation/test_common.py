@@ -1,9 +1,13 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
 
+import gzip
+import json
+
 import pytest
 import torch
 
+from vllm.config.weight_transfer import WeightTransferConfig
 from vllm.platforms import current_platform
 
 from ....utils import large_gpu_mark
@@ -14,6 +18,93 @@ from ...utils import check_logprobs_close
 EMBED_SCALING_MODELS = {
     "openbmb/MiniCPM4.1-8B",
 }
+
+
+@pytest.mark.core_model
+@pytest.mark.slow_test
+def test_packed_bf16_mlp_generation_matches_native(
+    vllm_runner, example_prompts, monkeypatch, tmp_path
+):
+    """Exercise real weight loading and decode with the opt-in backend."""
+    monkeypatch.setenv("VLLM_ALLOW_INSECURE_SERIALIZATION", "1")
+    results = []
+    for backend, transfer in (
+        ("torch", None),
+        ("lossless_packed", None),
+        ("lossless_packed", WeightTransferConfig(backend="nccl_m2n")),
+    ):
+        trace_dir = tmp_path / f"{backend}_{transfer is not None}"
+        with vllm_runner(
+            "Qwen/Qwen3-4B-Instruct-2507",
+            revision="cdbee75f17c01a7cc42f958dc650907174af0554",
+            dtype="bfloat16",
+            trust_remote_code=False,
+            max_num_seqs=32,
+            enable_chunked_prefill=True,
+            enable_prefix_caching=False,
+            kernel_config={"mlp_backend": backend},
+            weight_transfer_config=transfer,
+            compilation_config={"cudagraph_capture_sizes": [1, 2, 4, 8, 16, 32]},
+            profiler_config={
+                "profiler": "torch",
+                "torch_profiler_dir": str(trace_dir),
+                "ignore_frontend": True,
+                "delay_iterations": 16,
+                "max_iterations": 8,
+            },
+        ) as model:
+            counts = model.apply_model(
+                lambda module: sum(
+                    name.endswith("_packed_mlp_sign_mantissa")
+                    for name, _ in module.named_buffers()
+                )
+            )
+            uses_packed = (
+                backend == "lossless_packed"
+                and transfer is None
+                and current_platform.is_cuda()
+                and torch.cuda.get_device_capability() == (8, 9)
+                and torch.cuda.get_device_properties(0).multi_processor_count == 128
+            )
+            assert counts == [72 if uses_packed else 0]
+            results.append(
+                [
+                    model.generate_greedy_logprobs(prompts, 32, 5)
+                    for prompts in (example_prompts[:1], example_prompts[:4])
+                ]
+            )
+            if uses_packed:
+                from vllm import SamplingParams
+
+                llm = model.get_llm()
+                llm.start_profile()
+                llm.generate(
+                    [{"prompt_token_ids": [100] * 128} for _ in range(32)],
+                    SamplingParams(temperature=0, max_tokens=32, ignore_eos=True),
+                    use_tqdm=False,
+                )
+                llm.stop_profile()
+                kernels: list[str] = []
+                traces = list(trace_dir.rglob("*.json.gz"))
+                assert traces, "Compiled decode produced no profiler trace"
+                for path in traces:
+                    with gzip.open(path, "rt") as file:
+                        kernels.extend(
+                            event["name"]
+                            for event in json.load(file)["traceEvents"]
+                            if event.get("cat") == "kernel"
+                        )
+                assert any("_packed_mlp_gemm" in name for name in kernels)
+                assert not any("unpack" in name for name in kernels)
+    for variant in results[1:]:
+        for native, packed in zip(results[0], variant):
+            check_logprobs_close(
+                outputs_0_lst=native,
+                outputs_1_lst=packed,
+                name_0="native BF16",
+                name_1="packed BF16 MLP configuration",
+            )
+
 
 # This list contains the model that are using AITER kernel.
 # Skip model that are not using AITER tests.

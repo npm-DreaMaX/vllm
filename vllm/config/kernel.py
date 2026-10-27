@@ -409,6 +409,19 @@ class KernelConfig:
     lm_head_max_packed_fraction: float = Field(default=0.90, gt=0.0, le=1.0)
     """Maximum packed-to-dense storage ratio accepted by the lm-head backend."""
 
+    mlp_backend: LMHeadBackend = "torch"
+    """Opt-in compressed BF16 storage for measured Qwen MLP projections on RTX 4090.
+
+    ``lossless_packed`` keeps one weight representation and accelerates measured
+    small-batch shapes. Larger inputs use the original linear backend with an
+    exact temporary BF16 weight. This trades prefill decoding work for reduced
+    resident storage and weight traffic. Checkpoint refits preserve CUDA Graph
+    addresses within the reserved exception capacity. Configured RL weight
+    transfer keeps native linear computation.
+
+    See [the packed MLP optimization guide][experimental-packed-bf16-mlp-decode].
+    """
+
     @field_validator("moe_backend", mode="before")
     @classmethod
     def _normalize_moe_backend(cls, value: Any) -> Any:
@@ -416,7 +429,7 @@ class KernelConfig:
             return value.lower().replace("-", "_")
         return value
 
-    @field_validator("linear_backend", "lm_head_backend", mode="before")
+    @field_validator("linear_backend", "lm_head_backend", "mlp_backend", mode="before")
     @classmethod
     def _normalize_linear_backend(cls, value: Any) -> Any:
         if isinstance(value, str):
@@ -446,7 +459,15 @@ class KernelConfig:
             ignored_factors.add("linear_backend_per_quant")
         factors = get_hash_factors(self, ignored_factors)
         factors["ir_op_priority"] = self.ir_op_priority.compute_hash()
+        if self.mlp_backend == "lossless_packed":
+            factors["_mlp_weight_layout"] = dict(
+                sorted(getattr(self, "_mlp_weight_layout", {}).items())
+            )
         return hash_factors(factors)
+
+    def record_mlp_weight_layout(self, prefix: str, layout: tuple[Any, ...]) -> None:
+        """Include data-dependent storage decisions in the compilation cache key."""
+        self.__dict__.setdefault("_mlp_weight_layout", {})[prefix] = layout
 
     @field_validator(
         "enable_flashinfer_autotune",
@@ -464,6 +485,15 @@ class KernelConfig:
     def set_platform_defaults(self, vllm_config: "VllmConfig") -> None:
         """Set platform-specific defaults for the kernel config."""
         from vllm.platforms import current_platform
+
+        if (
+            self.mlp_backend == "lossless_packed"
+            and vllm_config.weight_transfer_config is not None
+        ):
+            logger.warning_once(
+                "Packed BF16 MLP does not support RL weight transfer; using torch."
+            )
+            self.mlp_backend = "torch"
 
         if vllm_config.model_config is not None:
             validate_flashinfer_moe_ep_model(
