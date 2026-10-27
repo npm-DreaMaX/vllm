@@ -410,11 +410,14 @@ class KernelConfig:
     """Maximum packed-to-dense storage ratio accepted by the lm-head backend."""
 
     mlp_backend: LMHeadBackend = "torch"
-    """Opt-in BF16 MLP projection backend. ``lossless_packed`` uses auxiliary
-    weight planes on SM89 for measured small-batch shapes. Native weights stay
-    resident for prefill and unsupported shapes; auxiliary memory reduces KV
-    capacity. Checkpoint-format refits preserve captured buffer addresses.
-    Configured RL weight transfer keeps native linear computation.
+    """Opt-in compressed BF16 storage for measured Qwen MLP projections on RTX 4090.
+
+    ``lossless_packed`` keeps one weight representation and accelerates measured
+    small-batch shapes. Larger inputs use the original linear backend with an
+    exact temporary BF16 weight. This trades prefill decoding work for reduced
+    resident storage and weight traffic. Checkpoint refits preserve CUDA Graph
+    addresses within the reserved exception capacity. Configured RL weight
+    transfer keeps native linear computation.
 
     See [the packed MLP optimization guide][experimental-packed-bf16-mlp-decode].
     """
@@ -456,7 +459,15 @@ class KernelConfig:
             ignored_factors.add("linear_backend_per_quant")
         factors = get_hash_factors(self, ignored_factors)
         factors["ir_op_priority"] = self.ir_op_priority.compute_hash()
+        if self.mlp_backend == "lossless_packed":
+            factors["_mlp_weight_layout"] = dict(
+                sorted(getattr(self, "_mlp_weight_layout", {}).items())
+            )
         return hash_factors(factors)
+
+    def record_mlp_weight_layout(self, prefix: str, layout: tuple[Any, ...]) -> None:
+        """Include data-dependent storage decisions in the compilation cache key."""
+        self.__dict__.setdefault("_mlp_weight_layout", {})[prefix] = layout
 
     @field_validator(
         "enable_flashinfer_autotune",

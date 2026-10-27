@@ -18,7 +18,6 @@ from vllm.model_executor.kernels.linear.unquantized.packed_bf16_lm_head import (
 )
 from vllm.model_executor.layers.vocab_parallel_embedding import ParallelLMHead
 from vllm.platforms import current_platform
-from vllm.triton_utils import tl, triton
 
 requires_cuda = pytest.mark.skipif(
     not current_platform.is_cuda(), reason="the packed lm-head kernel is CUDA-only"
@@ -86,6 +85,16 @@ def test_packing_reconstructs_every_bf16_bit(monkeypatch):
         _unpack_bits(tensors, plan.numel), expected, atol=0, rtol=0
     )
     assert plan.fallback_blocks > 0
+
+
+def test_packed_mlp_cache_key_distinguishes_exception_capacity():
+    """A cached graph must never be reused with a different weight-buffer shape."""
+    first = KernelConfig(mlp_backend="lossless_packed")
+    second = KernelConfig(mlp_backend="lossless_packed")
+    assert first.compute_hash() == second.compute_hash()
+    first.record_mlp_weight_layout("mlp", ("packed_v1", (7168, 256)))
+    second.record_mlp_weight_layout("mlp", ("packed_v1", (8192, 256)))
+    assert first.compute_hash() != second.compute_hash()
 
 
 @requires_cuda
@@ -191,184 +200,222 @@ def test_parallel_lm_head_wraps_eligible_method_when_requested():
 
 @requires_cuda
 @torch.inference_mode()
-@pytest.mark.parametrize("n,k", [(19456, 2560), (2560, 9728)])
-def test_mlp_projection_limits_fast_path_and_keeps_native_fallback(n, k):
-    """Measured batches use GEMV; M7/M16 and prefill run native GEMM exactly."""
+@pytest.mark.parametrize(
+    "n,k", [(19456, 2560), (2560, 9728), (24576, 4096), (4096, 12288)]
+)
+def test_compact_mlp_projection_matches_high_precision_gemm(n, k):
+    """The shared/paired/TC paths round correctly without dense weight storage."""
     from vllm.model_executor.kernels.linear.unquantized.packed_bf16_mlp import (
         _project,
+        _unpack,
     )
 
     torch.manual_seed(17)
     weight = (torch.randn(n, k, device="cuda") / k**0.5).to(torch.bfloat16)
     packed = pack_bf16_weight(
-        weight,
-        max_packed_fraction=0.9,
-        min_dense_bytes=32 * 1024**2,
-        max_k=9728,
-        fallback_from_weight=True,
+        weight, max_packed_fraction=0.9, min_dense_bytes=0, max_k=16384
     )
     assert packed is not None
-    _, tensors = packed
-    sm, exponent, base, slots = tensors[:4]
-    assert tensors[-1].numel() == 0
-    inputs = {
-        m: torch.randn(m, k, device="cuda", dtype=torch.bfloat16)
-        for m in (1, 2, 3, 4, 7, 16, 128)
-    }
-    reference = {m: torch.nn.functional.linear(x, weight) for m, x in inputs.items()}
-    for x in inputs.values():
-        _project(x, weight, *tensors[:4])
-    torch.accelerator.synchronize()
-    with torch.profiler.profile(
-        activities=[
-            torch.profiler.ProfilerActivity.CPU,
-            torch.profiler.ProfilerActivity.CUDA,
-        ]
-    ) as profiler:
-        actual = {m: _project(x, weight, *tensors[:4]) for m, x in inputs.items()}
-        torch.accelerator.synchronize()
-    fast_batches = (1, 2, 3, 4) if n == 19456 else (1, 2, 4)
-    assert sum(event.name == "_packed_mlp_gemv" for event in profiler.events()) == len(
-        fast_batches
+    _, planes = packed
+    sm, exponents, bases, slots, raw = planes
+    x = torch.randn(1, k, device="cuda", dtype=torch.bfloat16)
+    decoded = _unpack(x, sm, exponents, bases, slots, raw, n, k)
+    torch.testing.assert_close(
+        decoded.view(torch.int16), weight.view(torch.int16), atol=0, rtol=0
     )
-    for m in inputs:
-        if m in fast_batches:
-            torch.testing.assert_close(actual[m], reference[m], atol=0.02, rtol=0.01)
-        else:
-            torch.testing.assert_close(actual[m], reference[m], atol=0, rtol=0)
-    x = torch.randn(4, k * 2, device="cuda", dtype=torch.bfloat16)[:, ::2]
-    bias = torch.randn(n, device="cuda", dtype=torch.bfloat16)
-    for value in (None, bias):
+    exact_weight = weight.double()
+    split_k = 1 if n >= k else (8 if n == 2560 else 4)
+    for m in range(1, 33):
+        x = torch.randn(m, k, device="cuda", dtype=torch.bfloat16)
+        reference = torch.nn.functional.linear(x.double(), exact_weight).to(
+            torch.bfloat16
+        )
         torch.testing.assert_close(
-            _project(x, weight, sm, exponent, base, slots, value),
-            torch.nn.functional.linear(x, weight, value),
-            atol=0,
-            rtol=0,
+            _project(x, sm, exponents, bases, slots, raw, n, k, split_k),
+            reference,
+            atol=1e-4,
+            rtol=0.008,
         )
     torch.library.opcheck(
-        torch.ops.vllm.packed_bf16_mlp.default,
-        (inputs[4], weight, sm, exponent, base, slots),
+        torch.ops.vllm.packed_bf16_mlp.default, (x, *planes, n, k, split_k)
     )
-    invalid = torch.empty(4, k // 2, device="cuda", dtype=torch.bfloat16)
-    with pytest.raises(RuntimeError, match="mat1 and mat2 shapes"):
-        _project(invalid, weight, sm, exponent, base, slots)
-
-
-@triton.jit
-def _decode_borrowed_weight(sm, exponent, base, slots, weight, output):
-    offsets = tl.program_id(0) * 256 + tl.arange(0, 256)
-    values = packed_bf16_lm_head.load_packed_bf16(
-        sm, exponent, base, slots, weight, offsets, True, 256, True
-    )
-    bits = values.to(tl.int32, bitcast=True) >> 16
-    tl.store(output + offsets, bits.to(tl.int16))
+    torch.library.opcheck(torch.ops.vllm.unpack_bf16_mlp.default, (x, *planes, n, k))
 
 
 @requires_cuda
 @torch.inference_mode()
-@pytest.mark.parametrize("interleaved", [False, True])
-def test_borrowed_weight_decode_preserves_all_bf16_bit_patterns(interleaved):
-    """Both packed and borrowed blocks preserve zeros, subnormals and NaN bits."""
-    bits = torch.arange(65536, device="cuda", dtype=torch.int32).to(torch.int16)
-    bits = bits.reshape(256, 256)
-    if interleaved:
-        bits = bits.t().contiguous()
-    weight = bits.view(torch.bfloat16)
-    packed = pack_bf16_weight(
-        weight, max_packed_fraction=0.9, min_dense_bytes=0, fallback_from_weight=True
+def test_compact_decode_preserves_every_bf16_pattern():
+    """Packed and raw-exception blocks preserve zeros, subnormals and NaN bits."""
+    from vllm.model_executor.kernels.linear.unquantized.packed_bf16_mlp import _unpack
+
+    bits = torch.zeros(8 * 65536, device="cuda", dtype=torch.int16)
+    bits[:65536] = (
+        torch.arange(65536, device="cuda", dtype=torch.int32)
+        .to(torch.int16)
+        .reshape(256, 256)
+        .t()
+        .contiguous()
+        .flatten()
     )
+    weight = bits.reshape(-1, 256).view(torch.bfloat16)
+    packed = pack_bf16_weight(weight, max_packed_fraction=0.9, min_dense_bytes=0)
     assert packed is not None
-    plan, tensors = packed
-    assert plan.fallback_blocks == (256 if interleaved else 0)
-    assert tensors[-1].numel() == 0
-    decoded = torch.empty_like(bits)
-    _decode_borrowed_weight[(256,)](*tensors[:4], weight, decoded)
-    torch.testing.assert_close(decoded, bits, atol=0, rtol=0)
+    plan, planes = packed
+    assert plan.fallback_blocks == 256
+    decoded = _unpack(weight[:1], *planes, *weight.shape)
+    torch.testing.assert_close(
+        decoded.view(torch.int16).flatten(), bits, atol=0, rtol=0
+    )
 
 
 @requires_cuda
 @pytest.mark.usefixtures("dist_init")
-@pytest.mark.parametrize("weight_transfer_backend", [None, "nccl_m2n"])
 @torch.no_grad()
-def test_packed_mlp_checkpoint_refit_refreshes_captured_buffers(
-    tmp_path, weight_transfer_backend
-):
-    """A real refit changes encoded values without invalidating a captured graph."""
+def test_unrelated_linear_keeps_native_weights():
+    """A matching matrix shape outside an MLP must not activate packed storage."""
+    from vllm.model_executor.layers.linear import ReplicatedLinear
+
+    config = VllmConfig(kernel_config=KernelConfig(mlp_backend="lossless_packed"))
+    with set_current_vllm_config(config), torch.device("cuda"):
+        layer = ReplicatedLinear(
+            2560,
+            19456,
+            bias=False,
+            params_dtype=torch.bfloat16,
+            return_bias=False,
+            disable_tp=True,
+        )
+        layer.weight.normal_(0, 0.02)
+        layer.quant_method.process_weights_after_loading(layer)
+        assert not list(layer.named_buffers())
+        x = torch.randn(4, 2560, dtype=torch.bfloat16)
+        torch.testing.assert_close(
+            layer(x), torch.nn.functional.linear(x, layer.weight), atol=0, rtol=0
+        )
+
+
+@requires_cuda
+@pytest.mark.usefixtures("dist_init")
+@torch.no_grad()
+def test_compact_mlp_refit_preserves_captured_graphs_and_native_prefill(tmp_path):
+    """Real MLP loading/refit releases dense storage and refreshes captured planes."""
     from transformers import Qwen3Config
 
     from vllm.config import ModelConfig
-    from vllm.config.weight_transfer import WeightTransferConfig
-    from vllm.model_executor.layers.linear import ReplicatedLinear
     from vllm.model_executor.model_loader.reload.inplace import reload_weights
     from vllm.model_executor.model_loader.reload.layerwise import (
         record_metadata_for_reloading,
     )
+    from vllm.model_executor.models.qwen2 import Qwen2MLP
     from vllm.model_executor.models.utils import AutoWeightsLoader
 
     class ProjectionModel(torch.nn.Module):
         def __init__(self):
             super().__init__()
-            self.projection = ReplicatedLinear(
-                2560,
-                19456,
-                bias=False,
-                params_dtype=torch.bfloat16,
-                return_bias=False,
-            )
-
-        def forward(self, x):
-            return self.projection(x)
+            self.mlp = Qwen2MLP(2560, 9728, "silu", prefix="mlp")
 
         def load_weights(self, weights):
             return AutoWeightsLoader(self).load_weights(weights)
 
     Qwen3Config(architectures=["Qwen3ForCausalLM"]).save_pretrained(tmp_path)
+    torch.manual_seed(33)
     config = VllmConfig(
         model_config=ModelConfig(
             model=str(tmp_path), skip_tokenizer_init=True, dtype="bfloat16"
         ),
         kernel_config=KernelConfig(mlp_backend="lossless_packed"),
-        weight_transfer_config=(
-            WeightTransferConfig(backend=weight_transfer_backend)
-            if weight_transfer_backend is not None
-            else None
-        ),
     )
-    with set_current_vllm_config(config), torch.device("cuda"):
+    from vllm.utils.torch_utils import set_default_torch_dtype
+
+    with (
+        set_current_vllm_config(config),
+        torch.device("cuda"),
+        set_default_torch_dtype(torch.bfloat16),
+    ):
         model = ProjectionModel()
-        weight = torch.randn_like(model.projection.weight) / 2560**0.5
-        model.load_weights([("projection.weight", weight)])
+        weights = {
+            "mlp.gate_up_proj.weight": torch.randn_like(model.mlp.gate_up_proj.weight)
+            / 2560**0.5,
+            "mlp.down_proj.weight": torch.randn_like(model.mlp.down_proj.weight)
+            / 9728**0.5,
+        }
+        weights["mlp.gate_up_proj.weight"].view(-1)[:256] = 0.125
+        model.load_weights(weights.items())
         record_metadata_for_reloading(model)
-        model.projection.quant_method.process_weights_after_loading(model.projection)
-        x = torch.randn(4, 2560, dtype=torch.bfloat16)
-        buffers = dict(model.projection.named_buffers())
+        before_packing_hash = config.compute_hash()
+        for layer in (model.mlp.gate_up_proj, model.mlp.down_proj):
+            layer.quant_method.process_weights_after_loading(layer)
         if (
-            torch.cuda.get_device_capability() != (8, 9)
-            or weight_transfer_backend is not None
+            not current_platform.is_device_capability(89)
+            or current_platform.num_compute_units(
+                torch.accelerator.current_device_index()
+            )
+            != 128
         ):
-            assert not buffers
-            torch.testing.assert_close(model(x), torch.nn.functional.linear(x, weight))
+            assert not list(model.named_buffers())
+            x = torch.randn(7, 2560, dtype=torch.bfloat16)
+            actual, _ = model.mlp.gate_up_proj(x)
+            torch.testing.assert_close(
+                actual,
+                torch.nn.functional.linear(x, weights["mlp.gate_up_proj.weight"]),
+                atol=0,
+                rtol=0,
+            )
             return
-        assert len(buffers) == 4
-        pointers = {name: tensor.data_ptr() for name, tensor in buffers.items()}
-        assert set(model.state_dict()) == {"projection.weight"}
+        assert model.mlp.gate_up_proj.weight is None
+        assert model.mlp.down_proj.weight is None
+        packed_hash = config.compute_hash()
+        assert packed_hash != before_packing_hash
+        buffers = dict(model.named_buffers())
+        assert sum(t.numel() * t.element_size() for t in buffers.values()) < sum(
+            t.numel() * t.element_size() for t in weights.values()
+        )
+        pointers = {name: t.data_ptr() for name, t in buffers.items()}
+        x = torch.randn(7, 2560, dtype=torch.bfloat16)
         for _ in range(3):
-            model(x)
+            model.mlp.gate_up_proj(x)
         graph = torch.cuda.CUDAGraph()
         with torch.cuda.graph(graph):
-            output = model(x)
-        # Every pack block now needs the original-weight fallback. Its size must
-        # not depend on the number of outliers or change captured addresses.
-        new_weight = torch.zeros_like(weight)
-        new_weight[:, ::2] = 0.125
-        reload_weights(config, model, [("projection.weight", new_weight)], None, True)
-        assert pointers == {
-            name: tensor.data_ptr() for name, tensor in model.projection.named_buffers()
-        }
+            output, _ = model.mlp.gate_up_proj(x)
+        new_weights = {name: value * 0.5 for name, value in weights.items()}
+        # Change one packed block into a raw exception while keeping captured storage.
+        new_weights["mlp.gate_up_proj.weight"].view(-1)[:256:2] = 0
+        reload_weights(config, model, new_weights.items(), None, True)
+        assert pointers == {name: t.data_ptr() for name, t in model.named_buffers()}
         graph.replay()
+        assert config.compute_hash() == packed_hash
         torch.testing.assert_close(
-            output, torch.nn.functional.linear(x, new_weight), atol=0.02, rtol=0.01
+            output,
+            torch.nn.functional.linear(x, new_weights["mlp.gate_up_proj.weight"]),
+            atol=0.02,
+            rtol=0.01,
+        )
+        x_prefill = torch.randn(128, 2560, dtype=torch.bfloat16)
+        actual, _ = model.mlp.gate_up_proj(x_prefill)
+        torch.testing.assert_close(
+            actual,
+            torch.nn.functional.linear(
+                x_prefill, new_weights["mlp.gate_up_proj.weight"]
+            ),
+            atol=0,
+            rtol=0,
+        )
+        assert model.mlp.gate_up_proj.weight is None
+        exported = model.state_dict()
+        assert set(exported) == set(new_weights)
+        for name, value in new_weights.items():
+            torch.testing.assert_close(exported[name], value.cpu(), atol=0, rtol=0)
+        noncontiguous = torch.randn(4, 5120, dtype=torch.bfloat16)[:, ::2]
+        layer = model.mlp.gate_up_proj
+        bias = torch.randn(19456, dtype=torch.bfloat16)
+        actual = layer.quant_method.apply(layer, noncontiguous, bias)
+        torch.testing.assert_close(
+            actual,
+            torch.nn.functional.linear(
+                noncontiguous, new_weights["mlp.gate_up_proj.weight"], bias
+            ),
+            atol=0,
+            rtol=0,
         )
         with pytest.raises(ValueError, match="checkpoint-format"):
-            reload_weights(config, model, [("projection.weight", weight)], None, False)
-        torch.testing.assert_close(model.projection.weight, new_weight, atol=0, rtol=0)
+            reload_weights(config, model, new_weights.items(), None, False)

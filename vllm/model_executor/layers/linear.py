@@ -174,15 +174,6 @@ class UnquantizedLinearMethod(LinearMethodBase):
             config.kernel_config.linear_backend if config is not None else "auto"
         )
         self._gemm_impl = dispatch_unquantized_gemm(linear_backend)
-        self._packed_mlp = (
-            config is not None
-            and config.kernel_config.mlp_backend == "lossless_packed"
-            and current_platform.is_cuda()
-            and linear_backend in ("auto", "torch")
-            and config.lora_config is None
-            and config.parallel_config.tensor_parallel_size == 1
-            and config.parallel_config.pipeline_parallel_size == 1
-        )
 
     def create_weights(
         self,
@@ -214,12 +205,6 @@ class UnquantizedLinearMethod(LinearMethodBase):
         set_weight_attrs(weight, extra_weight_attrs)
 
     def process_weights_after_loading(self, layer: torch.nn.Module) -> None:
-        if self._packed_mlp:
-            from vllm.model_executor.kernels.linear.unquantized.packed_bf16_mlp import (
-                prepare_packed_mlp,
-            )
-
-            prepare_packed_mlp(layer)
         if current_platform.is_cpu():
             # MLA's kv_b_proj (see `_cpu_skip_gemm_dispatch`): not
             # perf-critical, so skip packing and use a plain fallback.
@@ -249,18 +234,16 @@ class UnquantizedLinearMethod(LinearMethodBase):
         layer: torch.nn.Module,
         x: torch.Tensor,
         bias: torch.Tensor | None = None,
+        *,
+        weight: torch.Tensor | None = None,
     ) -> torch.Tensor:
+        if weight is None:
+            weight = layer.weight
         if envs.VLLM_BATCH_INVARIANT and (
             current_platform.is_cuda_alike() or current_platform.is_xpu()
         ):
-            return linear_batch_invariant(x, layer.weight, bias)
-        if self._packed_mlp and hasattr(layer, "_packed_mlp_shape"):
-            from vllm.model_executor.kernels.linear.unquantized.packed_bf16_mlp import (
-                apply_packed_mlp,
-            )
-
-            return apply_packed_mlp(layer, x, bias)
-        return self._gemm_impl(layer, x, layer.weight, bias)
+            return linear_batch_invariant(x, weight, bias)
+        return self._gemm_impl(layer, x, weight, bias)
 
 
 class LinearBase(PluggableLayer):

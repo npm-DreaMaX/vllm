@@ -59,7 +59,7 @@ def reload_weights(
     ):
         raise ValueError(
             "The packed MLP backend requires checkpoint-format weight refits "
-            "to refresh its auxiliary weight planes."
+            "to rebuild its encoded weight buffers."
         )
     # argument validation
     if weights_iterator is None and not is_checkpoint_format:
