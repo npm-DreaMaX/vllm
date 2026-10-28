@@ -1,0 +1,80 @@
+{
+  "date": "20261028-134244",
+  "endpoint_type": "vllm",
+  "backend": "vllm",
+  "label": null,
+  "model_id": "Qwen/Qwen3.5-9B",
+  "tokenizer_id": "/workspace/models/Qwen3.5-9B",
+  "num_prompts": 1,
+  "request_rate": "inf",
+  "burstiness": 1.0,
+  "max_concurrency": 1,
+  "duration": 1.7387751266360283,
+  "completed": 1,
+  "failed": 0,
+  "total_input_tokens": 8192,
+  "total_output_tokens": 8,
+  "request_throughput": 0.5751174977610124,
+  "request_goodput": null,
+  "output_throughput": 4.600939982088099,
+  "total_token_throughput": 4715.963481640301,
+  "input_lens": [
+    8192
+  ],
+  "output_lens": [
+    8
+  ],
+  "ttfts": [
+    0.8143263403326273
+  ],
+  "itls": [
+    [
+      0.8198972642421722,
+      0.00855213962495327,
+      0.016865860670804977,
+      0.019428687170147896,
+      0.01712671108543873,
+      0.018134737387299538,
+      0.020711179822683334
+    ]
+  ],
+  "latencies": [
+    1.7350429203361273
+  ],
+  "start_times": [
+    12897902.655811552
+  ],
+  "queue_times": [
+    0.0015305448323488235
+  ],
+  "errors": [
+    ""
+  ],
+  "max_output_tokens_per_s": 7.0,
+  "max_concurrent_requests": 1,
+  "rtfx": 0.0,
+  "mean_ttft_ms": 814.3263403326273,
+  "median_ttft_ms": 814.3263403326273,
+  "std_ttft_ms": 0.0,
+  "p50_ttft_ms": 814.3263403326273,
+  "p95_ttft_ms": 814.3263403326273,
+  "p99_ttft_ms": 814.3263403326273,
+  "mean_tpot_ms": 131.5309400005,
+  "median_tpot_ms": 131.5309400005,
+  "std_tpot_ms": 0.0,
+  "p50_tpot_ms": 131.5309400005,
+  "p95_tpot_ms": 131.5309400005,
+  "p99_tpot_ms": 131.5309400005,
+  "mean_itl_ms": 131.5309400005,
+  "median_itl_ms": 18.134737387299538,
+  "std_itl_ms": 281.0477902436161,
+  "p50_itl_ms": 18.134737387299538,
+  "p95_itl_ms": 580.141438916325,
+  "p99_itl_ms": 771.9460991770026,
+  "mean_e2el_ms": 1735.0429203361273,
+  "median_e2el_ms": 1735.0429203361273,
+  "std_e2el_ms": 0.0,
+  "p50_e2el_ms": 1735.0429203361273,
+  "p95_e2el_ms": 1735.0429203361273,
+  "p99_e2el_ms": 1735.0429203361273
+}

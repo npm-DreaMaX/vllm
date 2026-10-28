@@ -1,0 +1,15 @@
+commit 115a32c53a6a66c8d8e407c3f8858b2290a3b071
+Author:     Codex <noreply@openai.com>
+AuthorDate: Wed Oct 28 14:45:07 2026 +0000
+Commit:     Codex <noreply@openai.com>
+CommitDate: Wed Oct 28 14:45:07 2026 +0000
+
+    [Perf][Kernel] Reduce shared-memory use for SM89 FP8 prefill
+    
+    Use three pipeline stages for large prefill matrices while preserving the existing tile dimensions and accumulation operator. Cover the M threshold and large projections in the existing FP8 suite.
+    
+    Generated-by: Codex (OpenAI)
+
+ .../w8a8/cutlass/scaled_mm_c2x_sm89_fp8_dispatch.cuh        | 13 ++++++++++---
+ tests/kernels/quantization/test_cutlass_scaled_mm.py        | 11 ++++++++++-
+ 2 files changed, 20 insertions(+), 4 deletions(-)

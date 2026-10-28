@@ -1,0 +1,65 @@
+diff --git a/csrc/quantization/w8a8/cutlass/scaled_mm_c2x_sm89_fp8_dispatch.cuh b/csrc/quantization/w8a8/cutlass/scaled_mm_c2x_sm89_fp8_dispatch.cuh
+index d3424d9..3179827 100644
+--- a/csrc/quantization/w8a8/cutlass/scaled_mm_c2x_sm89_fp8_dispatch.cuh
++++ b/csrc/quantization/w8a8/cutlass/scaled_mm_c2x_sm89_fp8_dispatch.cuh
+@@ -35,7 +35,7 @@ struct sm89_fp8_config_default {
+ 
+   template <typename InType, typename OutType,
+             template <typename, typename> typename Epilogue,
+-            typename... EpilogueArgs>
++            int MainLoopStages = 5, typename... EpilogueArgs>
+   static void dispatch(torch::stable::Tensor& out,
+                        torch::stable::Tensor const& a,
+                        torch::stable::Tensor const& b, EpilogueArgs&&... args) {
+@@ -56,7 +56,7 @@ struct sm89_fp8_config_default {
+       return vllm::fallback_cutlass_gemm_caller<
+           vllm::cutlass_2x_gemm<cutlass::arch::Sm89, enable_sm89_to_sm90,
+                                 InType, OutType, Epilogue, TileShape, WarpShape,
+-                                InstructionShape, 5, FP8MathOperator>,
++                                InstructionShape, MainLoopStages, FP8MathOperator>,
+           FallbackGemm>(out, a, b, std::forward<EpilogueArgs>(args)...);
+     } else if (np2 <= 8192) {
+       using TileShape = typename cutlass::gemm::GemmShape<256, 128, 64>;
+@@ -73,7 +73,7 @@ struct sm89_fp8_config_default {
+       return vllm::fallback_cutlass_gemm_caller<
+           vllm::cutlass_2x_gemm<cutlass::arch::Sm89, enable_sm89_to_sm90,
+                                 InType, OutType, Epilogue, TileShape, WarpShape,
+-                                InstructionShape, 5, FP8MathOperator>,
++                                InstructionShape, MainLoopStages, FP8MathOperator>,
+           FallbackGemm>(out, a, b, std::forward<EpilogueArgs>(args)...);
+     }
+   }
+@@ -375,6 +375,11 @@ inline void cutlass_gemm_sm89_fp8_dispatch(torch::stable::Tensor& out,
+     return sm89_fp8_config_M256::dispatch<InType, OutType, Epilogue>(
+         out, a, b, std::forward<EpilogueArgs>(args)...);
+   } else {
++    // Reduce shared memory for large 128x128 prefill tiles.
++    if (m >= 1024 && b.size(1) >= 4096 && a.size(1) >= 2048) {
++      return sm89_fp8_config_default::dispatch<InType, OutType, Epilogue, 3>(
++          out, a, b, std::forward<EpilogueArgs>(args)...);
++    }
+     // M in (256, inf)
+     return sm89_fp8_config_default::dispatch<InType, OutType, Epilogue>(
+         out, a, b, std::forward<EpilogueArgs>(args)...);
+diff --git a/tests/kernels/quantization/test_cutlass_scaled_mm.py b/tests/kernels/quantization/test_cutlass_scaled_mm.py
+index dcd89bd..e912f22 100644
+--- a/tests/kernels/quantization/test_cutlass_scaled_mm.py
++++ b/tests/kernels/quantization/test_cutlass_scaled_mm.py
+@@ -147,7 +147,16 @@ def cutlass_int8_gemm_helper(
+     opcheck(torch.ops._C.cutlass_scaled_mm, (out, a, b, scale_a, scale_b, bias))
+ 
+ 
+-@pytest.mark.parametrize("m,n,k", MNK_FACTORS)
++@pytest.mark.parametrize(
++    "m,n,k",
++    MNK_FACTORS
++    + [
++        (1023, 4096, 2048),
++        (1024, 4096, 2048),
++        (1025, 4096, 2048),
++        (2048, 12288, 4096),
++    ],
++)
+ @pytest.mark.parametrize(
+     "a_scale_group_shape", [PER_TOKEN_GROUP_SHAPE, TENSORWISE_GROUP_SHAPE]
+ )

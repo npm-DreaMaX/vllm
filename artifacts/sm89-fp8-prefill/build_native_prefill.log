@@ -1,0 +1,5 @@
+[1/2] Building CUDA object CMakeFiles/_C_stable_libtorch.dir/csrc/quantization/w8a8/cutlass/scaled_mm_c2x.cu.o
+[2/2] Linking CXX shared module _C_stable_libtorch.abi3.so
+-- Install configuration: "Release"
+-- Installing: /workspace/research/value_reboot_20261027/vllm_fp8/vllm/_C_stable_libtorch.abi3.so
+-- Set non-toolchain portion of runtime path of "/workspace/research/value_reboot_20261027/vllm_fp8/vllm/_C_stable_libtorch.abi3.so" to ""

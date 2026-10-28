@@ -1,0 +1,54 @@
+{
+  "only_changed_library": "_C_stable_libtorch.abi3.so",
+  "libraries": [
+    {
+      "path": "_C_stable_libtorch.abi3.so",
+      "baseline_sha256": "85426b482734998d1227132bf76373e77b4b43740b90520b5a25a3a4863687ce",
+      "candidate_sha256": "1b0ad0a7d51838b1ea4a5479fcef6c33ce201aaf42b5b45e0d896bf1deb599d6",
+      "baseline_bytes": 145832896,
+      "candidate_bytes": 147117176
+    },
+    {
+      "path": "_moe_C_stable_libtorch.abi3.so",
+      "baseline_sha256": "7761ff7c28738ef207570c3ed4b038a9e6778e47fb2eb2c9bb0cfa0e6a713b95",
+      "candidate_sha256": "7761ff7c28738ef207570c3ed4b038a9e6778e47fb2eb2c9bb0cfa0e6a713b95",
+      "baseline_bytes": 138786024,
+      "candidate_bytes": 138786024
+    },
+    {
+      "path": "cumem_allocator.abi3.so",
+      "baseline_sha256": "14c6a5b43dca3e6f141293004b0947f8725869589d58babfed19a52964557f31",
+      "candidate_sha256": "14c6a5b43dca3e6f141293004b0947f8725869589d58babfed19a52964557f31",
+      "baseline_bytes": 27184,
+      "candidate_bytes": 27184
+    },
+    {
+      "path": "fs_io_C.abi3.so",
+      "baseline_sha256": "6a4fe7b93b6e7197e1edcbb9830479524e41aae3ac22eb5559cc3d268ffd9b52",
+      "candidate_sha256": "6a4fe7b93b6e7197e1edcbb9830479524e41aae3ac22eb5559cc3d268ffd9b52",
+      "baseline_bytes": 27520,
+      "candidate_bytes": 27520
+    },
+    {
+      "path": "spinloop.abi3.so",
+      "baseline_sha256": "c6513b6024f99be4ad835e41de3961668e54d71f75c4fdefa1e7b2528c168818",
+      "candidate_sha256": "c6513b6024f99be4ad835e41de3961668e54d71f75c4fdefa1e7b2528c168818",
+      "baseline_bytes": 16792,
+      "candidate_bytes": 16792
+    },
+    {
+      "path": "vllm_flash_attn/_vllm_fa2_C.abi3.so",
+      "baseline_sha256": "be052403ad6bd209df31bccfc8cab535b8c9d325f7152c10bde936707ab171b6",
+      "candidate_sha256": "be052403ad6bd209df31bccfc8cab535b8c9d325f7152c10bde936707ab171b6",
+      "baseline_bytes": 499774032,
+      "candidate_bytes": 499774032
+    },
+    {
+      "path": "vllm_flash_attn/_vllm_fa3_C.abi3.so",
+      "baseline_sha256": "11e46b9dda5ad133a2ba63bcf44f9fec9137e0f6af9ba2daaada84aeb8585848",
+      "candidate_sha256": "11e46b9dda5ad133a2ba63bcf44f9fec9137e0f6af9ba2daaada84aeb8585848",
+      "baseline_bytes": 924231376,
+      "candidate_bytes": 924231376
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "gpus": [
+    1
+  ],
+  "expected_requests": 34,
+  "requests_started": 34,
+  "requests_finished": 34,
+  "successful_requests": 34,
+  "actual_output_tokens": 4352,
+  "definition": "Sum of selected GPUs device cumulative-energy differences, first formal dispatch through last formal completion; includes device idle energy inside that window, excludes client startup and separate warmup. Not wall-plug energy.",
+  "start_monotonic_ns": 12902599202335230,
+  "start_wall_ns": 1793199659180959055,
+  "energy_start_mj_per_gpu": [
+    699387809454
+  ],
+  "energy_end_mj_per_gpu": [
+    699397421289
+  ],
+  "end_monotonic_ns": 12902622150744810,
+  "end_wall_ns": 1793199682129369547,
+  "energy_j_per_gpu": [
+    9611.835
+  ],
+  "energy_j": 9611.835,
+  "window_seconds": 22.94840958,
+  "joules_per_output_token": 2.2086017922794117
+}

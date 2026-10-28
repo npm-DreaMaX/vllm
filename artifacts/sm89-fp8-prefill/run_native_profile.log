@@ -1,0 +1,10 @@
+W1028 15:12:55.965000 1271609 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1028 15:12:55.966000 1271609 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1028 15:12:55.967000 1271609 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+USDT:2026-10-28 15:12:56 1271609:1271609 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-28 15:12:56 1271609:1271609 SyncActivityProfilerHandler.cpp:46] profiler_stop
+W1028 15:13:01.350000 1271622 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1028 15:13:01.351000 1271622 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1028 15:13:01.352000 1271622 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+USDT:2026-10-28 15:13:01 1271622:1271622 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-28 15:13:01 1271622:1271622 SyncActivityProfilerHandler.cpp:46] profiler_stop

@@ -1,0 +1,9 @@
+{
+  "main_pin": "88d3995ea18de47ba5c306789aa615474ad74592",
+  "baseline_core": "/workspace/research/value_reboot_20261027/native_baseline_runtime/vllm/_C_stable_libtorch.abi3.so",
+  "baseline_core_sha256": "85426b482734998d1227132bf76373e77b4b43740b90520b5a25a3a4863687ce",
+  "original_dispatch_sha256": "e98fe77256825ba1b52afc1b625f953e0377aa5953ad60d756afdab474161834",
+  "candidate_core_sha256": "1b0ad0a7d51838b1ea4a5479fcef6c33ce201aaf42b5b45e0d896bf1deb599d6",
+  "diff_sha256": "7c17975aac9d2d7ce7f4b6110fd622840f3c8182e1b82cc68117a243c8146a1d",
+  "branch": "codex/sm89-fp8-prefill-20261028"
+}

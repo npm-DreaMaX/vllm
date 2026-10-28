@@ -1,0 +1,1913 @@
+{
+  "file": "/mnt/d/vllm_pr/9B\u4e3b\u7ebf\u7eed\u7814_20261028/qwen35_9b_fp8_diagnosis_v2/0_native_gpu0_tp1/trace/decode_c17_rank0.1793194809870476913.pt.trace.json.gz",
+  "gpu_events": 5731,
+  "activity_by_device": {
+    "0": {
+      "first_to_last_gpu_us": 244891.45751953125,
+      "union_gpu_us": 235529.06103515625,
+      "gap_us": 9362.396484375,
+      "summed_gpu_us": 235615.5419999994
+    }
+  },
+  "kernels": [
+    {
+      "name": "void cutlass::Kernel2<enable_sm89_to_sm90<cutlass::gemm::kernel::DefaultGemmWithVisitor<cutlass::float_e4m3_t, cutlass::layout::RowMajor, (cutlass::ComplexTransform)0, 16, cutlass::float_e4m3_t, cutlass::layout::ColumnMajor, (cutlass::ComplexTransform)0, 16, float, cutlass::layout::RowMajor, 4, float, float, cutlass::arch::OpClassTensorOp, cutlass::arch::Sm89, cutlass::gemm::GemmShape<32, 64, 128>, cutlass::gemm::GemmShape<16, 64, 64>, cutlass::gemm::GemmShape<16, 8, 32>, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorAuxStore<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 64, 128>, cutlass::gemm::GemmShape<16, 64, 64>, float, 4, 1>, cutlass::bfloat16_t, (cutlass::FloatRoundStyle)2, cute::tuple<long, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, cutlass::bfloat16_t, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorColOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 64, 128>, cutlass::gemm::GemmShape<16, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<1>, cute::C<0>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, float, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorRowOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 64, 128>, cutlass::gemm::GemmShape<16, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<0>, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::VisitorAccFetch> > >, cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, 5, cutlass::arch::OpMultiplyAddFastAccum, 1>::SelectBase<cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, void> > >(enable_sm89_to_sm90<cutlass::gemm::kernel::DefaultGemmWithVisitor<cutlass::float_e4m3_t, cutlass::layout::RowMajor, (cutlass::ComplexTransform)0, 16, cutlass::float_e4m3_t, cutlass::layout::ColumnMajor, (cutlass::ComplexTransform)0, 16, float, cutlass::layout::RowMajor, 4, float, float, cutlass::arch::OpClassTensorOp, cutlass::arch::Sm89, cutlass::gemm::GemmShape<32, 64, 128>, cutlass::gemm::GemmShape<16, 64, 64>, cutlass::gemm::GemmShape<16, 8, 32>, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorAuxStore<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 64, 128>, cutlass::gemm::GemmShape<16, 64, 64>, float, 4, 1>, cutlass::bfloat16_t, (cutlass::FloatRoundStyle)2, cute::tuple<long, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, cutlass::bfloat16_t, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorColOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 64, 128>, cutlass::gemm::GemmShape<16, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<1>, cute::C<0>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, float, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorRowOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 64, 128>, cutlass::gemm::GemmShape<16, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<0>, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::VisitorAccFetch> > >, cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, 5, cutlass::arch::OpMultiplyAddFastAccum, 1>::SelectBase<cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, void> >::Params)",
+      "count": 1440,
+      "total_us": 132629.72899999996,
+      "median_us": 71.809
+    },
+    {
+      "name": "void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_tn_align8>(cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_tn_align8::Params)",
+      "count": 12,
+      "total_us": 36539.299,
+      "median_us": 2935.684
+    },
+    {
+      "name": "void cutlass::Kernel2<enable_sm89_to_sm90<cutlass::gemm::kernel::DefaultGemmWithVisitor<cutlass::float_e4m3_t, cutlass::layout::RowMajor, (cutlass::ComplexTransform)0, 16, cutlass::float_e4m3_t, cutlass::layout::ColumnMajor, (cutlass::ComplexTransform)0, 16, float, cutlass::layout::RowMajor, 4, float, float, cutlass::arch::OpClassTensorOp, cutlass::arch::Sm89, cutlass::gemm::GemmShape<32, 128, 128>, cutlass::gemm::GemmShape<32, 64, 64>, cutlass::gemm::GemmShape<16, 8, 32>, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorAuxStore<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 128, 128>, cutlass::gemm::GemmShape<32, 64, 64>, float, 4, 1>, cutlass::bfloat16_t, (cutlass::FloatRoundStyle)2, cute::tuple<long, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, cutlass::bfloat16_t, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorColOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 128, 128>, cutlass::gemm::GemmShape<32, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<1>, cute::C<0>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, float, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorRowOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 128, 128>, cutlass::gemm::GemmShape<32, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<0>, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::VisitorAccFetch> > >, cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, 4, cutlass::arch::OpMultiplyAddFastAccum, 1>::SelectBase<cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, void> > >(enable_sm89_to_sm90<cutlass::gemm::kernel::DefaultGemmWithVisitor<cutlass::float_e4m3_t, cutlass::layout::RowMajor, (cutlass::ComplexTransform)0, 16, cutlass::float_e4m3_t, cutlass::layout::ColumnMajor, (cutlass::ComplexTransform)0, 16, float, cutlass::layout::RowMajor, 4, float, float, cutlass::arch::OpClassTensorOp, cutlass::arch::Sm89, cutlass::gemm::GemmShape<32, 128, 128>, cutlass::gemm::GemmShape<32, 64, 64>, cutlass::gemm::GemmShape<16, 8, 32>, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorAuxStore<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 128, 128>, cutlass::gemm::GemmShape<32, 64, 64>, float, 4, 1>, cutlass::bfloat16_t, (cutlass::FloatRoundStyle)2, cute::tuple<long, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, cutlass::bfloat16_t, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorColOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 128, 128>, cutlass::gemm::GemmShape<32, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<1>, cute::C<0>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, float, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorRowOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<32, 128, 128>, cutlass::gemm::GemmShape<32, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<0>, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::VisitorAccFetch> > >, cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, 4, cutlass::arch::OpMultiplyAddFastAccum, 1>::SelectBase<cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, void> >::Params)",
+      "count": 384,
+      "total_us": 28881.347999999998,
+      "median_us": 67.105
+    },
+    {
+      "name": "fused_recurrent_gated_delta_rule_packed_decode_kernel",
+      "count": 288,
+      "total_us": 25803.481000000014,
+      "median_us": 51.649
+    },
+    {
+      "name": "void flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<256, 64, 64, 4, false, false, cutlass::bfloat16_t, Flash_kernel_traits<256, 64, 64, 4, cutlass::bfloat16_t> >, false, false, false, false, true, false, true, false>(flash::Flash_fwd_params)",
+      "count": 96,
+      "total_us": 2823.2169999999983,
+      "median_us": 29.3925
+    },
+    {
+      "name": "_causal_conv1d_update_kernel",
+      "count": 288,
+      "total_us": 1137.5010000000002,
+      "median_us": 2.912
+    },
+    {
+      "name": "triton_red_fused__to_copy_abs_amax_clamp_cutlass_scaled_mm_div_mul_reciprocal_silu_slice_unsqueeze_3",
+      "count": 288,
+      "total_us": 983.2720000000006,
+      "median_us": 3.232
+    },
+    {
+      "name": "triton_red_fused__to_copy_abs_add_amax_clamp_cutlass_scaled_mm_div_fused_add_rms_norm_mul_reciprocal_unsqueeze_2",
+      "count": 288,
+      "total_us": 949.3480000000008,
+      "median_us": 2.432
+    },
+    {
+      "name": "triton_red_fused__to_copy_abs_add_amax_clamp_cutlass_scaled_mm_div_fused_add_rms_norm_mul_reciprocal_unsqueeze_4",
+      "count": 288,
+      "total_us": 886.8250000000005,
+      "median_us": 3.04
+    },
+    {
+      "name": "triton_red_fused__to_copy_abs_add_amax_clamp_cutlass_scaled_mm_div_mean_mul_pow_reciprocal_rsqrt_silu_unsqueeze_view_1",
+      "count": 288,
+      "total_us": 742.5000000000015,
+      "median_us": 2.464
+    },
+    {
+      "name": "_gumbel_sample_kernel",
+      "count": 12,
+      "total_us": 720.867,
+      "median_us": 60.5445
+    },
+    {
+      "name": "triton_per_fused__to_copy_mean_pow_0",
+      "count": 288,
+      "total_us": 327.87899999999985,
+      "median_us": 1.056
+    },
+    {
+      "name": "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int)#1})",
+      "count": 192,
+      "total_us": 318.68199999999973,
+      "median_us": 1.664
+    },
+    {
+      "name": "void flash::flash_fwd_splitkv_combine_kernel<Flash_fwd_kernel_traits<256, 64, 64, 4, false, false, cutlass::bfloat16_t, Flash_kernel_traits<256, 64, 64, 4, cutlass::bfloat16_t> >, 4, 3, true>(flash::Flash_fwd_params)",
+      "count": 96,
+      "total_us": 317.41299999999984,
+      "median_us": 3.296
+    },
+    {
+      "name": "triton_red_fused__to_copy_abs_amax_clamp_cutlass_scaled_mm_div_mul_reciprocal_silu_slice_unsqueeze_2",
+      "count": 96,
+      "total_us": 309.896,
+      "median_us": 3.232
+    },
+    {
+      "name": "triton_red_fused__to_copy_abs_add_amax_clamp_cutlass_scaled_mm_div_fused_add_rms_norm_mul_reciprocal_unsqueeze_3",
+      "count": 84,
+      "total_us": 265.95300000000003,
+      "median_us": 3.0404999999999998
+    },
+    {
+      "name": "triton_red_fused__to_copy_abs_add_amax_clamp_cutlass_scaled_mm_div_fused_add_rms_norm_mul_reciprocal_unsqueeze_1",
+      "count": 96,
+      "total_us": 232.03299999999984,
+      "median_us": 2.432
+    },
+    {
+      "name": "_fused_qk_rmsnorm_rope_gate_kernel",
+      "count": 96,
+      "total_us": 192.44900000000004,
+      "median_us": 1.984
+    },
+    {
+      "name": "triton_red_fused__to_copy_abs_amax_clamp_cutlass_scaled_mm_div_mul_reciprocal_sigmoid_unsqueeze_view_0",
+      "count": 96,
+      "total_us": 168.99700000000004,
+      "median_us": 1.76
+    },
+    {
+      "name": "triton_poi_fused_5",
+      "count": 192,
+      "total_us": 166.75700000000015,
+      "median_us": 0.864
+    },
+    {
+      "name": "triton_poi_fused_zeros_6",
+      "count": 192,
+      "total_us": 159.4239999999995,
+      "median_us": 0.832
+    },
+    {
+      "name": "void vllm::reshape_and_cache_flash_kernel<__nv_bfloat16, __nv_bfloat16, (vllm::Fp8KVCacheDataType)0>(__nv_bfloat16 const*, __nv_bfloat16 const*, __nv_bfloat16*, __nv_bfloat16*, long const*, long, long, long, long, long, int, int, int, float const*, float const*, int)",
+      "count": 96,
+      "total_us": 158.65399999999997,
+      "median_us": 1.664
+    },
+    {
+      "name": "triton_poi_fused_4",
+      "count": 84,
+      "total_us": 72.51199999999997,
+      "median_us": 0.864
+    },
+    {
+      "name": "triton_poi_fused_zeros_5",
+      "count": 84,
+      "total_us": 70.05099999999999,
+      "median_us": 0.832
+    },
+    {
+      "name": "_gather_block_tables_kernel",
+      "count": 12,
+      "total_us": 65.31099999999999,
+      "median_us": 5.4879999999999995
+    },
+    {
+      "name": "_prepare_rope_positions_kernel",
+      "count": 12,
+      "total_us": 58.275999999999996,
+      "median_us": 4.832
+    },
+    {
+      "name": "_combine_sampled_and_draft_tokens_kernel",
+      "count": 12,
+      "total_us": 57.983999999999995,
+      "median_us": 4.7675
+    },
+    {
+      "name": "_get_num_sampled_and_rejected_kernel",
+      "count": 12,
+      "total_us": 56.482000000000006,
+      "median_us": 4.672499999999999
+    },
+    {
+      "name": "Memcpy HtoD (Pinned -> Device)",
+      "count": 23,
+      "total_us": 46.239000000000004,
+      "median_us": 1.952
+    },
+    {
+      "name": "Memcpy DtoD (Device -> Device)",
+      "count": 48,
+      "total_us": 44.09600000000001,
+      "median_us": 0.896
+    },
+    {
+      "name": "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::ArgMaxOps<float>, unsigned int, long, 4, 4> >(at::native::ReduceOp<float, at::native::ArgMaxOps<float>, unsigned int, long, 4, 4>)",
+      "count": 12,
+      "total_us": 42.496,
+      "median_us": 3.552
+    },
+    {
+      "name": "_post_update_kernel",
+      "count": 12,
+      "total_us": 37.474,
+      "median_us": 3.232
+    },
+    {
+      "name": "void at::native::index_elementwise_kernel<128, 4, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<8> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_kernel_impl<at::native::OpaqueType<8> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1}>(long, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<8> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_kernel_impl<at::native::OpaqueType<8> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1})",
+      "count": 12,
+      "total_us": 37.376,
+      "median_us": 3.104
+    },
+    {
+      "name": "triton_red_fused__to_copy_abs_add_amax_clamp_cutlass_scaled_mm_div_embedding_mul_reciprocal_rms_norm_unsqueeze_0",
+      "count": 12,
+      "total_us": 36.001,
+      "median_us": 2.928
+    },
+    {
+      "name": "Memcpy DtoH (Device -> Pinned)",
+      "count": 24,
+      "total_us": 31.201999999999998,
+      "median_us": 1.312
+    },
+    {
+      "name": "triton_red_fused__to_copy_add_fused_add_rms_norm_3",
+      "count": 12,
+      "total_us": 28.415999999999997,
+      "median_us": 2.368
+    },
+    {
+      "name": "memcpy32_post",
+      "count": 12,
+      "total_us": 26.464999999999996,
+      "median_us": 2.208
+    },
+    {
+      "name": "void at::native::index_elementwise_kernel<128, 4, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<4> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_kernel_impl<at::native::OpaqueType<4> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1}>(long, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<4> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_kernel_impl<at::native::OpaqueType<4> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1})",
+      "count": 12,
+      "total_us": 25.854,
+      "median_us": 2.144
+    },
+    {
+      "name": "_compute_slot_mappings_kernel",
+      "count": 12,
+      "total_us": 24.769,
+      "median_us": 2.064
+    },
+    {
+      "name": "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool)",
+      "count": 12,
+      "total_us": 20.769,
+      "median_us": 1.728
+    },
+    {
+      "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+      "count": 23,
+      "total_us": 20.639000000000006,
+      "median_us": 0.864
+    },
+    {
+      "name": "void at::native::_scatter_gather_elementwise_kernel<128, 8, at::native::_cuda_scatter_gather_internal_kernel<false, at::native::OpaqueType<8>, long>::operator()<at::native::TensorAssign>(at::TensorIterator&, long, long, long, at::native::TensorAssign const&)::{lambda(int)#1}>(int, at::native::_cuda_scatter_gather_internal_kernel<false, at::native::OpaqueType<8>, long>::operator()<at::native::TensorAssign>(at::TensorIterator&, long, long, long, at::native::TensorAssign const&)::{lambda(int)#1})",
+      "count": 12,
+      "total_us": 19.873,
+      "median_us": 1.664
+    },
+    {
+      "name": "_prepare_pos_seq_lens_kernel",
+      "count": 12,
+      "total_us": 15.488999999999999,
+      "median_us": 1.2805
+    },
+    {
+      "name": "_scatter_num_accepted_kernel",
+      "count": 12,
+      "total_us": 12.607,
+      "median_us": 1.056
+    },
+    {
+      "name": "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>(int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}, function_traits<{lambda(long)#1}>::result_type*)",
+      "count": 11,
+      "total_us": 10.721000000000002,
+      "median_us": 0.864
+    },
+    {
+      "name": "triton_poi_fused_1",
+      "count": 12,
+      "total_us": 10.338000000000001,
+      "median_us": 0.864
+    },
+    {
+      "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<bool>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<bool>, std::array<char*, 1ul>)",
+      "count": 11,
+      "total_us": 9.953000000000001,
+      "median_us": 0.896
+    },
+    {
+      "name": "triton_poi_fused_zeros_2",
+      "count": 12,
+      "total_us": 9.697000000000001,
+      "median_us": 0.8
+    },
+    {
+      "name": "void at::native::unrolled_elementwise_kernel<at::native::FillFunctor<bool>, std::array<char*, 1ul>, 4, TrivialOffsetCalculator<0, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithoutCast, at::native::memory::StoreWithoutCast>(int, at::native::FillFunctor<bool>, std::array<char*, 1ul>, TrivialOffsetCalculator<0, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithoutCast, at::native::memory::StoreWithoutCast)",
+      "count": 11,
+      "total_us": 8.928,
+      "median_us": 0.8
+    }
+  ],
+  "annotations": {
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4727sqsq17sqsk4727)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4744sqsq17sqsk4744)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4761sqsq17sqsk4761)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4778sqsq17sqsk4778)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4795sqsq17sqsk4795)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4812sqsq17sqsk4812)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4829sqsq17sqsk4829)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4846sqsq17sqsk4846)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4863sqsq17sqsk4863)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4880sqsq17sqsk4880)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4897sqsq17sqsk4897)": 1,
+    "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4914sqsq17sqsk4914)": 1
+  },
+  "gpu_by_cpu_op_shape": [
+    {
+      "name": "unattributed",
+      "shape": [],
+      "count": 5508,
+      "gpu_us": 198758.0969999998
+    },
+    {
+      "name": "aten::mm",
+      "shape": [
+        [
+          17,
+          4096
+        ],
+        [
+          4096,
+          248320
+        ]
+      ],
+      "count": 12,
+      "gpu_us": 36539.299
+    },
+    {
+      "name": "aten::index",
+      "shape": [
+        [
+          24
+        ],
+        []
+      ],
+      "count": 24,
+      "gpu_us": 63.230000000000004
+    },
+    {
+      "name": "aten::argmax",
+      "shape": [
+        [
+          17,
+          243
+        ],
+        [],
+        []
+      ],
+      "count": 12,
+      "gpu_us": 42.496
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          17
+        ],
+        [
+          17
+        ],
+        []
+      ],
+      "count": 23,
+      "gpu_us": 39.138
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          24
+        ],
+        [
+          24
+        ],
+        []
+      ],
+      "count": 36,
+      "gpu_us": 32.60800000000001
+    },
+    {
+      "name": "aten::fill_",
+      "shape": [
+        [
+          17
+        ],
+        []
+      ],
+      "count": 34,
+      "gpu_us": 30.592000000000006
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          65
+        ],
+        [
+          65
+        ],
+        []
+      ],
+      "count": 12,
+      "gpu_us": 24.351000000000006
+    },
+    {
+      "name": "aten::index",
+      "shape": [
+        [
+          24,
+          4096
+        ],
+        []
+      ],
+      "count": 12,
+      "gpu_us": 20.769
+    },
+    {
+      "name": "aten::gather",
+      "shape": [
+        [
+          17,
+          243
+        ],
+        [],
+        [
+          17,
+          1
+        ],
+        []
+      ],
+      "count": 12,
+      "gpu_us": 19.873
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          17,
+          1
+        ],
+        [
+          17,
+          1
+        ],
+        []
+      ],
+      "count": 12,
+      "gpu_us": 13.951999999999996
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          25
+        ],
+        [
+          25
+        ],
+        []
+      ],
+      "count": 12,
+      "gpu_us": 11.488000000000001
+    },
+    {
+      "name": "aten::arange",
+      "shape": [
+        [],
+        [],
+        [],
+        [
+          0
+        ]
+      ],
+      "count": 11,
+      "gpu_us": 10.721000000000002
+    },
+    {
+      "name": "aten::fill_",
+      "shape": [
+        [
+          7
+        ],
+        []
+      ],
+      "count": 11,
+      "gpu_us": 8.928
+    }
+  ],
+  "cpu_ops_by_shape": [
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          64
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 264,
+      "inclusive_us": 2202.6900000000005
+    },
+    {
+      "name": "aten::linear",
+      "shape": [
+        [
+          17,
+          4096
+        ],
+        [
+          248320,
+          4096
+        ],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 1700.8220000000001
+    },
+    {
+      "name": "aten::fill_",
+      "shape": [
+        [
+          17
+        ],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 1452.1860000000004
+    },
+    {
+      "name": "aten::empty",
+      "shape": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 120,
+      "inclusive_us": 1414.8159999999996
+    },
+    {
+      "name": "aten::_to_copy",
+      "shape": [
+        [
+          17
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 1400.677
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          24
+        ],
+        [
+          24
+        ],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 1350.016
+    },
+    {
+      "name": "aten::matmul",
+      "shape": [
+        [
+          17,
+          4096
+        ],
+        [
+          4096,
+          248320
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 1344.3670000000002
+    },
+    {
+      "name": "aten::mm",
+      "shape": [
+        [
+          17,
+          4096
+        ],
+        [
+          4096,
+          248320
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 1293.128
+    },
+    {
+      "name": "aten::index",
+      "shape": [
+        [
+          24,
+          4096
+        ],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 1249.7710000000002
+    },
+    {
+      "name": "aten::index",
+      "shape": [
+        [
+          24
+        ],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 1168.232
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          17
+        ],
+        [
+          17
+        ],
+        []
+      ],
+      "count": 48,
+      "inclusive_us": 1062.303
+    },
+    {
+      "name": "aten::to",
+      "shape": [
+        [
+          17
+        ],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 1045.02
+    },
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          24
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 156,
+      "inclusive_us": 981.0409999999998
+    },
+    {
+      "name": "aten::arange",
+      "shape": [
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 860.451
+    },
+    {
+      "name": "aten::to",
+      "shape": [
+        [
+          17,
+          1
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 848.171
+    },
+    {
+      "name": "aten::_to_copy",
+      "shape": [
+        [
+          17,
+          1
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 778.6949999999999
+    },
+    {
+      "name": "aten::gt",
+      "shape": [
+        [
+          24
+        ],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 762.488
+    },
+    {
+      "name": "aten::select",
+      "shape": [
+        [
+          4,
+          24
+        ],
+        [],
+        []
+      ],
+      "count": 96,
+      "inclusive_us": 739.115
+    },
+    {
+      "name": "aten::empty_strided",
+      "shape": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 72,
+      "inclusive_us": 738.1409999999997
+    },
+    {
+      "name": "aten::zeros",
+      "shape": [
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 707.8720000000001
+    },
+    {
+      "name": "aten::fill_",
+      "shape": [
+        [
+          7
+        ],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 665.342
+    },
+    {
+      "name": "aten::arange",
+      "shape": [
+        [],
+        [],
+        [],
+        [
+          0
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 622.158
+    },
+    {
+      "name": "aten::argmax",
+      "shape": [
+        [
+          17,
+          243
+        ],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 592.735
+    },
+    {
+      "name": "aten::gather",
+      "shape": [
+        [
+          17,
+          243
+        ],
+        [],
+        [
+          17,
+          1
+        ],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 580.8380000000001
+    },
+    {
+      "name": "aten::diff",
+      "shape": [
+        [
+          25
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 574.396
+    },
+    {
+      "name": "aten::unbind",
+      "shape": [
+        [
+          4,
+          24
+        ],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 535.569
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          65
+        ],
+        [
+          65
+        ],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 477.585
+    },
+    {
+      "name": "aten::to",
+      "shape": [
+        [
+          17
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 461.2220000000001
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          17,
+          1
+        ],
+        [
+          17,
+          1
+        ],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 454.75899999999996
+    },
+    {
+      "name": "aten::new_ones",
+      "shape": [
+        [
+          24
+        ],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 449.48299999999995
+    },
+    {
+      "name": "aten::to",
+      "shape": [
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 414.35900000000004
+    },
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          65
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 389.35199999999986
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          64
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 264,
+      "inclusive_us": 379.9119999999999
+    },
+    {
+      "name": "aten::is_pinned",
+      "shape": [
+        [
+          17
+        ],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 361.94599999999997
+    },
+    {
+      "name": "aten::new_empty",
+      "shape": [
+        [
+          17,
+          248320
+        ],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 359.12600000000003
+    },
+    {
+      "name": "aten::fill_",
+      "shape": [
+        [
+          0
+        ],
+        []
+      ],
+      "count": 48,
+      "inclusive_us": 351.2239999999999
+    },
+    {
+      "name": "aten::zero_",
+      "shape": [
+        [
+          17
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 347.71399999999994
+    },
+    {
+      "name": "aten::_to_copy",
+      "shape": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 345.018
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          24
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 192,
+      "inclusive_us": 322.60100000000006
+    },
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          25
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 60,
+      "inclusive_us": 318.9889999999999
+    },
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          8192
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 316.146
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          25
+        ],
+        [
+          25
+        ],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 305.709
+    },
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          64,
+          1
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 292.4669999999999
+    },
+    {
+      "name": "aten::max",
+      "shape": [
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 287.111
+    },
+    {
+      "name": "aten::select",
+      "shape": [
+        [
+          24,
+          1
+        ],
+        [],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 286.16700000000003
+    },
+    {
+      "name": "aten::is_pinned",
+      "shape": [
+        [
+          65
+        ],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 255.47
+    },
+    {
+      "name": "aten::t",
+      "shape": [
+        [
+          248320,
+          4096
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 255.46300000000002
+    },
+    {
+      "name": "aten::any",
+      "shape": [
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 225.659
+    },
+    {
+      "name": "aten::sub",
+      "shape": [
+        [
+          24
+        ],
+        [
+          24
+        ],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 221.27599999999998
+    },
+    {
+      "name": "aten::narrow",
+      "shape": [
+        [
+          25
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 219.791
+    },
+    {
+      "name": "aten::empty_like",
+      "shape": [
+        [
+          17
+        ],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 180.281
+    },
+    {
+      "name": "aten::item",
+      "shape": [
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 175.52400000000003
+    },
+    {
+      "name": "aten::reshape",
+      "shape": [
+        [
+          17
+        ],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 167.65700000000004
+    },
+    {
+      "name": "aten::transpose",
+      "shape": [
+        [
+          248320,
+          4096
+        ],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 161.65999999999997
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          4,
+          24
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 96,
+      "inclusive_us": 136.79200000000006
+    },
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          3,
+          8193
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 136.051
+    },
+    {
+      "name": "aten::new_empty",
+      "shape": [
+        [
+          24
+        ],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 134.544
+    },
+    {
+      "name": "aten::resize_",
+      "shape": [
+        [
+          0
+        ],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 129.714
+    },
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          64,
+          4096
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 122.48599999999999
+    },
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          4,
+          8192
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 119.711
+    },
+    {
+      "name": "aten::__and__",
+      "shape": [
+        [
+          24
+        ],
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 119.066
+    },
+    {
+      "name": "aten::__ior__",
+      "shape": [
+        [
+          24
+        ],
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 105.14999999999999
+    },
+    {
+      "name": "aten::__iand__",
+      "shape": [
+        [
+          24
+        ],
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 100.777
+    },
+    {
+      "name": "aten::select",
+      "shape": [
+        [
+          25
+        ],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 96.01
+    },
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          4,
+          64
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 94.263
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          25
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 72,
+      "inclusive_us": 84.31099999999999
+    },
+    {
+      "name": "aten::view",
+      "shape": [
+        [
+          17
+        ],
+        []
+      ],
+      "count": 48,
+      "inclusive_us": 84.17399999999999
+    },
+    {
+      "name": "aten::is_nonzero",
+      "shape": [
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 81.027
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [],
+        [],
+        []
+      ],
+      "count": 24,
+      "inclusive_us": 80.34799999999998
+    },
+    {
+      "name": "aten::le",
+      "shape": [
+        [
+          24
+        ],
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 77.73100000000001
+    },
+    {
+      "name": "aten::slice",
+      "shape": [
+        [
+          64,
+          24
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 77.338
+    },
+    {
+      "name": "aten::select",
+      "shape": [
+        [
+          24
+        ],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 72.235
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          65
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 69.40799999999999
+    },
+    {
+      "name": "aten::bitwise_and",
+      "shape": [
+        [
+          24
+        ],
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 64.67
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          248320,
+          4096
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 63.403
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          64,
+          1
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 59.957999999999984
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          8192
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 56.881
+    },
+    {
+      "name": "aten::bitwise_or_",
+      "shape": [
+        [
+          24
+        ],
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 53.825
+    },
+    {
+      "name": "aten::bitwise_and_",
+      "shape": [
+        [
+          24
+        ],
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 46.131
+    },
+    {
+      "name": "aten::_local_scalar_dense",
+      "shape": [
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 44.749
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          24,
+          1
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 36,
+      "inclusive_us": 43.218
+    },
+    {
+      "name": "aten::copy_",
+      "shape": [
+        [
+          0
+        ],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 36.419999999999995
+    },
+    {
+      "name": "aten::to",
+      "shape": [
+        [
+          24
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 35.785999999999994
+    },
+    {
+      "name": "aten::alias",
+      "shape": [
+        [
+          17,
+          248320
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 33.361
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          4,
+          8192
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 32.149
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          3,
+          8193
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 32.145
+    },
+    {
+      "name": "aten::detach",
+      "shape": [
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 31.526999999999994
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          64,
+          4096
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 29.732999999999993
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          24,
+          4096
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 29.517999999999997
+    },
+    {
+      "name": "aten::detach",
+      "shape": [
+        [
+          17,
+          1
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 27.111
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          17,
+          1
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 25.581
+    },
+    {
+      "name": "aten::view",
+      "shape": [
+        [
+          17,
+          1
+        ],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 24.615
+    },
+    {
+      "name": "aten::fill_",
+      "shape": [
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 24.249000000000002
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          4,
+          64
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 21.173000000000002
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          17,
+          243
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 20.942999999999998
+    },
+    {
+      "name": "aten::lift_fresh",
+      "shape": [
+        [
+          17
+        ]
+      ],
+      "count": 24,
+      "inclusive_us": 17.107
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 15.181999999999999
+    },
+    {
+      "name": "aten::as_strided",
+      "shape": [
+        [
+          64,
+          24
+        ],
+        [],
+        [],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 14.922999999999998
+    },
+    {
+      "name": "aten::detach",
+      "shape": [
+        [
+          17
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 14.919
+    },
+    {
+      "name": "aten::fill_",
+      "shape": [
+        [
+          1
+        ],
+        []
+      ],
+      "count": 12,
+      "inclusive_us": 13.398000000000001
+    },
+    {
+      "name": "aten::zero_",
+      "shape": [
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 11.600999999999999
+    },
+    {
+      "name": "aten::resolve_conj",
+      "shape": [
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 11.321000000000002
+    },
+    {
+      "name": "aten::lift_fresh",
+      "shape": [
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 10.257
+    },
+    {
+      "name": "aten::lift_fresh",
+      "shape": [
+        [
+          65
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 7.702000000000001
+    },
+    {
+      "name": "aten::resolve_conj",
+      "shape": [
+        [
+          17,
+          1
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 7.21
+    },
+    {
+      "name": "aten::lift_fresh",
+      "shape": [
+        [
+          25
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 5.963
+    },
+    {
+      "name": "aten::resolve_neg",
+      "shape": [
+        [
+          24
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 5.488
+    },
+    {
+      "name": "aten::resolve_neg",
+      "shape": [
+        [
+          17,
+          1
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 3.9930000000000003
+    },
+    {
+      "name": "aten::resolve_conj",
+      "shape": [
+        [
+          17
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 3.514
+    },
+    {
+      "name": "aten::resolve_neg",
+      "shape": [
+        [
+          17
+        ]
+      ],
+      "count": 12,
+      "inclusive_us": 3.2209999999999996
+    }
+  ],
+  "warning": "CPU durations are inclusive. GPU sums can overlap. Gap is not automatically CPU overhead. Profile durations are not serving benchmark results."
+}

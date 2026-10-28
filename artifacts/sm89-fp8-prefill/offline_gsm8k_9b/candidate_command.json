@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "taskset",
+    "-c",
+    "16-23",
+    "/workspace/research/pr_engineering_20261026/.venv/bin/python",
+    "/workspace/research/value_reboot_20261027/offline_gsm8k_9b.py",
+    "--mode",
+    "candidate",
+    "--out",
+    "/workspace/research/value_reboot_20261027/prefill_pr_v1/offline_gsm8k_9b/candidate"
+  ],
+  "gpu": 1,
+  "runtime": "/workspace/research/value_reboot_20261027/vllm_fp8"
+}

@@ -1,0 +1,12 @@
+{
+  "purpose": "Explain 9B FP8 bottlenecks after tile candidate failed to improve serving",
+  "runtime": "Unmodified baseline at 88d3995ea18de47ba5c306789aa615474ad74592",
+  "concurrency": [
+    1,
+    17,
+    33,
+    64
+  ],
+  "profile": "Explicit API delay=24, capture=12; CLI --profile NOT used",
+  "separate_unprofiled": "256 input, 512 output, 2C requests; diagnostic only"
+}

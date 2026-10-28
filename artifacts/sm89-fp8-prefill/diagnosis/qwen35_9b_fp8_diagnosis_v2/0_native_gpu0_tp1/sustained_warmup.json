@@ -1,0 +1,39 @@
+{
+  "minimum_wall_seconds": 45,
+  "elapsed_seconds": 50.83769940584898,
+  "concurrency": 64,
+  "prompt_tokens": 256,
+  "output_tokens": 512,
+  "batches": [
+    {
+      "seconds": 17.02480456419289,
+      "usage": {
+        "prompt_tokens": 16384,
+        "total_tokens": 49152,
+        "completion_tokens": 32768,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": null
+      }
+    },
+    {
+      "seconds": 17.185779336839914,
+      "usage": {
+        "prompt_tokens": 16384,
+        "total_tokens": 49152,
+        "completion_tokens": 32768,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": null
+      }
+    },
+    {
+      "seconds": 16.62708842009306,
+      "usage": {
+        "prompt_tokens": 16384,
+        "total_tokens": 49152,
+        "completion_tokens": 32768,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "base": "88d3995ea18de47ba5c306789aa615474ad74592",
+  "candidate": "115a32c53a6a66c8d8e407c3f8858b2290a3b071",
+  "branch": "codex/sm89-fp8-prefill-20261028",
+  "changed_files": [
+    "csrc/quantization/w8a8/cutlass/scaled_mm_c2x_sm89_fp8_dispatch.cuh",
+    "tests/kernels/quantization/test_cutlass_scaled_mm.py"
+  ],
+  "insertions": 20,
+  "deletions": 4,
+  "ai_assistance": "Codex (OpenAI)",
+  "human_upstream_review": "pending",
+  "model_revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a"
+}

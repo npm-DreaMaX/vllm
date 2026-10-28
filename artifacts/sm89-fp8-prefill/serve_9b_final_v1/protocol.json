@@ -1,0 +1,71 @@
+{
+  "model": "Qwen3.5-9B",
+  "same_precision": "fp8_per_tensor/BF16 output",
+  "rounds": [
+    [
+      "native_gpu0",
+      "candidate_gpu1"
+    ],
+    [
+      "candidate_gpu0",
+      "native_gpu1"
+    ]
+  ],
+  "concurrent_cards": true,
+  "workloads": [
+    [
+      "prefill8k_o16_c1",
+      16,
+      8192,
+      16,
+      1
+    ],
+    [
+      "long8k_c1",
+      8,
+      8192,
+      128,
+      1
+    ],
+    [
+      "long8k_c4",
+      16,
+      8192,
+      128,
+      4
+    ],
+    [
+      "long8k_c17",
+      34,
+      8192,
+      128,
+      17
+    ],
+    [
+      "medium2k_c4",
+      16,
+      2048,
+      128,
+      4
+    ],
+    [
+      "decode_control_c17",
+      34,
+      256,
+      512,
+      17
+    ]
+  ],
+  "repeat_per_start": 3,
+  "long_output_control": [
+    "long8k_o1024_c4",
+    8,
+    8192,
+    1024,
+    4
+  ],
+  "warmup_seconds": 45,
+  "profiler": false,
+  "sampling": "random exact lengths,seed42,temperature0,ignore_eos",
+  "interpretation": "Six measurements per arm/workload from two starts/two cards; not six independent starts"
+}

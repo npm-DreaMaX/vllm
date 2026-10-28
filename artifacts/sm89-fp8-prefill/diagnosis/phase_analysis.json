@@ -1,0 +1,755 @@
+{
+  "warning": "Separate instrumented runs. Kernel sums are not request latency; no speedup claims. Categories are name-based, raw names retained in trace_analysis.",
+  "results": {
+    "decode_c17": {
+      "file": "qwen35_9b_fp8_diagnosis_v2/0_native_gpu0_tp1/trace/decode_c17_rank0.1793194809870476913.pt.trace.json.gz",
+      "selected_steps": 12,
+      "excluded_steps": 0,
+      "steps": [
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4914sqsq17sqsk4914)",
+          "scope_us": 15962.259,
+          "kernels": 459,
+          "summed_kernel_us": 15581.101999999997,
+          "categories_us": {
+            "Other": 80.19200000000001,
+            "Compiled pointwise / reductions": 431.20499999999976,
+            "FP8 linear": 11780.813999999998,
+            "GDN convolution and preparation": 71.96900000000001,
+            "GDN recurrent decode": 2950.68,
+            "Full attention": 266.242
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4897sqsq17sqsk4897)",
+          "scope_us": 17803.136,
+          "kernels": 459,
+          "summed_kernel_us": 17650.635,
+          "categories_us": {
+            "Other": 80.19699999999999,
+            "Compiled pointwise / reductions": 433.0039999999998,
+            "FP8 linear": 15018.476,
+            "GDN convolution and preparation": 72.16,
+            "GDN recurrent decode": 1782.125,
+            "Full attention": 264.673
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4880sqsq17sqsk4880)",
+          "scope_us": 20824.693,
+          "kernels": 459,
+          "summed_kernel_us": 18557.869,
+          "categories_us": {
+            "Other": 81.18100000000004,
+            "Compiled pointwise / reductions": 431.2399999999999,
+            "FP8 linear": 15274.604999999998,
+            "GDN convolution and preparation": 71.83999999999999,
+            "GDN recurrent decode": 2434.1049999999996,
+            "Full attention": 264.89799999999997
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4863sqsq17sqsk4863)",
+          "scope_us": 16636.727,
+          "kernels": 459,
+          "summed_kernel_us": 16316.599,
+          "categories_us": {
+            "Other": 79.74099999999999,
+            "Compiled pointwise / reductions": 428.4829999999999,
+            "FP8 linear": 13792.614,
+            "GDN convolution and preparation": 72.06700000000001,
+            "GDN recurrent decode": 1679.8820000000005,
+            "Full attention": 263.81199999999995
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4846sqsq17sqsk4846)",
+          "scope_us": 15479.952,
+          "kernels": 459,
+          "summed_kernel_us": 15203.180999999997,
+          "categories_us": {
+            "Other": 79.90700000000001,
+            "Compiled pointwise / reductions": 430.0160000000002,
+            "FP8 linear": 12293.110999999997,
+            "GDN convolution and preparation": 72.25600000000001,
+            "GDN recurrent decode": 2064.786,
+            "Full attention": 263.10499999999996
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4829sqsq17sqsk4829)",
+          "scope_us": 18793.447,
+          "kernels": 459,
+          "summed_kernel_us": 17963.540999999994,
+          "categories_us": {
+            "Other": 79.99999999999999,
+            "Compiled pointwise / reductions": 431.9979999999997,
+            "FP8 linear": 14691.015999999994,
+            "GDN convolution and preparation": 71.935,
+            "GDN recurrent decode": 2426.8000000000006,
+            "Full attention": 261.792
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4812sqsq17sqsk4812)",
+          "scope_us": 15120.781,
+          "kernels": 459,
+          "summed_kernel_us": 14825.355000000003,
+          "categories_us": {
+            "Other": 79.99899999999998,
+            "Compiled pointwise / reductions": 431.52699999999993,
+            "FP8 linear": 12238.238000000003,
+            "GDN convolution and preparation": 71.773,
+            "GDN recurrent decode": 1742.824,
+            "Full attention": 260.994
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4795sqsq17sqsk4795)",
+          "scope_us": 17872.993,
+          "kernels": 459,
+          "summed_kernel_us": 17587.94999999999,
+          "categories_us": {
+            "Other": 79.77499999999999,
+            "Compiled pointwise / reductions": 435.29199999999986,
+            "FP8 linear": 14668.804999999991,
+            "GDN convolution and preparation": 72.47800000000001,
+            "GDN recurrent decode": 2070.7039999999997,
+            "Full attention": 260.896
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4778sqsq17sqsk4778)",
+          "scope_us": 17288.668,
+          "kernels": 459,
+          "summed_kernel_us": 15903.119000000012,
+          "categories_us": {
+            "Other": 80.575,
+            "Compiled pointwise / reductions": 431.7560000000001,
+            "FP8 linear": 12780.342000000011,
+            "GDN convolution and preparation": 71.52000000000001,
+            "GDN recurrent decode": 2279.819,
+            "Full attention": 259.10699999999997
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4761sqsq17sqsk4761)",
+          "scope_us": 17039.706,
+          "kernels": 459,
+          "summed_kernel_us": 14882.813999999997,
+          "categories_us": {
+            "Other": 80.126,
+            "Compiled pointwise / reductions": 430.4060000000002,
+            "FP8 linear": 11963.884999999998,
+            "GDN convolution and preparation": 71.67699999999998,
+            "GDN recurrent decode": 2077.55,
+            "Full attention": 259.16999999999996
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4744sqsq17sqsk4744)",
+          "scope_us": 19538.763,
+          "kernels": 459,
+          "summed_kernel_us": 18742.935000000005,
+          "categories_us": {
+            "Other": 80.18900000000002,
+            "Compiled pointwise / reductions": 429.3139999999999,
+            "FP8 linear": 16016.203000000001,
+            "GDN convolution and preparation": 72.70300000000002,
+            "GDN recurrent decode": 1886.0280000000005,
+            "Full attention": 258.498
+          }
+        },
+        {
+          "name": "execute_17_context_0(sq0sk0sqsq0sqsk0)_generation_17(sq17sk4727sqsq17sqsk4727)",
+          "scope_us": 14917.835,
+          "kernels": 455,
+          "summed_kernel_us": 14755.472000000007,
+          "categories_us": {
+            "Other": 76.102,
+            "Compiled pointwise / reductions": 675.6579999999998,
+            "FP8 linear": 10992.968000000008,
+            "GDN convolution and preparation": 345.123,
+            "GDN recurrent decode": 2408.178,
+            "Full attention": 257.443
+          }
+        }
+      ],
+      "median_scope_us": 17164.186999999998,
+      "mean_categories_us": {
+        "Compiled pointwise / reductions": 451.6582499999999,
+        "FP8 linear": 13459.256416666667,
+        "Full attention": 261.71916666666664,
+        "GDN convolution and preparation": 94.79175000000001,
+        "GDN recurrent decode": 2150.2900833333333,
+        "Other": 79.83200000000001
+      },
+      "median_categories_us": {
+        "Compiled pointwise / reductions": 431.3834999999999,
+        "FP8 linear": 13286.478000000006,
+        "Full attention": 261.39300000000003,
+        "GDN convolution and preparation": 72.018,
+        "GDN recurrent decode": 2074.127,
+        "Other": 80.06299999999999
+      }
+    },
+    "decode_c1": {
+      "file": "qwen35_9b_fp8_diagnosis_v2/0_native_gpu0_tp1/trace/decode_c1_rank0.1793194755474100136.pt.trace.json.gz",
+      "selected_steps": 12,
+      "excluded_steps": 0,
+      "steps": [
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk290sqsq1sqsk290)",
+          "scope_us": 12167.444,
+          "kernels": 450,
+          "summed_kernel_us": 11693.905,
+          "categories_us": {
+            "Other": 52.032999999999994,
+            "Compiled pointwise / reductions": 554.731,
+            "FP8 linear": 10796.779,
+            "GDN convolution and preparation": 41.565000000000005,
+            "GDN recurrent decode": 116.38399999999997,
+            "Full attention": 132.413
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk289sqsq1sqsk289)",
+          "scope_us": 14807.335,
+          "kernels": 450,
+          "summed_kernel_us": 14520.640999999998,
+          "categories_us": {
+            "Other": 51.777,
+            "Compiled pointwise / reductions": 1448.1350000000007,
+            "FP8 linear": 10905.705999999998,
+            "GDN convolution and preparation": 41.02400000000001,
+            "GDN recurrent decode": 115.74399999999999,
+            "Full attention": 1958.2549999999999
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk288sqsq1sqsk288)",
+          "scope_us": 12840.985,
+          "kernels": 450,
+          "summed_kernel_us": 12524.926000000003,
+          "categories_us": {
+            "Other": 52.292,
+            "Compiled pointwise / reductions": 1173.3580000000004,
+            "FP8 linear": 10582.149000000003,
+            "GDN convolution and preparation": 41.599,
+            "GDN recurrent decode": 114.75499999999997,
+            "Full attention": 560.7730000000001
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk287sqsq1sqsk287)",
+          "scope_us": 13992.577,
+          "kernels": 450,
+          "summed_kernel_us": 13715.617000000002,
+          "categories_us": {
+            "Other": 52.355000000000004,
+            "Compiled pointwise / reductions": 415.80799999999994,
+            "FP8 linear": 12958.593000000003,
+            "GDN convolution and preparation": 42.204,
+            "GDN recurrent decode": 113.79499999999999,
+            "Full attention": 132.862
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk286sqsq1sqsk286)",
+          "scope_us": 12664.087,
+          "kernels": 450,
+          "summed_kernel_us": 12346.659,
+          "categories_us": {
+            "Other": 52.477999999999994,
+            "Compiled pointwise / reductions": 416.0299999999998,
+            "FP8 linear": 11278.186,
+            "GDN convolution and preparation": 41.40700000000002,
+            "GDN recurrent decode": 115.10000000000001,
+            "Full attention": 443.458
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk285sqsq1sqsk285)",
+          "scope_us": 14058.978,
+          "kernels": 450,
+          "summed_kernel_us": 13907.321999999998,
+          "categories_us": {
+            "Other": 51.874,
+            "Compiled pointwise / reductions": 416.0910000000002,
+            "FP8 linear": 13149.559999999998,
+            "GDN convolution and preparation": 41.313,
+            "GDN recurrent decode": 115.522,
+            "Full attention": 132.96200000000002
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk284sqsq1sqsk284)",
+          "scope_us": 12498.072,
+          "kernels": 450,
+          "summed_kernel_us": 12168.939,
+          "categories_us": {
+            "Other": 51.97100000000001,
+            "Compiled pointwise / reductions": 416.4479999999997,
+            "FP8 linear": 11031.845,
+            "GDN convolution and preparation": 41.053,
+            "GDN recurrent decode": 115.29899999999999,
+            "Full attention": 512.323
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk283sqsq1sqsk283)",
+          "scope_us": 12794.744,
+          "kernels": 450,
+          "summed_kernel_us": 12067.673999999999,
+          "categories_us": {
+            "Other": 52.353,
+            "Compiled pointwise / reductions": 415.77799999999974,
+            "FP8 linear": 11309.588,
+            "GDN convolution and preparation": 41.41000000000001,
+            "GDN recurrent decode": 115.456,
+            "Full attention": 133.089
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk282sqsq1sqsk282)",
+          "scope_us": 11971.123,
+          "kernels": 450,
+          "summed_kernel_us": 11373.665,
+          "categories_us": {
+            "Other": 51.874,
+            "Compiled pointwise / reductions": 416.77099999999973,
+            "FP8 linear": 10615.225999999999,
+            "GDN convolution and preparation": 41.665000000000006,
+            "GDN recurrent decode": 115.07099999999998,
+            "Full attention": 133.058
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk281sqsq1sqsk281)",
+          "scope_us": 12857.561,
+          "kernels": 450,
+          "summed_kernel_us": 12529.655999999999,
+          "categories_us": {
+            "Other": 52.06700000000001,
+            "Compiled pointwise / reductions": 416.102,
+            "FP8 linear": 11771.757,
+            "GDN convolution and preparation": 41.69400000000001,
+            "GDN recurrent decode": 116.00099999999998,
+            "Full attention": 132.035
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk280sqsq1sqsk280)",
+          "scope_us": 13524.734,
+          "kernels": 450,
+          "summed_kernel_us": 13247.198000000002,
+          "categories_us": {
+            "Other": 51.840999999999994,
+            "Compiled pointwise / reductions": 416.67899999999975,
+            "FP8 linear": 11963.729000000001,
+            "GDN convolution and preparation": 41.08800000000001,
+            "GDN recurrent decode": 116.51199999999997,
+            "Full attention": 657.349
+          }
+        },
+        {
+          "name": "execute_1_context_0(sq0sk0sqsq0sqsk0)_generation_1(sq1sk279sqsq1sqsk279)",
+          "scope_us": 15833.646,
+          "kernels": 450,
+          "summed_kernel_us": 11413.965,
+          "categories_us": {
+            "Other": 53.247,
+            "Compiled pointwise / reductions": 416.5169999999996,
+            "FP8 linear": 10654.634,
+            "GDN convolution and preparation": 41.69700000000002,
+            "GDN recurrent decode": 114.75200000000001,
+            "Full attention": 133.118
+          }
+        }
+      ],
+      "median_scope_us": 12849.273000000001,
+      "mean_categories_us": {
+        "Compiled pointwise / reductions": 576.8706666666666,
+        "FP8 linear": 11418.146,
+        "Full attention": 421.8079166666667,
+        "GDN convolution and preparation": 41.47658333333334,
+        "GDN recurrent decode": 115.36591666666665,
+        "Other": 52.180166666666665
+      },
+      "median_categories_us": {
+        "Compiled pointwise / reductions": 416.4824999999996,
+        "FP8 linear": 11155.0155,
+        "Full attention": 133.1035,
+        "GDN convolution and preparation": 41.48750000000001,
+        "GDN recurrent decode": 115.3775,
+        "Other": 52.05
+      }
+    },
+    "decode_c33": {
+      "file": "qwen35_9b_fp8_diagnosis_v2/0_native_gpu0_tp1/trace/decode_c33_rank0.1793194870941472902.pt.trace.json.gz",
+      "selected_steps": 12,
+      "excluded_steps": 0,
+      "steps": [
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9537sqsq33sqsk9537)",
+          "scope_us": 21245.022,
+          "kernels": 459,
+          "summed_kernel_us": 20949.122000000007,
+          "categories_us": {
+            "Other": 85.318,
+            "Compiled pointwise / reductions": 2572.7529999999992,
+            "FP8 linear": 13384.294000000009,
+            "GDN convolution and preparation": 106.11200000000001,
+            "GDN recurrent decode": 4334.272999999999,
+            "Full attention": 466.372
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9504sqsq33sqsk9504)",
+          "scope_us": 22284.005,
+          "kernels": 459,
+          "summed_kernel_us": 22126.249,
+          "categories_us": {
+            "Other": 85.91599999999998,
+            "Compiled pointwise / reductions": 473.24399999999974,
+            "FP8 linear": 14206.848999999998,
+            "GDN convolution and preparation": 106.71800000000002,
+            "GDN recurrent decode": 6788.465999999999,
+            "Full attention": 465.0559999999999
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9471sqsq33sqsk9471)",
+          "scope_us": 21819.842,
+          "kernels": 459,
+          "summed_kernel_us": 21497.587000000003,
+          "categories_us": {
+            "Other": 83.458,
+            "Compiled pointwise / reductions": 473.43999999999994,
+            "FP8 linear": 16349.518,
+            "GDN convolution and preparation": 107.16900000000003,
+            "GDN recurrent decode": 4021.823,
+            "Full attention": 462.179
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9438sqsq33sqsk9438)",
+          "scope_us": 21746.017,
+          "kernels": 459,
+          "summed_kernel_us": 21336.906999999996,
+          "categories_us": {
+            "Other": 85.94999999999997,
+            "Compiled pointwise / reductions": 472.8439999999998,
+            "FP8 linear": 16455.481999999996,
+            "GDN convolution and preparation": 106.852,
+            "GDN recurrent decode": 3755.487,
+            "Full attention": 460.29200000000003
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9405sqsq33sqsk9405)",
+          "scope_us": 21731.681,
+          "kernels": 459,
+          "summed_kernel_us": 21286.26700000001,
+          "categories_us": {
+            "Other": 85.31399999999998,
+            "Compiled pointwise / reductions": 474.9769999999999,
+            "FP8 linear": 16427.253000000008,
+            "GDN convolution and preparation": 106.497,
+            "GDN recurrent decode": 3734.718,
+            "Full attention": 457.5080000000001
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9372sqsq33sqsk9372)",
+          "scope_us": 22285.189,
+          "kernels": 459,
+          "summed_kernel_us": 20213.52899999999,
+          "categories_us": {
+            "Other": 86.946,
+            "Compiled pointwise / reductions": 473.82999999999953,
+            "FP8 linear": 14710.380999999992,
+            "GDN convolution and preparation": 106.40100000000001,
+            "GDN recurrent decode": 4379.264000000001,
+            "Full attention": 456.70700000000005
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9339sqsq33sqsk9339)",
+          "scope_us": 20031.029,
+          "kernels": 459,
+          "summed_kernel_us": 19681.716000000004,
+          "categories_us": {
+            "Other": 85.66499999999998,
+            "Compiled pointwise / reductions": 1212.0410000000008,
+            "FP8 linear": 12458.301000000005,
+            "GDN convolution and preparation": 104.28900000000003,
+            "GDN recurrent decode": 5366.312999999999,
+            "Full attention": 455.107
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9306sqsq33sqsk9306)",
+          "scope_us": 19529.841,
+          "kernels": 459,
+          "summed_kernel_us": 18730.7,
+          "categories_us": {
+            "Other": 85.89099999999999,
+            "Compiled pointwise / reductions": 473.2469999999996,
+            "FP8 linear": 13204.162,
+            "GDN convolution and preparation": 107.074,
+            "GDN recurrent decode": 4407.1050000000005,
+            "Full attention": 453.221
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9273sqsq33sqsk9273)",
+          "scope_us": 21504.544,
+          "kernels": 459,
+          "summed_kernel_us": 20772.99400000001,
+          "categories_us": {
+            "Other": 85.92499999999998,
+            "Compiled pointwise / reductions": 472.4269999999997,
+            "FP8 linear": 15091.885000000007,
+            "GDN convolution and preparation": 107.23299999999998,
+            "GDN recurrent decode": 4563.426,
+            "Full attention": 452.098
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9240sqsq33sqsk9240)",
+          "scope_us": 20836.155,
+          "kernels": 459,
+          "summed_kernel_us": 20687.533,
+          "categories_us": {
+            "Other": 85.79499999999997,
+            "Compiled pointwise / reductions": 470.72099999999995,
+            "FP8 linear": 15195.398,
+            "GDN convolution and preparation": 106.40100000000001,
+            "GDN recurrent decode": 4379.007,
+            "Full attention": 450.211
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9207sqsq33sqsk9207)",
+          "scope_us": 22196.964,
+          "kernels": 459,
+          "summed_kernel_us": 21460.055000000008,
+          "categories_us": {
+            "Other": 85.85599999999998,
+            "Compiled pointwise / reductions": 475.2909999999999,
+            "FP8 linear": 16130.327000000005,
+            "GDN convolution and preparation": 107.488,
+            "GDN recurrent decode": 4211.713000000001,
+            "Full attention": 449.38
+          }
+        },
+        {
+          "name": "execute_33_context_0(sq0sk0sqsq0sqsk0)_generation_33(sq33sk9174sqsq33sqsk9174)",
+          "scope_us": 20687.034,
+          "kernels": 451,
+          "summed_kernel_us": 20666.018000000007,
+          "categories_us": {
+            "Other": 66.623,
+            "Compiled pointwise / reductions": 631.6370000000005,
+            "FP8 linear": 15033.292000000005,
+            "GDN convolution and preparation": 106.464,
+            "GDN recurrent decode": 4378.944,
+            "Full attention": 449.058
+          }
+        }
+      ],
+      "median_scope_us": 21618.112500000003,
+      "mean_categories_us": {
+        "Compiled pointwise / reductions": 723.0376666666666,
+        "FP8 linear": 14887.261833333336,
+        "Full attention": 456.43241666666665,
+        "GDN convolution and preparation": 106.55816666666668,
+        "GDN recurrent decode": 4526.711583333334,
+        "Other": 84.05474999999998
+      },
+      "median_categories_us": {
+        "Compiled pointwise / reductions": 473.63499999999976,
+        "FP8 linear": 15062.588500000005,
+        "Full attention": 455.90700000000004,
+        "GDN convolution and preparation": 106.60750000000002,
+        "GDN recurrent decode": 4378.9755000000005,
+        "Other": 85.82549999999998
+      }
+    },
+    "decode_c64": {
+      "file": "qwen35_9b_fp8_diagnosis_v2/0_native_gpu0_tp1/trace/decode_c64_rank0.1793194941444509192.pt.trace.json.gz",
+      "selected_steps": 8,
+      "excluded_steps": 4,
+      "steps": [
+        {
+          "name": "execute_64_context_0(sq0sk0sqsq0sqsk0)_generation_64(sq64sk16507sqsq64sqsk16507)",
+          "scope_us": 19226.166,
+          "kernels": 458,
+          "summed_kernel_us": 19207.172000000006,
+          "categories_us": {
+            "Other": 99.54999999999998,
+            "Compiled pointwise / reductions": 484.0360000000002,
+            "FP8 linear": 11443.918000000005,
+            "GDN convolution and preparation": 181.47399999999996,
+            "GDN recurrent decode": 6297.229,
+            "Full attention": 700.965
+          }
+        },
+        {
+          "name": "execute_64_context_0(sq0sk0sqsq0sqsk0)_generation_64(sq64sk16699sqsq64sqsk16699)",
+          "scope_us": 18715.684,
+          "kernels": 458,
+          "summed_kernel_us": 18683.088000000003,
+          "categories_us": {
+            "Other": 98.30499999999998,
+            "Compiled pointwise / reductions": 469.4279999999999,
+            "FP8 linear": 11146.953000000001,
+            "GDN convolution and preparation": 176.90200000000002,
+            "GDN recurrent decode": 6081.862000000001,
+            "Full attention": 709.6379999999999
+          }
+        },
+        {
+          "name": "execute_64_context_0(sq0sk0sqsq0sqsk0)_generation_64(sq64sk16635sqsq64sqsk16635)",
+          "scope_us": 19421.687,
+          "kernels": 458,
+          "summed_kernel_us": 19391.771,
+          "categories_us": {
+            "Other": 100.06199999999995,
+            "Compiled pointwise / reductions": 476.6799999999999,
+            "FP8 linear": 11807.041000000001,
+            "GDN convolution and preparation": 178.37,
+            "GDN recurrent decode": 6119.6939999999995,
+            "Full attention": 709.9240000000001
+          }
+        },
+        {
+          "name": "execute_64_context_0(sq0sk0sqsq0sqsk0)_generation_64(sq64sk16827sqsq64sqsk16827)",
+          "scope_us": 22848.526,
+          "kernels": 458,
+          "summed_kernel_us": 22823.119999999995,
+          "categories_us": {
+            "Other": 99.90799999999997,
+            "Compiled pointwise / reductions": 497.4449999999998,
+            "FP8 linear": 14082.254999999994,
+            "GDN convolution and preparation": 176.29500000000002,
+            "GDN recurrent decode": 7253.912,
+            "Full attention": 713.305
+          }
+        },
+        {
+          "name": "execute_64_context_0(sq0sk0sqsq0sqsk0)_generation_64(sq64sk16763sqsq64sqsk16763)",
+          "scope_us": 19490.524,
+          "kernels": 458,
+          "summed_kernel_us": 19469.678,
+          "categories_us": {
+            "GDN recurrent decode": 6090.446000000001,
+            "Compiled pointwise / reductions": 473.92100000000005,
+            "FP8 linear": 11377.485000000002,
+            "GDN convolution and preparation": 175.13799999999998,
+            "Other": 100.38499999999996,
+            "Full attention": 1252.3029999999999
+          }
+        },
+        {
+          "name": "execute_64_context_0(sq0sk0sqsq0sqsk0)_generation_64(sq64sk16955sqsq64sqsk16955)",
+          "scope_us": 25558.702,
+          "kernels": 458,
+          "summed_kernel_us": 25064.239000000005,
+          "categories_us": {
+            "Other": 687.4929999999999,
+            "Compiled pointwise / reductions": 511.4880000000003,
+            "FP8 linear": 14368.919000000005,
+            "GDN convolution and preparation": 177.159,
+            "GDN recurrent decode": 7899.471,
+            "Full attention": 1419.7089999999998
+          }
+        },
+        {
+          "name": "execute_64_context_0(sq0sk0sqsq0sqsk0)_generation_64(sq64sk16571sqsq64sqsk16571)",
+          "scope_us": 18695.185,
+          "kernels": 458,
+          "summed_kernel_us": 18666.547000000002,
+          "categories_us": {
+            "Other": 97.88499999999995,
+            "Compiled pointwise / reductions": 464.9379999999998,
+            "FP8 linear": 11133.879000000003,
+            "GDN convolution and preparation": 177.21800000000002,
+            "GDN recurrent decode": 6086.477999999998,
+            "Full attention": 706.149
+          }
+        },
+        {
+          "name": "execute_64_context_0(sq0sk0sqsq0sqsk0)_generation_64(sq64sk16891sqsq64sqsk16891)",
+          "scope_us": 23546.511,
+          "kernels": 458,
+          "summed_kernel_us": 23262.848999999995,
+          "categories_us": {
+            "Other": 101.79499999999994,
+            "Compiled pointwise / reductions": 514.452,
+            "FP8 linear": 13489.328999999996,
+            "GDN convolution and preparation": 180.00899999999993,
+            "GDN recurrent decode": 7446.906,
+            "Full attention": 1530.3580000000002
+          }
+        }
+      ],
+      "median_scope_us": 19456.1055,
+      "mean_categories_us": {
+        "Compiled pointwise / reductions": 486.5485,
+        "FP8 linear": 12356.222375000001,
+        "Full attention": 967.793875,
+        "GDN convolution and preparation": 177.82062499999998,
+        "GDN recurrent decode": 6659.49975,
+        "Other": 173.17287499999995
+      },
+      "median_categories_us": {
+        "Compiled pointwise / reductions": 480.35800000000006,
+        "FP8 linear": 11625.479500000003,
+        "Full attention": 711.6145,
+        "GDN convolution and preparation": 177.1885,
+        "GDN recurrent decode": 6208.461499999999,
+        "Other": 99.98499999999996
+      }
+    },
+    "prefill_8192_c1": {
+      "file": "qwen35_9b_fp8_diagnosis_v2/0_native_gpu0_tp1/trace/prefill_8k_c1_rank0.1793194963530807565.pt.trace.json.gz",
+      "selected_steps": 1,
+      "excluded_steps": 1,
+      "steps": [
+        {
+          "name": "execute_8192_context_1(sq8192sk8192sqsq67108864sqsk67108864)_generation_0(sq0sk0sqsq0sqsk0)",
+          "scope_us": 726081.32,
+          "kernels": 752,
+          "summed_kernel_us": 713330.057,
+          "categories_us": {
+            "Other": 5309.186,
+            "Compiled pointwise / reductions": 63584.74099999999,
+            "FP8 linear": 518837.073,
+            "GDN convolution and preparation": 22285.802000000003,
+            "GDN chunk prefill": 49670.45100000001,
+            "Full attention": 53642.804000000004
+          }
+        }
+      ],
+      "median_scope_us": 726081.32,
+      "mean_categories_us": {
+        "Compiled pointwise / reductions": 63584.74099999999,
+        "FP8 linear": 518837.073,
+        "Full attention": 53642.804000000004,
+        "GDN chunk prefill": 49670.45100000001,
+        "GDN convolution and preparation": 22285.802000000003,
+        "Other": 5309.186
+      },
+      "median_categories_us": {
+        "Compiled pointwise / reductions": 63584.74099999999,
+        "FP8 linear": 518837.073,
+        "Full attention": 53642.804000000004,
+        "GDN chunk prefill": 49670.45100000001,
+        "GDN convolution and preparation": 22285.802000000003,
+        "Other": 5309.186
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "core_sha256": "1b0ad0a7d51838b1ea4a5479fcef6c33ce201aaf42b5b45e0d896bf1deb599d6",
+  "seed": 42,
+  "exactness": "Full output SHA256 plus CUDA Graph versus direct torch.equal",
+  "performance": ">=1GiB rotating FP8 weights, three CUDA Graph timing samples",
+  "gpu": "NVIDIA GeForce RTX 4090"
+}

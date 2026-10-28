@@ -1,0 +1,6 @@
+{
+  "compiled_header_sha256": "6ba944581e4940389d5ddc2536f873c3e76829a40b379a459996244f9d0cb869",
+  "formatted_header_sha256": "0604434cbf651531e17574002638d202649b6f55b2aa13c86031506921269503",
+  "whitespace_only": true,
+  "note": "clang-format split two template-argument lines after native compilation; all non-whitespace bytes identical. Native qualification uses the recorded core SHA."
+}

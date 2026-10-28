@@ -1,0 +1,150 @@
+{
+  "checked_at": "2026-10-28",
+  "prs": [
+    {
+      "number": 61224,
+      "url": "https://github.com/vllm-project/vllm/pull/61224",
+      "state": "open",
+      "title": "[Kernel] CUTLASS blockwise FP8 GEMM for SM89 (Ada) with per-token activation scales",
+      "head": "dbe22a894e66c11e03f47a70867c93b0c26bb410",
+      "updated_at": "2026-10-13T05:25:29Z",
+      "summary": "\r\n\r\n## Overview\r\n\r\nAdd a CUTLASS block-FP8 GEMM for SM89 (Ada: L4, L40S, RTX 4090, RTX 6000 Ada) that takes vLLM's block-quantized layout directly: per-token-group activation scales (1x128) and 128x128 weight scales. Today these GPUs have FP8 tensor cores but block-FP8 checkpoints (e.g. Qwen3-*-FP8, DeepSeek-style) run through Marlin weight-only. vLLM logs \"Your GPU does not have native support for FP8 computation\" on an L4. Closes the kernel part of #58241. Builds on the SM89 test enablement in #60171.\r\n\r\n## Claims\r\n\r\n- New SM89 kernel, adapted from CUTLASS's Ada blockwise FP8 example (example 94, which uses one activation scale per 128x128 block) to per-token activation scales. It uses Ada FP8 tensor cores (QMMA e4m3).\r\n- `cutlass_scaled_mm_supports_block_fp8` returns True on SM89 (CUDA >= 12.4), so `CutlassFp8BlockScaledMMKernel` is selected instead of Marlin.\r\n- On an L4, end to end on Qwen3-8B-FP8: ~1.42x throughput, ~1.33x faster at batch 32, ~3.6% slower at batch 1, gsm8k unchan"
+    },
+    {
+      "number": 62128,
+      "url": "https://github.com/vllm-project/vllm/pull/62128",
+      "state": "open",
+      "title": "[Kernel] Use 16-row tiles for SM89 int8 CUTLASS GEMM at M in (16, 64] when they don't add waves",
+      "head": "8c897b571df5c61fced10d1c2838dd240d893a19",
+      "updated_at": "2026-10-26T06:22:07Z",
+      "summary": "## Overview\r\n\r\nFixes #56924. On SM89 (Ada), the int8 W8A8 CUTLASS GEMM gets ~1.5x slower when M goes from 16 to 17, and again from 32 to 33. The dispatch moves from 16-row tiles (`sm89_int8_config_M16`) to 32-row tiles at M=17 and 64-row tiles at M=33. For the small-N layers of models like Qwen3-1.7B (N=2048, K=2048) that halves or quarters the number of CTAs (32 CTAs with 32x64 tiles on a 128-SM RTX 4090), so most of the GPU sits idle and each CTA does more work.\r\n\r\nThis PR uses the existing `sm89_int8_config_M16` config for M in (16, 64] when its 16-row tiles fit in the same number of waves as the current config, or when the current config already needs two or more waves and the 16-row grid adds at most half again as many. The rule reads the SM count once per device. No new kernel configs, no new template instantiations beyond what M <= 16 already uses.\r\n\r\nThe first version used fixed N limits (N <= 4096 for M in (16, 32], N <= 2048 for M in (32, 64]). @ShikhaPallavi123's run on an R"
+    }
+  ],
+  "queries": [
+    {
+      "query": "\"SM89\" \"prefill\" \"CUTLASS\"",
+      "results": [
+        {
+          "number": 55184,
+          "title": "Fix/dsv4 pre-sm89/sm90 (software fp8) sparse mla omnibus",
+          "url": "https://github.com/vllm-project/vllm/pull/55184"
+        },
+        {
+          "number": 38054,
+          "title": "[MoE][GPT-OSS] Add L40S/SM89 Marlin block-size policy",
+          "url": "https://github.com/vllm-project/vllm/pull/38054"
+        },
+        {
+          "number": 47584,
+          "title": "[Spec Decode][Perf] Rowwise-fp8 draft lm_head for DSpark (opt-in)",
+          "url": "https://github.com/vllm-project/vllm/pull/47584"
+        },
+        {
+          "number": 49131,
+          "title": "[Perf] Shape-adaptive tile config for batch-invariant matmul on SM80",
+          "url": "https://github.com/vllm-project/vllm/pull/49131"
+        },
+        {
+          "number": 60566,
+          "title": "[MRV2][Perf] Screened lm_head",
+          "url": "https://github.com/vllm-project/vllm/pull/60566"
+        },
+        {
+          "number": 53055,
+          "title": "[Bugfix][Kernels] Guard DeepGEMM in mhc_pre_broadcast_tilelang with a torch fallback",
+          "url": "https://github.com/vllm-project/vllm/pull/53055"
+        },
+        {
+          "number": 38476,
+          "title": "[Feature] TRITON_MLA_SPARSE backend for SM8x/11x/12x DSA Sparse MLA Support",
+          "url": "https://github.com/vllm-project/vllm/pull/38476"
+        },
+        {
+          "number": 59232,
+          "title": "[Kernel] Tune small-M block-FP8 Triton configs for NVIDIA L20",
+          "url": "https://github.com/vllm-project/vllm/pull/59232"
+        }
+      ]
+    },
+    {
+      "query": "\"FP8\" \"pipeline\" \"stages\"",
+      "results": [
+        {
+          "number": 61068,
+          "title": "[Bugfix] Fall back to one pipeline stage when Triton decode attention exceeds shared memory",
+          "url": "https://github.com/vllm-project/vllm/pull/61068"
+        },
+        {
+          "number": 61897,
+          "title": "[Feature][MoE] Support routed experts capture (R3) with pipeline parallelism",
+          "url": "https://github.com/vllm-project/vllm/pull/61897"
+        },
+        {
+          "number": 63642,
+          "title": "[Perf][Kernel] Reduce shared-memory staging for per-tensor FP8 KV dequantization",
+          "url": "https://github.com/vllm-project/vllm/pull/63642"
+        },
+        {
+          "number": 54013,
+          "title": "[Bugfix] Drop num_stages for MLA decode with fp8 KV cache on small-smem GPUs",
+          "url": "https://github.com/vllm-project/vllm/pull/54013"
+        },
+        {
+          "number": 55520,
+          "title": "[Bugfix][DeepSeek V4] Forward input IDs across pipeline stages",
+          "url": "https://github.com/vllm-project/vllm/pull/55520"
+        },
+        {
+          "number": 59961,
+          "title": "[Bugfix][DSv3.2] Carry the shared indexer top-k across pipeline stages",
+          "url": "https://github.com/vllm-project/vllm/pull/59961"
+        },
+        {
+          "number": 56121,
+          "title": "[Kimi-K3] Support RecoverSSM with pipeline parallelism on V2",
+          "url": "https://github.com/vllm-project/vllm/pull/56121"
+        },
+        {
+          "number": 61968,
+          "title": "[ROCm][DSv4.1][Perf] gfx942 sparse MLA decode: BLOCK_K=16 with 2-stage pipelining",
+          "url": "https://github.com/vllm-project/vllm/pull/61968"
+        },
+        {
+          "number": 64257,
+          "title": "[Bugfix][Quantization] Repair misaligned Humming two-CTA linear configs",
+          "url": "https://github.com/vllm-project/vllm/pull/64257"
+        },
+        {
+          "number": 51685,
+          "title": "[Bugfix][Kernel] Take a native fp8 KV cache in TRITON_MLA, and fold the non-causal decode",
+          "url": "https://github.com/vllm-project/vllm/pull/51685"
+        },
+        {
+          "number": 58986,
+          "title": "[Perf] Tune GLM-5.3-Flash block-FP8 MoE for H20",
+          "url": "https://github.com/vllm-project/vllm/pull/58986"
+        },
+        {
+          "number": 54846,
+          "title": "[Model] Qwen4Exp: fp8_e4m3 and nvfp4 KV cache on the QSA path",
+          "url": "https://github.com/vllm-project/vllm/pull/54846"
+        },
+        {
+          "number": 58380,
+          "title": "[Core] Prefer a block-outermost KV cache layout when layers can be packed",
+          "url": "https://github.com/vllm-project/vllm/pull/58380"
+        },
+        {
+          "number": 61662,
+          "title": "[ROCm][Perf][GLM-5.3-Flash] Mono decode layer for GLM-5.3-Flash on MI355X",
+          "url": "https://github.com/vllm-project/vllm/pull/61662"
+        },
+        {
+          "number": 63106,
+          "title": "[Feature][DSv4.1] Support arbitrary pipeline stage partitions",
+          "url": "https://github.com/vllm-project/vllm/pull/63106"
+        }
+      ]
+    }
+  ]
+}

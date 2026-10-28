@@ -1,0 +1,1 @@
+{"complete": true, "questions": 1319, "exact_text": 1319, "exact_tokens": 1319, "baseline_correct": 1215, "candidate_correct": 1215, "baseline_truncated": 26, "candidate_truncated": 26, "scope": "Official full GSM8K, fixed offline queue, same architecture cards; no quality throughput claim"}

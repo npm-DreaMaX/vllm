@@ -1,0 +1,1521 @@
+{
+  "schemaVersion": 1,
+  "deviceProperties": [
+    {
+      "id": 0,
+      "name": "NVIDIA GeForce RTX 4090",
+      "totalGlobalMem": 25386352640,
+      "computeMajor": 8,
+      "computeMinor": 9,
+      "maxThreadsPerBlock": 1024,
+      "maxThreadsPerMultiprocessor": 1536,
+      "regsPerBlock": 65536,
+      "warpSize": 32,
+      "sharedMemPerBlock": 49152,
+      "numSms": 128,
+      "regsPerMultiprocessor": 65536,
+      "sharedMemPerBlockOptin": 101376,
+      "sharedMemPerMultiprocessor": 102400
+    }
+  ],
+  "trace_id": "DFFC871ACA2B4023B976ADF94414A085",
+  "record_shapes": 1,
+  "cuda_driver_version": 12040,
+  "cuda_runtime_version": 12060,
+  "cupti_version": 24,
+  "host_name": "xk0827",
+  "displayTimeUnit": "ms",
+  "baseTimeNanoseconds": 1790857026000000000,
+  "traceEvents": [
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 1271622,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 1271622,
+      "tid": 0,
+      "args": {
+        "labels": "CPU"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 1271622,
+      "tid": 0,
+      "args": {
+        "sort_index": 1271622
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 0,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 0,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 0"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 0,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000000
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 1,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 1,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 1"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 1,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000001
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 2,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 2,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 2"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 2,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000002
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 3,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 3,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 3"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 3,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000003
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 4,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 4,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 4"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 4,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000004
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 5,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 5,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 5"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 5,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000005
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 6,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 6,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 6"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 6,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000006
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 7,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 7,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 7"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 7,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000007
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 8,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 8,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 8"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 8,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000008
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 9,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 9,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 9"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 9,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000009
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 10,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 10,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 10"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 10,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000010
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 11,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 11,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 11"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 11,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000011
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 12,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 12,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 12"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 12,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000012
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 13,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 13,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 13"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 13,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000013
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 14,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 14,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 14"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 14,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000014
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_name",
+      "ts": 2343355843852.326,
+      "pid": 15,
+      "tid": 0,
+      "args": {
+        "name": "python"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_labels",
+      "ts": 2343355843852.326,
+      "pid": 15,
+      "tid": 0,
+      "args": {
+        "labels": "GPU 15"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 15,
+      "tid": 0,
+      "args": {
+        "sort_index": 5000015
+      }
+    },
+    {
+      "ph": "M",
+      "name": "thread_name",
+      "ts": 2343355843852.326,
+      "pid": 0,
+      "tid": 7,
+      "args": {
+        "name": "stream 7 "
+      }
+    },
+    {
+      "ph": "M",
+      "name": "thread_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 0,
+      "tid": 7,
+      "args": {
+        "sort_index": 7
+      }
+    },
+    {
+      "ph": "M",
+      "name": "thread_name",
+      "ts": 2343355843852.326,
+      "pid": 1271622,
+      "tid": 1271622,
+      "args": {
+        "name": "thread 1271622 (python)"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "thread_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 1271622,
+      "tid": 1271622,
+      "args": {
+        "sort_index": 1271622
+      }
+    },
+    {
+      "ph": "M",
+      "name": "thread_name",
+      "ts": 2343355843852.326,
+      "pid": 1271622,
+      "tid": 1271622,
+      "args": {
+        "name": "thread 1271622 (python)"
+      }
+    },
+    {
+      "ph": "M",
+      "name": "thread_sort_index",
+      "ts": 2343355843852.326,
+      "pid": 1271622,
+      "tid": 1271622,
+      "args": {
+        "sort_index": 1271622
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "user_annotation",
+      "name": "native_prefill_M8192_N24576_K4096",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355844149.72,
+      "dur": 1913.704,
+      "args": {
+        "External id": 1,
+        "Record function id": 0,
+        "Ev Idx": 0
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "cpu_op",
+      "name": "_C::cutlass_scaled_mm",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355844217.473,
+      "dur": 1779.993,
+      "args": {
+        "External id": 2,
+        "Sequence number": 0,
+        "Fwd thread id": 0,
+        "Record function id": 0,
+        "Concrete Inputs": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "Input type": [
+          "c10::BFloat16",
+          "c10::Float8_e4m3fn",
+          "c10::Float8_e4m3fn",
+          "float",
+          "float",
+          ""
+        ],
+        "Input Strides": [
+          [
+            24576,
+            1
+          ],
+          [
+            4096,
+            1
+          ],
+          [
+            1,
+            4096
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1
+          ],
+          []
+        ],
+        "Input Dims": [
+          [
+            8192,
+            24576
+          ],
+          [
+            8192,
+            4096
+          ],
+          [
+            4096,
+            24576
+          ],
+          [
+            8192,
+            1
+          ],
+          [
+            1
+          ],
+          []
+        ],
+        "Ev Idx": 1
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "cpu_op",
+      "name": "aten::empty",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355845921.875,
+      "dur": 25.913,
+      "args": {
+        "External id": 3,
+        "Record function id": 0,
+        "Concrete Inputs": [
+          "[131200]",
+          "0",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "Input type": [
+          "ScalarList",
+          "Scalar",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "Input Strides": [
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
+        ],
+        "Input Dims": [
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
+        ],
+        "Ev Idx": 2
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "user_annotation",
+      "name": "native_prefill_M8192_N24576_K4096",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846087.764,
+      "dur": 66.856,
+      "args": {
+        "External id": 4,
+        "Record function id": 0,
+        "Ev Idx": 3
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "cpu_op",
+      "name": "_C::cutlass_scaled_mm",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846106.009,
+      "dur": 37.045,
+      "args": {
+        "External id": 5,
+        "Sequence number": 0,
+        "Fwd thread id": 0,
+        "Record function id": 0,
+        "Concrete Inputs": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "Input type": [
+          "c10::BFloat16",
+          "c10::Float8_e4m3fn",
+          "c10::Float8_e4m3fn",
+          "float",
+          "float",
+          ""
+        ],
+        "Input Strides": [
+          [
+            24576,
+            1
+          ],
+          [
+            4096,
+            1
+          ],
+          [
+            1,
+            4096
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1
+          ],
+          []
+        ],
+        "Input Dims": [
+          [
+            8192,
+            24576
+          ],
+          [
+            8192,
+            4096
+          ],
+          [
+            4096,
+            24576
+          ],
+          [
+            8192,
+            1
+          ],
+          [
+            1
+          ],
+          []
+        ],
+        "Ev Idx": 4
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "cpu_op",
+      "name": "aten::empty",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846117.503,
+      "dur": 7.014,
+      "args": {
+        "External id": 6,
+        "Record function id": 0,
+        "Concrete Inputs": [
+          "[131200]",
+          "0",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "Input type": [
+          "ScalarList",
+          "Scalar",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "Input Strides": [
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
+        ],
+        "Input Dims": [
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
+        ],
+        "Ev Idx": 5
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "user_annotation",
+      "name": "native_prefill_M8192_N24576_K4096",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846162.776,
+      "dur": 41.679,
+      "args": {
+        "External id": 7,
+        "Record function id": 0,
+        "Ev Idx": 6
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "cpu_op",
+      "name": "_C::cutlass_scaled_mm",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846171.041,
+      "dur": 25.884,
+      "args": {
+        "External id": 8,
+        "Sequence number": 0,
+        "Fwd thread id": 0,
+        "Record function id": 0,
+        "Concrete Inputs": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "Input type": [
+          "c10::BFloat16",
+          "c10::Float8_e4m3fn",
+          "c10::Float8_e4m3fn",
+          "float",
+          "float",
+          ""
+        ],
+        "Input Strides": [
+          [
+            24576,
+            1
+          ],
+          [
+            4096,
+            1
+          ],
+          [
+            1,
+            4096
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1
+          ],
+          []
+        ],
+        "Input Dims": [
+          [
+            8192,
+            24576
+          ],
+          [
+            8192,
+            4096
+          ],
+          [
+            4096,
+            24576
+          ],
+          [
+            8192,
+            1
+          ],
+          [
+            1
+          ],
+          []
+        ],
+        "Ev Idx": 7
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "cpu_op",
+      "name": "aten::empty",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846177.695,
+      "dur": 5.102,
+      "args": {
+        "External id": 9,
+        "Record function id": 0,
+        "Concrete Inputs": [
+          "[131200]",
+          "0",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "Input type": [
+          "ScalarList",
+          "Scalar",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "Input Strides": [
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
+        ],
+        "Input Dims": [
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
+        ],
+        "Ev Idx": 8
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "overhead",
+      "name": "Unrecognized",
+      "pid": -1,
+      "tid": 0,
+      "ts": 2343355844238.011,
+      "dur": 1645.289
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaDeviceGetAttribute",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355845890.413,
+      "dur": 1.344,
+      "args": {
+        "External id": 2,
+        "cbid": 200,
+        "correlation": 2
+      }
+    },
+    {
+      "ph": "f",
+      "id": 2,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355845890.413,
+      "cat": "ac2g",
+      "name": "ac2g",
+      "bp": "e"
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaDeviceGetAttribute",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355845892.084,
+      "dur": 0.266,
+      "args": {
+        "External id": 2,
+        "cbid": 200,
+        "correlation": 3
+      }
+    },
+    {
+      "ph": "f",
+      "id": 3,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355845892.084,
+      "cat": "ac2g",
+      "name": "ac2g",
+      "bp": "e"
+    },
+    {
+      "ph": "X",
+      "cat": "kernel",
+      "name": "void cutlass::Kernel2<enable_sm89_to_sm90<cutlass::gemm::kernel::DefaultGemmWithVisitor<cutlass::float_e4m3_t, cutlass::layout::RowMajor, (cutlass::ComplexTransform)0, 16, cutlass::float_e4m3_t, cutlass::layout::ColumnMajor, (cutlass::ComplexTransform)0, 16, float, cutlass::layout::RowMajor, 4, float, float, cutlass::arch::OpClassTensorOp, cutlass::arch::Sm89, cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, cutlass::gemm::GemmShape<16, 8, 32>, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorAuxStore<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, cutlass::bfloat16_t, (cutlass::FloatRoundStyle)2, cute::tuple<long, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, cutlass::bfloat16_t, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorColOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<1>, cute::C<0>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, float, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorRowOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<0>, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::VisitorAccFetch> > >, cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, 3, cutlass::arch::OpMultiplyAddFastAccum, 1>::SelectBase<cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, void> > >(enable_sm89_to_sm90<cutlass::gemm::kernel::DefaultGemmWithVisitor<cutlass::float_e4m3_t, cutlass::layout::RowMajor, (cutlass::ComplexTransform)0, 16, cutlass::float_e4m3_t, cutlass::layout::ColumnMajor, (cutlass::ComplexTransform)0, 16, float, cutlass::layout::RowMajor, 4, float, float, cutlass::arch::OpClassTensorOp, cutlass::arch::Sm89, cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, cutlass::gemm::GemmShape<16, 8, 32>, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorAuxStore<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, cutlass::bfloat16_t, (cutlass::FloatRoundStyle)2, cute::tuple<long, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, cutlass::bfloat16_t, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorColOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<1>, cute::C<0>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, float, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorRowOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<0>, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::VisitorAccFetch> > >, cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, 3, cutlass::arch::OpMultiplyAddFastAccum, 1>::SelectBase<cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, void> >::Params)",
+      "pid": 0,
+      "tid": 7,
+      "ts": 2343355845982.003,
+      "dur": 5320.191,
+      "args": {
+        "External id": 2,
+        "queued": 0,
+        "device": 0,
+        "context": 1,
+        "stream": 7,
+        "correlation": 15,
+        "registers per thread": 255,
+        "shared memory": 49152,
+        "blocks per SM": 96,
+        "warps per SM": 384,
+        "grid": [
+          12288,
+          1,
+          1
+        ],
+        "block": [
+          128,
+          1,
+          1
+        ],
+        "est. achieved occupancy %": 17,
+        "occupancy": {
+          "activeBlocksPerMultiprocessor": 2,
+          "limitingFactors": "REGS|SMEM",
+          "blockLimitRegs": 2,
+          "blockLimitSharedMem": 2,
+          "blockLimitWarps": 12,
+          "blockLimitBlocks": 24,
+          "blockLimitBarriers": 2147483647,
+          "allocatedRegistersPerBlock": 32768,
+          "allocatedSharedMemPerBlock": 50176
+        },
+        "graph id": 0,
+        "graph node id": 0,
+        "channel": 0,
+        "channel_type": 1
+      }
+    },
+    {
+      "ph": "f",
+      "id": 15,
+      "pid": 0,
+      "tid": 7,
+      "ts": 2343355845982.003,
+      "cat": "ac2g",
+      "name": "ac2g",
+      "bp": "e"
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaLaunchKernel",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355845957.023,
+      "dur": 28.262,
+      "args": {
+        "External id": 2,
+        "cbid": 211,
+        "correlation": 15
+      }
+    },
+    {
+      "ph": "s",
+      "id": 15,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355845957.023,
+      "cat": "ac2g",
+      "name": "ac2g"
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaDeviceGetAttribute",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846111.273,
+      "dur": 0.495,
+      "args": {
+        "External id": 5,
+        "cbid": 200,
+        "correlation": 22
+      }
+    },
+    {
+      "ph": "f",
+      "id": 22,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846111.273,
+      "cat": "ac2g",
+      "name": "ac2g",
+      "bp": "e"
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaDeviceGetAttribute",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846111.962,
+      "dur": 0.196,
+      "args": {
+        "External id": 5,
+        "cbid": 200,
+        "correlation": 23
+      }
+    },
+    {
+      "ph": "f",
+      "id": 23,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846111.962,
+      "cat": "ac2g",
+      "name": "ac2g",
+      "bp": "e"
+    },
+    {
+      "ph": "X",
+      "cat": "kernel",
+      "name": "void cutlass::Kernel2<enable_sm89_to_sm90<cutlass::gemm::kernel::DefaultGemmWithVisitor<cutlass::float_e4m3_t, cutlass::layout::RowMajor, (cutlass::ComplexTransform)0, 16, cutlass::float_e4m3_t, cutlass::layout::ColumnMajor, (cutlass::ComplexTransform)0, 16, float, cutlass::layout::RowMajor, 4, float, float, cutlass::arch::OpClassTensorOp, cutlass::arch::Sm89, cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, cutlass::gemm::GemmShape<16, 8, 32>, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorAuxStore<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, cutlass::bfloat16_t, (cutlass::FloatRoundStyle)2, cute::tuple<long, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, cutlass::bfloat16_t, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorColOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<1>, cute::C<0>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, float, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorRowOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<0>, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::VisitorAccFetch> > >, cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, 3, cutlass::arch::OpMultiplyAddFastAccum, 1>::SelectBase<cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, void> > >(enable_sm89_to_sm90<cutlass::gemm::kernel::DefaultGemmWithVisitor<cutlass::float_e4m3_t, cutlass::layout::RowMajor, (cutlass::ComplexTransform)0, 16, cutlass::float_e4m3_t, cutlass::layout::ColumnMajor, (cutlass::ComplexTransform)0, 16, float, cutlass::layout::RowMajor, 4, float, float, cutlass::arch::OpClassTensorOp, cutlass::arch::Sm89, cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, cutlass::gemm::GemmShape<16, 8, 32>, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorAuxStore<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, cutlass::bfloat16_t, (cutlass::FloatRoundStyle)2, cute::tuple<long, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, cutlass::bfloat16_t, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorColOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<1>, cute::C<0>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, float, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorRowOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<0>, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::VisitorAccFetch> > >, cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, 3, cutlass::arch::OpMultiplyAddFastAccum, 1>::SelectBase<cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, void> >::Params)",
+      "pid": 0,
+      "tid": 7,
+      "ts": 2343355851302.898,
+      "dur": 5304.287,
+      "args": {
+        "External id": 5,
+        "queued": 0,
+        "device": 0,
+        "context": 1,
+        "stream": 7,
+        "correlation": 35,
+        "registers per thread": 255,
+        "shared memory": 49152,
+        "blocks per SM": 96,
+        "warps per SM": 384,
+        "grid": [
+          12288,
+          1,
+          1
+        ],
+        "block": [
+          128,
+          1,
+          1
+        ],
+        "est. achieved occupancy %": 17,
+        "occupancy": {
+          "activeBlocksPerMultiprocessor": 2,
+          "limitingFactors": "REGS|SMEM",
+          "blockLimitRegs": 2,
+          "blockLimitSharedMem": 2,
+          "blockLimitWarps": 12,
+          "blockLimitBlocks": 24,
+          "blockLimitBarriers": 2147483647,
+          "allocatedRegistersPerBlock": 32768,
+          "allocatedSharedMemPerBlock": 50176
+        },
+        "graph id": 0,
+        "graph node id": 0,
+        "channel": 0,
+        "channel_type": 1
+      }
+    },
+    {
+      "ph": "f",
+      "id": 35,
+      "pid": 0,
+      "tid": 7,
+      "ts": 2343355851302.898,
+      "cat": "ac2g",
+      "name": "ac2g",
+      "bp": "e"
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaLaunchKernel",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846127.736,
+      "dur": 10.865,
+      "args": {
+        "External id": 5,
+        "cbid": 211,
+        "correlation": 35
+      }
+    },
+    {
+      "ph": "s",
+      "id": 35,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846127.736,
+      "cat": "ac2g",
+      "name": "ac2g"
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaDeviceGetAttribute",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846173.304,
+      "dur": 0.328,
+      "args": {
+        "External id": 8,
+        "cbid": 200,
+        "correlation": 42
+      }
+    },
+    {
+      "ph": "f",
+      "id": 42,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846173.304,
+      "cat": "ac2g",
+      "name": "ac2g",
+      "bp": "e"
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaDeviceGetAttribute",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846173.812,
+      "dur": 0.183,
+      "args": {
+        "External id": 8,
+        "cbid": 200,
+        "correlation": 43
+      }
+    },
+    {
+      "ph": "f",
+      "id": 43,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846173.812,
+      "cat": "ac2g",
+      "name": "ac2g",
+      "bp": "e"
+    },
+    {
+      "ph": "X",
+      "cat": "kernel",
+      "name": "void cutlass::Kernel2<enable_sm89_to_sm90<cutlass::gemm::kernel::DefaultGemmWithVisitor<cutlass::float_e4m3_t, cutlass::layout::RowMajor, (cutlass::ComplexTransform)0, 16, cutlass::float_e4m3_t, cutlass::layout::ColumnMajor, (cutlass::ComplexTransform)0, 16, float, cutlass::layout::RowMajor, 4, float, float, cutlass::arch::OpClassTensorOp, cutlass::arch::Sm89, cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, cutlass::gemm::GemmShape<16, 8, 32>, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorAuxStore<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, cutlass::bfloat16_t, (cutlass::FloatRoundStyle)2, cute::tuple<long, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, cutlass::bfloat16_t, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorColOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<1>, cute::C<0>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, float, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorRowOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<0>, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::VisitorAccFetch> > >, cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, 3, cutlass::arch::OpMultiplyAddFastAccum, 1>::SelectBase<cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, void> > >(enable_sm89_to_sm90<cutlass::gemm::kernel::DefaultGemmWithVisitor<cutlass::float_e4m3_t, cutlass::layout::RowMajor, (cutlass::ComplexTransform)0, 16, cutlass::float_e4m3_t, cutlass::layout::ColumnMajor, (cutlass::ComplexTransform)0, 16, float, cutlass::layout::RowMajor, 4, float, float, cutlass::arch::OpClassTensorOp, cutlass::arch::Sm89, cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, cutlass::gemm::GemmShape<16, 8, 32>, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorAuxStore<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, cutlass::bfloat16_t, (cutlass::FloatRoundStyle)2, cute::tuple<long, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, cutlass::bfloat16_t, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorColOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<1>, cute::C<0>, cute::C<0> > >, cutlass::epilogue::threadblock::TreeVisitor2x<cutlass::epilogue::threadblock::VisitorCompute<cutlass::multiplies, float, float, (cutlass::FloatRoundStyle)2, void>, cutlass::epilogue::threadblock::VisitorRowOrScalarBroadcast<cutlass::epilogue::threadblock::OutputTileThreadLayout<cutlass::gemm::GemmShape<128, 128, 64>, cutlass::gemm::GemmShape<64, 64, 64>, float, 4, 1>, float, cute::tuple<cute::C<0>, cute::C<1>, cute::C<0> > >, cutlass::epilogue::threadblock::VisitorAccFetch> > >, cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, 3, cutlass::arch::OpMultiplyAddFastAccum, 1>::SelectBase<cutlass::gemm::threadblock::ThreadblockSwizzleStreamK, void> >::Params)",
+      "pid": 0,
+      "tid": 7,
+      "ts": 2343355856607.889,
+      "dur": 6101.316,
+      "args": {
+        "External id": 8,
+        "queued": 0,
+        "device": 0,
+        "context": 1,
+        "stream": 7,
+        "correlation": 55,
+        "registers per thread": 255,
+        "shared memory": 49152,
+        "blocks per SM": 96,
+        "warps per SM": 384,
+        "grid": [
+          12288,
+          1,
+          1
+        ],
+        "block": [
+          128,
+          1,
+          1
+        ],
+        "est. achieved occupancy %": 17,
+        "occupancy": {
+          "activeBlocksPerMultiprocessor": 2,
+          "limitingFactors": "REGS|SMEM",
+          "blockLimitRegs": 2,
+          "blockLimitSharedMem": 2,
+          "blockLimitWarps": 12,
+          "blockLimitBlocks": 24,
+          "blockLimitBarriers": 2147483647,
+          "allocatedRegistersPerBlock": 32768,
+          "allocatedSharedMemPerBlock": 50176
+        },
+        "graph id": 0,
+        "graph node id": 0,
+        "channel": 0,
+        "channel_type": 1
+      }
+    },
+    {
+      "ph": "f",
+      "id": 55,
+      "pid": 0,
+      "tid": 7,
+      "ts": 2343355856607.889,
+      "cat": "ac2g",
+      "name": "ac2g",
+      "bp": "e"
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaLaunchKernel",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846185.618,
+      "dur": 7.48,
+      "args": {
+        "External id": 8,
+        "cbid": 211,
+        "correlation": 55
+      }
+    },
+    {
+      "ph": "s",
+      "id": 55,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846185.618,
+      "cat": "ac2g",
+      "name": "ac2g"
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaDeviceSynchronize",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846239.753,
+      "dur": 16471.818,
+      "args": {
+        "cbid": 165,
+        "correlation": 63
+      }
+    },
+    {
+      "ph": "s",
+      "id": 63,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355846239.753,
+      "cat": "ac2g",
+      "name": "ac2g"
+    },
+    {
+      "ph": "X",
+      "cat": "cuda_runtime",
+      "name": "cudaDeviceSynchronize",
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355862734.338,
+      "dur": 1.771,
+      "args": {
+        "cbid": 165,
+        "correlation": 67
+      }
+    },
+    {
+      "ph": "s",
+      "id": 67,
+      "pid": 1271622,
+      "tid": 1271622,
+      "ts": 2343355862734.338,
+      "cat": "ac2g",
+      "name": "ac2g"
+    },
+    {
+      "ph": "X",
+      "cat": "gpu_user_annotation",
+      "name": "native_prefill_M8192_N24576_K4096",
+      "pid": 0,
+      "tid": 7,
+      "ts": 2343355856607.888,
+      "dur": 6101.318,
+      "args": {
+        "External id": 7
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "gpu_user_annotation",
+      "name": "native_prefill_M8192_N24576_K4096",
+      "pid": 0,
+      "tid": 7,
+      "ts": 2343355851302.897,
+      "dur": 5304.289,
+      "args": {
+        "External id": 4
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "gpu_user_annotation",
+      "name": "native_prefill_M8192_N24576_K4096",
+      "pid": 0,
+      "tid": 7,
+      "ts": 2343355845982.002,
+      "dur": 5320.193,
+      "args": {
+        "External id": 1
+      }
+    },
+    {
+      "ph": "X",
+      "cat": "Trace",
+      "name": "PyTorch Profiler (0)",
+      "pid": "Spans",
+      "tid": "PyTorch Profiler",
+      "ts": 2343355843773.441,
+      "dur": 18972.679,
+      "args": {
+        "Op count": 0
+      }
+    },
+    {
+      "ph": "M",
+      "name": "process_sort_index",
+      "ts": 2343355843773.441,
+      "pid": "Spans",
+      "tid": 0,
+      "args": {
+        "sort_index": 536870912
+      }
+    },
+    {
+      "ph": "i",
+      "s": "g",
+      "name": "Iteration Start: PyTorch Profiler",
+      "pid": "Traces",
+      "tid": "Trace PyTorch Profiler",
+      "ts": 2343355843773.441
+    },
+    {
+      "ph": "i",
+      "s": "g",
+      "name": "Record Window End",
+      "pid": "",
+      "tid": "",
+      "ts": 2343355862938.575
+    }
+  ],
+  "traceName": "/workspace/research/value_reboot_20261027/prefill_pr_v1/native_profile/candidate/launch.trace.json"
+}
